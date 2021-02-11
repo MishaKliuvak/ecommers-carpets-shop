@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from 'react-router-dom'
 
 import firebase from "firebase";
@@ -16,6 +16,7 @@ const Header = () => {
 
     let history = useHistory()
     let dispatch = useDispatch()
+    let { user } = useSelector((state) => ({...state}))
 
     const handleClick = e => {
         setCurrent(e.key);
@@ -36,27 +37,37 @@ const Header = () => {
                 <Link to={ROUTES.HOME}>Home</Link>
             </Item>
 
-            <Item
-                key="register"
-                icon={<UserAddOutlined />}
-                className="float-right"
-            >
-                <Link to={ROUTES.REGISTER}>Register</Link>
-            </Item>
+            {!user ? (
+                <>
+                    <Item
+                        key="register"
+                        icon={<UserAddOutlined />}
+                        className="float-right"
+                    >
+                        <Link to={ROUTES.REGISTER}>Register</Link>
+                    </Item>
 
-            <Item
-                key="login"
-                icon={<UserOutlined />}
-                className="float-right"
-            >
-                <Link to={ROUTES.LOGIN}>Login</Link>
-            </Item>
+                    <Item
+                        key="login"
+                        icon={<UserOutlined />}
+                        className="float-right"
+                    >
+                        <Link to={ROUTES.LOGIN}>Login</Link>
+                    </Item>
+                </>
+                ) : (
+                    <SubMenu
+                        key="SubMenu"
+                        icon={<SettingOutlined />}
+                        title={user.name.split('@')[0]}
+                        className="float-right"
+                    >
+                        <Item key="setting:1">Option 1</Item>
+                        <Item key="setting:2">Option 2</Item>
+                        <Item icon={<UserOutlined />} onClick={logOut}>Log out</Item>
+                    </SubMenu>
+                )}
 
-            <SubMenu key="SubMenu" icon={<SettingOutlined />} title="Account">
-                <Item key="setting:1">Option 1</Item>
-                <Item key="setting:2">Option 2</Item>
-                <Item icon={<UserOutlined />} onClick={logOut}>Log out</Item>
-            </SubMenu>
         </Menu>
     )
 }

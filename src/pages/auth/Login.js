@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 
 import { Button } from "antd"
 import { MailOutlined, GoogleOutlined } from '@ant-design/icons'
 import {auth, googleAuthProvider} from "../../lib/firebase";
-import { HOME } from "../../constants/routes";
+import { HOME, FORGOT_PASSWORD } from "../../constants/routes";
 import { toast } from "react-toastify";
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const history = useHistory()
+    let history = useHistory()
     let dispatch = useDispatch()
 
     const handleSubmit = async (e) => {
@@ -95,6 +95,7 @@ const Login = () => {
         >
             Login with Google
         </Button>
+        <Link to={FORGOT_PASSWORD} className="float-right text-danger">Forgot Password</Link>
     </form>
 
     return (

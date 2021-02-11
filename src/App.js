@@ -10,6 +10,7 @@ import Register from "./pages/auth/Register"
 import Home from "./pages/Home"
 import Header from "./components/nav/Header"
 import RegisterComplete from "./pages/auth/RegisterComplete"
+import ForgotPassword from "./pages/auth/ForgotPassword";
 
 import { auth } from './lib/firebase'
 import * as ROUTES from './constants/routes'
@@ -51,6 +52,9 @@ function App() {
             </Route>
             <Route exact path={ROUTES.REGISTER_COMPLETE}>
                 <RegisterComplete />
+            </Route>
+            <Route exact path={ROUTES.FORGOT_PASSWORD}>
+                <ForgotPassword />
             </Route>
     </>
   );
