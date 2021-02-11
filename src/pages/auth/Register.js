@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { auth } from "../../lib/firebase"
 import { toast } from "react-toastify"
+
 const Register = () => {
     const [email, setEmail] = useState('')
 
@@ -29,10 +30,12 @@ const Register = () => {
     const registerForm = () => <form onSubmit={handleSubmit}>
         <input
             type="email"
-            className="form-control"
+            className="form-control mb-4"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoFocus />
+            placeholder="Email"
+            autoFocus
+        />
        <button
            type="submit"
            className="btn btn-raised">

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from 'react-router-dom'
+
+import firebase from "firebase";
 
 import * as ROUTES from '../../constants/routes'
 
@@ -11,9 +14,21 @@ const { SubMenu, Item } = Menu
 const Header = () => {
     const [current, setCurrent] = useState('home')
 
+    let history = useHistory()
+    let dispatch = useDispatch()
+
     const handleClick = e => {
         setCurrent(e.key);
     };
+
+    const logOut = () => {
+        firebase.auth().signOut()
+        dispatch({
+            type: 'LOGOUT',
+            payload: null
+        })
+        history.push(ROUTES.LOGIN)
+    }
 
     return (
         <Menu onClick={handleClick} selectedKeys={current} mode="horizontal">
@@ -40,6 +55,7 @@ const Header = () => {
             <SubMenu key="SubMenu" icon={<SettingOutlined />} title="Account">
                 <Item key="setting:1">Option 1</Item>
                 <Item key="setting:2">Option 2</Item>
+                <Item icon={<UserOutlined />} onClick={logOut}>Log out</Item>
             </SubMenu>
         </Menu>
     )

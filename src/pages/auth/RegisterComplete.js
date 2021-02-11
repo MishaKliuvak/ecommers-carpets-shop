@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+
 import { auth } from "../../lib/firebase"
 import { toast } from "react-toastify"
 import { HOME } from '../../constants/routes'
 
-const RegisterComplete = ({ history }) => {
+const RegisterComplete = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const history = useHistory()
 
     useEffect(() => {
         setEmail(window.localStorage.getItem('emailForRegistration'))
@@ -48,15 +52,16 @@ const RegisterComplete = ({ history }) => {
     const completeRegistrationForm = () => <form onSubmit={handleSubmit}>
         <input
             type="email"
-            className="form-control"
+            className="form-control mb-2"
             value={email}
             disabled />
         <input
             type="password"
-            className="form-control"
+            className="form-control mb-4"
             value={password}
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)} />
+            onChange={(e) => setPassword(e.target.value)}
+        />
         <button
             type="submit"
             className="btn btn-raised">
