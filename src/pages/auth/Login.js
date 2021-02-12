@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-import { useDispatch } from "react-redux"
+import {useDispatch, useSelector} from "react-redux";
 
 import { Button } from "antd"
 import { MailOutlined, GoogleOutlined } from '@ant-design/icons'
@@ -13,8 +13,13 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
 
+    const {user} = useSelector(state => ({...state}))
     let history = useHistory()
     let dispatch = useDispatch()
+
+    useEffect(() => {
+        if (user && user.token) history.push('/')
+    }, [user])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
