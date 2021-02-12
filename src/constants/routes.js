@@ -1,0 +1,5 @@
+export const HOME = '/'
+export const LOGIN = '/login'
+export const REGISTER = '/register'
+export const REGISTER_COMPLETE = '/register/complete'
+export const FORGOT_PASSWORD = '/forgot/password'
