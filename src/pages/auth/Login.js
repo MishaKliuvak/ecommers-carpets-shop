@@ -7,15 +7,7 @@ import { MailOutlined, GoogleOutlined } from '@ant-design/icons'
 import {auth, googleAuthProvider} from "../../lib/firebase";
 import { HOME, FORGOT_PASSWORD } from "../../constants/routes";
 import { toast } from "react-toastify";
-import login from "../../axios/login";
-
-const createOrUpdateUser = async (authToken) => {
-    return await login.post('/create-or-update-user', {}, {
-        headers: {
-            authToken
-        }
-    })
-}
+import { createOrUpdateUser } from '../../helpers/auth'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -51,9 +43,7 @@ const Login = () => {
                         }
                     })
                 })
-                .catch()
-
-
+              .catch(err => console.error(err))
         } catch (error) {
             setLoading(false)
             toast.error(error.message)
@@ -64,14 +54,20 @@ const Login = () => {
         auth.signInWithPopup(googleAuthProvider)
             .then(async ({ user }) => {
                const idTokenResult = await user.getIdTokenResult()
-                dispatch({
-                    type: 'LOGGED_IN_USER',
-                    payload: {
-                        name: user.email,
-                        token: idTokenResult.token
-                    }
-                })
-                history.push(HOME)
+                createOrUpdateUser(idTokenResult.token)
+                  .then(res => {
+                      dispatch({
+                          type: 'LOGGED_IN_USER',
+                          payload: {
+                              name: res.data.name,
+                              email: res.data.email,
+                              token: idTokenResult.token,
+                              role: res.data.role,
+                              _id: res.data._id
+                          }
+                      })
+                  })
+                  .catch(err => console.error(err))
             })
             .catch(error => {
                 console.log(error => toast.error(error.message));
