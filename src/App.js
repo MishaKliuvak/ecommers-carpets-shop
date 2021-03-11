@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
 
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,6 +11,8 @@ import Home from "./pages/Home"
 import Header from "./components/nav/Header"
 import RegisterComplete from "./pages/auth/RegisterComplete"
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import History from "./pages/user/History"
+import UserRoute from "./components/routes/UserRoute"
 
 import { auth } from './lib/firebase'
 import * as ROUTES from './constants/routes'
@@ -49,21 +51,27 @@ function App() {
     <>
         <Header />
         <ToastContainer />
+        <Switch>
             <Route exact path={ROUTES.HOME}>
-                <Home />
+              <Home />
             </Route>
             <Route exact path={ROUTES.LOGIN}>
-                <Login />
+              <Login />
             </Route>
             <Route exact path={ROUTES.REGISTER}>
-                <Register />
+              <Register />
             </Route>
             <Route exact path={ROUTES.REGISTER_COMPLETE}>
-                <RegisterComplete />
+              <RegisterComplete />
             </Route>
             <Route exact path={ROUTES.FORGOT_PASSWORD}>
-                <ForgotPassword />
+              <ForgotPassword />
             </Route>
+            <UserRoute exact path={ROUTES.USER_HISTORY}>
+              <History />
+            </UserRoute>
+        </Switch>
+
     </>
   );
 }

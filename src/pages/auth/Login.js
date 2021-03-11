@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { Button } from "antd"
 import { MailOutlined, GoogleOutlined } from '@ant-design/icons'
 import {auth, googleAuthProvider} from "../../lib/firebase";
-import { HOME, FORGOT_PASSWORD } from "../../constants/routes";
+import { FORGOT_PASSWORD, ADMIN_DASHBOARD, USER_HISTORY } from "../../constants/routes";
 import { toast } from "react-toastify";
 import { createOrUpdateUser } from '../../helpers/auth'
 
@@ -17,6 +17,14 @@ const Login = () => {
     const {user} = useSelector(state => ({...state}))
     let history = useHistory()
     let dispatch = useDispatch()
+
+    const roleBasedRedirect  = (res, history) => {
+        if (res.data.role === 'admin') {
+            history.push(ADMIN_DASHBOARD)
+        } else {
+            history.push(USER_HISTORY)
+        }
+    }
 
     useEffect(() => {
         if (user && user.token) history.push('/')
@@ -42,6 +50,7 @@ const Login = () => {
                             _id: res.data._id
                         }
                     })
+                    roleBasedRedirect(res, history)
                 })
               .catch(err => console.error(err))
         } catch (error) {
@@ -66,6 +75,7 @@ const Login = () => {
                               _id: res.data._id
                           }
                       })
+                      roleBasedRedirect(res, history)
                   })
                   .catch(err => console.error(err))
             })
