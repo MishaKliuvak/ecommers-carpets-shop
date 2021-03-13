@@ -4,12 +4,19 @@ import { useHistory } from 'react-router-dom'
 import { auth } from "../../lib/firebase"
 import { toast } from "react-toastify"
 import { HOME } from '../../constants/routes'
+import { useDispatch, useSelector } from 'react-redux'
+import { createOrUpdateUser } from '../../helpers/auth'
+
+
 
 const RegisterComplete = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const history = useHistory()
+
+    const { user } = useSelector(state => ({...state}))
+    let dispatch = useDispatch()
 
     useEffect(() => {
         setEmail(window.localStorage.getItem('emailForRegistration'))
@@ -39,6 +46,20 @@ const RegisterComplete = () => {
                 const idTokenResult = await user.getIdTokenResult()
 
                 // Redux store
+                createOrUpdateUser(idTokenResult.token)
+                  .then(res => {
+                      dispatch({
+                          type: 'LOGGED_IN_USER',
+                          payload: {
+                              name: res.data.name,
+                              email: res.data.email,
+                              token: idTokenResult.token,
+                              role: res.data.role,
+                              _id: res.data._id
+                          }
+                      })
+                  })
+                  .catch(err => console.error(err))
 
                 // Redirect
                 history.push(HOME)

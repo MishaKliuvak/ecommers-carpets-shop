@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux'
 
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
@@ -11,9 +11,16 @@ import Home from "./pages/Home"
 import Header from "./components/nav/Header"
 import RegisterComplete from "./pages/auth/RegisterComplete"
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import History from "./pages/user/History"
+import UserRoute from "./components/routes/UserRoute"
+import Password from "./pages/user/Password"
+import WishList from "./pages/user/WishList"
 
 import { auth } from './lib/firebase'
 import * as ROUTES from './constants/routes'
+import { currentUser } from './helpers/auth'
+import AdminRoute from './components/routes/AdminRoute'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 
 function App() {
@@ -24,13 +31,20 @@ function App() {
           if (user) {
               const idTokenResult = await user.getIdTokenResult()
 
-              dispatch ({
+            currentUser(idTokenResult.token)
+              .then(res => {
+                dispatch({
                   type: 'LOGGED_IN_USER',
                   payload: {
-                      name: user.email,
-                      token: idTokenResult.token
+                    name: res.data.name,
+                    email: res.data.email,
+                    token: idTokenResult.token,
+                    role: res.data.role,
+                    _id: res.data._id
                   }
+                })
               })
+              .catch(err => console.error(err))
           }
       })
 
@@ -41,21 +55,36 @@ function App() {
     <>
         <Header />
         <ToastContainer />
+        <Switch>
             <Route exact path={ROUTES.HOME}>
-                <Home />
+              <Home />
             </Route>
             <Route exact path={ROUTES.LOGIN}>
-                <Login />
+              <Login />
             </Route>
             <Route exact path={ROUTES.REGISTER}>
-                <Register />
+              <Register />
             </Route>
             <Route exact path={ROUTES.REGISTER_COMPLETE}>
-                <RegisterComplete />
+              <RegisterComplete />
             </Route>
             <Route exact path={ROUTES.FORGOT_PASSWORD}>
-                <ForgotPassword />
+              <ForgotPassword />
             </Route>
+            <UserRoute exact path={ROUTES.USER_HISTORY}>
+              <History />
+            </UserRoute>
+          <UserRoute exact path={ROUTES.USER_PASSWORD}>
+            <Password />
+          </UserRoute>
+          <UserRoute exact path={ROUTES.USER_WISHLIST}>
+            <WishList />
+          </UserRoute>
+          <AdminRoute exact path={ROUTES.ADMIN_DASHBOARD}>
+            <AdminDashboard />
+          </AdminRoute>
+        </Switch>
+
     </>
   );
 }
