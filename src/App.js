@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
@@ -21,6 +21,8 @@ import * as ROUTES from './constants/routes'
 import { currentUser } from './helpers/auth'
 import AdminRoute from './components/routes/AdminRoute'
 import AdminDashboard from './pages/admin/AdminDashboard'
+import CreateCategory from "./pages/admin/categories/CreateCategory"
+
 
 
 function App() {
@@ -82,6 +84,9 @@ function App() {
           </UserRoute>
           <AdminRoute exact path={ROUTES.ADMIN_DASHBOARD}>
             <AdminDashboard />
+          </AdminRoute>
+          <AdminRoute exact path={ROUTES.ADMIN_CATEGORIES}>
+            <CreateCategory />
           </AdminRoute>
         </Switch>
 
