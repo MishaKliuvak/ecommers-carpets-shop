@@ -1,7 +1,7 @@
-import { login as admin } from '../axios/login'
+import login from '../axios/login'
 
 const isAdmin = async (authToken) => {
-  return await admin.post('/current-admin', {}, {
+  return await login.post('/current-admin', {}, {
     headers: {
       authToken
     }

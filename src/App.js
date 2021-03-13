@@ -19,6 +19,8 @@ import WishList from "./pages/user/WishList"
 import { auth } from './lib/firebase'
 import * as ROUTES from './constants/routes'
 import { currentUser } from './helpers/auth'
+import AdminRoute from './components/routes/AdminRoute'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 
 function App() {
@@ -78,6 +80,9 @@ function App() {
           <UserRoute exact path={ROUTES.USER_WISHLIST}>
             <WishList />
           </UserRoute>
+          <AdminRoute exact path={ROUTES.ADMIN_DASHBOARD}>
+            <AdminDashboard />
+          </AdminRoute>
         </Switch>
 
     </>
