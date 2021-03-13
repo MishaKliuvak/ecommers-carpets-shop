@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
 import AdminNav from '../../../components/nav/AdminNav'
+import CategoryForm from '../../../components/forms/CategoryForm'
 
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
@@ -45,27 +46,6 @@ const UpdateCategory = () => {
       })
   }
 
-
-  const showCategoryForm = () => (
-    <form
-      onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Name:</label>
-        <input
-          type="text"
-          className="form-control"
-          value={name}
-          onChange={ e => setName(e.target.value) }
-          autoFocus
-          required
-          minLength={2}
-        />
-        <br/>
-        <button className="btn btn-outline-primary">Change</button>
-      </div>
-    </form>
-  )
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -74,7 +54,12 @@ const UpdateCategory = () => {
         </div>
         <div className="col">
           <h4>{loading ? 'Loading...' : 'Update Category'}</h4>
-          {showCategoryForm()}
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+            text="Change"
+          />
         </div>
       </div>
     </div>

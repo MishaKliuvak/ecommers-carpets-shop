@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import AdminNav from '../../../components/nav/AdminNav'
+import CategoryForm from '../../../components/forms/CategoryForm'
 
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
@@ -51,7 +52,7 @@ const CreateCategory = () => {
       removeCategory(slug, user.token)
         .then((res) => {
           setLoading(false)
-          toast.success(`${res.data.name} was deleted`)
+          toast.error(`${res.data.name} was deleted`)
           loadCategories()
         })
         .catch(err => {
@@ -64,26 +65,6 @@ const CreateCategory = () => {
     }
   }
 
-  const showCategoryForm = () => (
-    <form
-      onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Name:</label>
-        <input
-          type="text"
-          className="form-control"
-          value={name}
-          onChange={ e => setName(e.target.value) }
-          autoFocus
-          required
-          minLength={2}
-        />
-        <br/>
-        <button className="btn btn-outline-primary">Add</button>
-      </div>
-    </form>
-  )
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -92,7 +73,12 @@ const CreateCategory = () => {
         </div>
         <div className="col">
           <h4>{loading ? 'Loading...' : 'Create Category'}</h4>
-          {showCategoryForm()}
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+            text="Add"
+          />
           {categories.map((c) => (
             <div
               key={c._id}
