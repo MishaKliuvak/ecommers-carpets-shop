@@ -13,6 +13,8 @@ import RegisterComplete from "./pages/auth/RegisterComplete"
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History"
 import UserRoute from "./components/routes/UserRoute"
+import Password from "./pages/user/Password"
+import WishList from "./pages/user/WishList"
 
 import { auth } from './lib/firebase'
 import * as ROUTES from './constants/routes'
@@ -70,6 +72,12 @@ function App() {
             <UserRoute exact path={ROUTES.USER_HISTORY}>
               <History />
             </UserRoute>
+          <UserRoute exact path={ROUTES.USER_PASSWORD}>
+            <Password />
+          </UserRoute>
+          <UserRoute exact path={ROUTES.USER_WISHLIST}>
+            <WishList />
+          </UserRoute>
         </Switch>
 
     </>
