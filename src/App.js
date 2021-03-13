@@ -22,6 +22,7 @@ import { currentUser } from './helpers/auth'
 import AdminRoute from './components/routes/AdminRoute'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import CreateCategory from "./pages/admin/categories/CreateCategory"
+import UpdateCategory from "./pages/admin/categories/UpdateCategory"
 
 
 
@@ -87,6 +88,9 @@ function App() {
           </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN_CATEGORIES}>
             <CreateCategory />
+          </AdminRoute>
+          <AdminRoute exact path={`${ROUTES.ADMIN_UPDATE_CATEGORY}/:slug`}>
+            <UpdateCategory />
           </AdminRoute>
         </Switch>
 
