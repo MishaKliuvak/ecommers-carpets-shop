@@ -23,6 +23,7 @@ import AdminRoute from './components/routes/AdminRoute'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import CreateCategory from "./pages/admin/categories/CreateCategory"
 import UpdateCategory from "./pages/admin/categories/UpdateCategory"
+import CreateSub from "./pages/admin/sub/CreateSub"
 
 
 
@@ -91,6 +92,9 @@ function App() {
           </AdminRoute>
           <AdminRoute exact path={`${ROUTES.ADMIN_UPDATE_CATEGORY}/:slug`}>
             <UpdateCategory />
+          </AdminRoute>
+          <AdminRoute exact path={ROUTES.ADMIN_SUB}>
+            <CreateSub />
           </AdminRoute>
         </Switch>
 
