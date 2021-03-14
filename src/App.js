@@ -25,7 +25,8 @@ import CreateCategory from "./pages/admin/categories/CreateCategory"
 import UpdateCategory from "./pages/admin/categories/UpdateCategory"
 import UpdateSub from "./pages/admin/sub/UpdateSub"
 import CreateSub from "./pages/admin/sub/CreateSub"
-
+import { ADMIN_PRODUCT } from './constants/routes'
+import CreateProduct from './pages/admin/product/CreateProduct'
 
 
 function App() {
@@ -100,8 +101,10 @@ function App() {
           <AdminRoute exact path={`${ROUTES.ADMIN_UPDATE_SUB}/:slug`}>
             <UpdateSub />
           </AdminRoute>
+          <AdminRoute exact path={ADMIN_PRODUCT}>
+            <CreateProduct />
+          </AdminRoute>
         </Switch>
-
     </>
   );
 }
