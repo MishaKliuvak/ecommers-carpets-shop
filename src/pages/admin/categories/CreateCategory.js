@@ -9,6 +9,7 @@ import { getCategories, getCategory, removeCategory, updateCategory, createCateg
 import { Link } from 'react-router-dom'
 import { ADMIN_UPDATE_CATEGORY } from '../../../constants/routes'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import Search from '../../../components/forms/Search'
 
 
 const CreateCategory = () => {
@@ -67,10 +68,7 @@ const CreateCategory = () => {
     }
   }
 
-  const handleSearchChange = (e) => {
-    e.preventDefault()
-    setKeyword(e.target.value.toLowerCase())
-  }
+
 
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
 
@@ -89,13 +87,7 @@ const CreateCategory = () => {
             text="Add"
           />
 
-          <input
-            type="search"
-            placeholder="Search"
-            value={keyword}
-            onChange={handleSearchChange}
-            className="form-control mb-4"
-          />
+          <Search keyword={keyword} setKeyword={setKeyword}/>
 
           {categories.filter(searched(keyword)).map((c) => (
             <div

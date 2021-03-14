@@ -17,7 +17,6 @@ const CategoryForm = ({ name, setName, handleSubmit, text }) => {
         />
         <br/>
         <button className="btn btn-outline-primary">{text}</button>
-        <hr/>
       </div>
     </form>
   )
