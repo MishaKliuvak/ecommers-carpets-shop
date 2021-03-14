@@ -26,3 +26,6 @@ export const createCategory = async (category, authToken) =>
       authToken
     }
   })
+
+export const getCategorySubs= async (_id) =>
+  await request.get(`/category/subs/${_id}`)
