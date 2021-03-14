@@ -20,8 +20,8 @@ export const updateSub = async (slug, sub, authToken) =>
     }
   })
 
-export const createSub = async (sub, authToken) =>
-  await request.post(`/sub`, sub,{
+export const createSub = async (sub,authToken) =>
+  await request.post(`/sub`, sub, {
     headers: {
       authToken
     }

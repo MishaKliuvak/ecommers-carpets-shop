@@ -11,6 +11,7 @@ export const ADMIN_CATEGORIES = '/admin/categories'
 export const ADMIN_SUB = '/admin/sub'
 export const ADMIN_COUPONS = '/admin/coupons'
 export const ADMIN_UPDATE_CATEGORY = '/admin/category'
+export const ADMIN_UPDATE_SUB = '/admin/sub'
 
 
 

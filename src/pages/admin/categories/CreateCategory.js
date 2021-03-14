@@ -5,7 +5,7 @@ import CategoryForm from '../../../components/forms/CategoryForm'
 
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
-import { getCategories, getCategory, removeCategory, updateCategory, createCategory } from '../../../axios/category'
+import { getCategories, removeCategory, createCategory } from '../../../axios/category'
 import { Link } from 'react-router-dom'
 import { ADMIN_UPDATE_CATEGORY } from '../../../constants/routes'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
