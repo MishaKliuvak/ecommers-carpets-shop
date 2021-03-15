@@ -9,3 +9,10 @@ export const createProduct = async (product, authToken) =>
 
 export const getProducts = async (count) =>
   await request.get(`/products/${count}`)
+
+export const removeProduct = async (slug, authToken) =>
+  await request.delete(`/products/${slug}`, {
+    headers: {
+      authToken
+    }
+  })

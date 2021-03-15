@@ -12,21 +12,21 @@ import { getCategories, getCategorySubs } from '../../../axios/category'
 import { LoadingOutlined } from '@ant-design/icons'
 
 const initialState = {
-  title: 'Macbook Pro',
-  description: 'this is the best',
-  price: '45000',
+  title: '',
+  description: '',
+  price: '',
   categories: [],
   category: '',
   subs: [],
-  shipping: 'Yes',
-  quantity: '50',
+  shipping: '',
+  quantity: '',
   images: [
 
   ],
   colors: ['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'],
   brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'],
-  color: 'Black',
-  brand: 'Apple'
+  color: '',
+  brand: ''
 }
 
 const CreateProduct = () => {
