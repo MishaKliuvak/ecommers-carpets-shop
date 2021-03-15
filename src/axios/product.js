@@ -6,3 +6,6 @@ export const createProduct = async (product, authToken) =>
       authToken
     }
   })
+
+export const getProducts = async (count) =>
+  await request.get(`/products/${count}`)

@@ -83,7 +83,6 @@ const CreateProduct = () => {
           <h4>Create Product {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
           <hr/>
 
-          {JSON.stringify(values.images)}
           <div className="p-3">
             <FileUpload
               values={values}
