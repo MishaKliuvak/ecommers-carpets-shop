@@ -9,6 +9,7 @@ import { createProduct } from '../../../axios/product'
 import FileUpload from '../../../components/forms/FileUpload'
 
 import { getCategories, getCategorySubs } from '../../../axios/category'
+import { LoadingOutlined } from '@ant-design/icons'
 
 const initialState = {
   title: 'Macbook Pro',
@@ -19,7 +20,9 @@ const initialState = {
   subs: [],
   shipping: 'Yes',
   quantity: '50',
-  images: [],
+  images: [
+
+  ],
   colors: ['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'],
   brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'],
   color: 'Black',
@@ -77,7 +80,7 @@ const CreateProduct = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Create Product</h4>
+          <h4>Create Product {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
           <hr/>
 
           {JSON.stringify(values.images)}
