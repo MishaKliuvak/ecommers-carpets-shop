@@ -25,8 +25,9 @@ import CreateCategory from "./pages/admin/categories/CreateCategory"
 import UpdateCategory from "./pages/admin/categories/UpdateCategory"
 import UpdateSub from "./pages/admin/sub/UpdateSub"
 import CreateSub from "./pages/admin/sub/CreateSub"
-import { ADMIN_PRODUCT } from './constants/routes'
+import { ADMIN_PRODUCT, ADMIN_PRODUCTS } from './constants/routes'
 import CreateProduct from './pages/admin/product/CreateProduct'
+import Products from './pages/admin/product/Products'
 
 
 function App() {
@@ -103,6 +104,9 @@ function App() {
           </AdminRoute>
           <AdminRoute exact path={ADMIN_PRODUCT}>
             <CreateProduct />
+          </AdminRoute>
+          <AdminRoute exact path={ADMIN_PRODUCTS}>
+            <Products />
           </AdminRoute>
         </Switch>
     </>
