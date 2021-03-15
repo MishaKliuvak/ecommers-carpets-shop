@@ -6,6 +6,7 @@ import ProductForm from '../../../components/forms/ProductForm'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { createProduct } from '../../../axios/product'
+import FileUpload from '../../../components/forms/FileUpload'
 
 import { getCategories, getCategorySubs } from '../../../axios/category'
 
@@ -29,6 +30,7 @@ const CreateProduct = () => {
   const [values, setValues] = useState(initialState)
   const [subOptions, setSubOptions] = useState([])
   const [showSubs, setShowSubs] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const { user } = useSelector(state => ({...state}))
 
@@ -77,6 +79,15 @@ const CreateProduct = () => {
         <div className="col-md-10">
           <h4>Create Product</h4>
           <hr/>
+
+          {JSON.stringify(values.images)}
+          <div className="p-3">
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </div>
 
           <ProductForm
             handleSubmit={handleSubmit}
