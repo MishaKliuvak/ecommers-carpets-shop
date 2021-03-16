@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { Card } from 'antd'
-import { DeleteOutlined, EditOutlined, EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import custom from '../../images/default.png'
-import { ADMIN_SINGLE_PRODUCT } from '../../constants/routes'
+import { PRODUCT } from '../../constants/routes'
 
 const { Meta } = Card
 
@@ -25,13 +25,13 @@ const ProductCard = ({ product }) => {
         />
       }
       actions={[
-        <Link to={`${ADMIN_SINGLE_PRODUCT}/${slug}`}>
+        <Link to={`${PRODUCT}/${slug}`}>
           <EyeOutlined />
           <br/>
           View Product
         </Link>,
         <>
-          <ShoppingCartOutlined className="text-danger"/>
+          <ShoppingCartOutlined className="text-primary"/>
           <br/>
           Add to Cart
         </>
