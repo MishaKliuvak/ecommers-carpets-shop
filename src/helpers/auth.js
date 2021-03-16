@@ -1,7 +1,7 @@
-import login from '../axios/login'
+import request from '../axios/base'
 
 export const createOrUpdateUser = async (authToken) => {
-  return await login.post('/create-or-update-user', {}, {
+  return await request.post('/create-or-update-user', {}, {
     headers: {
       authToken
     }
@@ -9,7 +9,7 @@ export const createOrUpdateUser = async (authToken) => {
 }
 
 export const currentUser = async (authToken) => {
-  return await login.post('/current-user', {}, {
+  return await request.post('/current-user', {}, {
     headers: {
       authToken
     }
