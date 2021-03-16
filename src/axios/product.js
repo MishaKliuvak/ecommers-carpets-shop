@@ -26,3 +26,6 @@ export const updateProduct = async (slug, product, authToken) =>
       authToken
     }
   })
+
+export const getProductsToHome = async (sort, order, limit) =>
+  await request.post(`/products`, { sort, order, limit})
