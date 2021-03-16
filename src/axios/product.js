@@ -27,5 +27,8 @@ export const updateProduct = async (slug, product, authToken) =>
     }
   })
 
-export const getProductsToHome = async (sort, order, limit) =>
-  await request.post(`/products`, { sort, order, limit})
+export const getProductsToHome = async (sort, order, page) =>
+  await request.post(`/products`, { sort, order, page})
+
+export const getProductsCount = async () =>
+  await request.get('/products/total')

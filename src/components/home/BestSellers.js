@@ -4,7 +4,7 @@ import { getProductsToHome } from '../../axios/product'
 import ProductCard from '../cards/ProductCard'
 import LoadingCard from '../cards/LoadingCard'
 
-const NewArrivals = () => {
+const BestSellers = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -45,4 +45,4 @@ const NewArrivals = () => {
   )
 }
 
-export default NewArrivals
+export default BestSellers
