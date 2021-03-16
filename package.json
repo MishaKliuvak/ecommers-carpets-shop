@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^7.2.0",
-    "react-image-file-resizer": "^0.4.2"
+    "react-image-file-resizer": "^0.4.2",
+    "typewriter-effect": "^2.17.0"
   }
 }
