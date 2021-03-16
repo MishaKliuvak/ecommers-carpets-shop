@@ -6,6 +6,7 @@ export const FORGOT_PASSWORD = '/forgot/password'
 
 export const ADMIN_DASHBOARD = '/admin/dashboard'
 export const ADMIN_PRODUCT = '/admin/create-product'
+export const ADMIN_SINGLE_PRODUCT = '/admin/product'
 export const ADMIN_PRODUCTS = '/admin/products'
 export const ADMIN_CATEGORIES = '/admin/categories'
 export const ADMIN_SUB = '/admin/sub'

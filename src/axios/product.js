@@ -16,3 +16,13 @@ export const removeProduct = async (slug, authToken) =>
       authToken
     }
   })
+
+export const getProduct = async (slug) =>
+  await request.get(`/product/${slug}`)
+
+export const updateProduct = async (slug, product, authToken) =>
+  await request.put(`/product/${slug}`, product, {
+    headers: {
+      authToken
+    }
+  })

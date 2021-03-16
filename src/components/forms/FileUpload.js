@@ -55,19 +55,6 @@ const FileUpload = ({ values, setValues, setLoading }) => {
   return (
     <>
       <div className="row">
-        <label className="btn btn-primary ">
-          Choose file
-          <input
-            type="file"
-            multiple
-            accept="images/*"
-            hidden
-            onChange={fileUploadAndResize}
-          />
-        </label>
-      </div>
-
-      <div className="row">
         {values.images && values.images.map((i) => (
           <Badge count="X" key={i.public_id} onClick={() => handleRemoveImage(i.public_id)} style={{ cursor: 'pointer' }} >
             <Avatar
@@ -78,6 +65,19 @@ const FileUpload = ({ values, setValues, setLoading }) => {
             />
           </Badge>
         ))}
+      </div>
+
+      <div className="row">
+        <label className="btn btn-primary btn-raised mt-3">
+          Choose file
+          <input
+            type="file"
+            multiple
+            accept="images/*"
+            hidden
+            onChange={fileUploadAndResize}
+          />
+        </label>
       </div>
     </>
   )
