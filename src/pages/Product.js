@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 
 
 import { getProduct, productStar } from '../axios/product'
@@ -7,9 +7,14 @@ import { useSelector } from 'react-redux'
 
 import SingleProduct from '../components/cards/SingleProduct'
 
+export const ModalContext = createContext()
+
 const Product = () => {
   const [product, setProduct] = useState({})
   const [star, setStar] = useState(0)
+  const [modalVisible, setModalVisible] = useState(false)
+
+
   const { slug } = useParams()
   const { user } = useSelector(state => ({...state}))
 
@@ -18,10 +23,10 @@ const Product = () => {
   }, [slug])
 
   useEffect(() => {
-   if (product.ratings && user) {
-     let existingRatingObj = product.ratings.find((item) => item.postedBy.toString() === user._id.toString())
-     existingRatingObj && setStar(existingRatingObj.star)
-   }
+    if (product.ratings && user && !modalVisible) {
+      let existingRatingObj = product.ratings.find((item) => item.postedBy.toString() === user._id.toString())
+      existingRatingObj && setStar(existingRatingObj.star)
+    }
   })
 
   const loadProduct = () =>
@@ -45,12 +50,14 @@ const Product = () => {
   return (
     <div className="container-fluid">
       <div className="row pt-4">
-        <SingleProduct
-          product={product}
-          onStarClick={onStarClick}
-          star={star}
-          setStar={setStar}
-        />
+        <ModalContext.Provider value={{ modalVisible, setModalVisible }}>
+          <SingleProduct
+            product={product}
+            onStarClick={onStarClick}
+            star={star}
+            setStar={setStar}
+          />
+        </ModalContext.Provider>
       </div>
 
       <div className="row">

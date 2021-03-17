@@ -10,6 +10,8 @@ import ProductListItems from './ProductListItems'
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal'
 
+import { showAverage } from '../../helpers/rating'
+
 const { TabPane } = Tabs
 
 const SingleProduct = ({ product, onStarClick, star, setStar }) => {
@@ -66,6 +68,12 @@ const SingleProduct = ({ product, onStarClick, star, setStar }) => {
           {title}
         </h1>
 
+        {product && product.ratings && product.ratings.length > 0 ? showAverage(product) : (
+            <div className="text-center pt-1 pb-3">
+              No rating yet
+            </div>
+        )}
+
         <Card
           actions={[
             <>
@@ -87,7 +95,7 @@ const SingleProduct = ({ product, onStarClick, star, setStar }) => {
                 isSelectable
                 starRatedColor="red"
                 rating={star}
-                changeRating={(newValue) => setStar(newValue)}
+                changeRating={(newValue, name) => setStar(newValue)}
               />
             </RatingModal>
           ]}

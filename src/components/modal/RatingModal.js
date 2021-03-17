@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Modal, Button } from 'antd'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
@@ -6,9 +6,12 @@ import { StarOutlined } from '@ant-design/icons'
 import { LOGIN, PRODUCT } from '../../constants/routes'
 import { useHistory, useParams } from 'react-router-dom'
 
+import { ModalContext } from '../../pages/Product'
+
 const RatingModal = ({ children, onStarClick }) => {
   const { user } = useSelector((state) =>({...state}))
-  const [modalVisible, setModalVisible] = useState(false)
+
+  const { modalVisible, setModalVisible } = useContext(ModalContext)
 
   let history = useHistory()
   const { slug } = useParams()
