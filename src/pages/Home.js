@@ -2,6 +2,7 @@ import React from 'react'
 
 import Jumbotron from '../components/cards/Jumbotron'
 import Products from '../components/home/Products'
+import CategoryList from '../components/category/CategoryList'
 
 const Home = () => {
     return (
@@ -13,8 +14,12 @@ const Home = () => {
           <h4 className="text-center p-3 mt-5 mb-5 display-3 jumbotron">New Arrivals</h4>
           <Products sortBy='createdAt' />
 
-        <h4 className="text-center p-3 mt-5 mb-5 display-3 jumbotron">Best Sellers</h4>
+          <h4 className="text-center p-3 mt-5 mb-5 display-3 jumbotron">Best Sellers</h4>
           <Products sortBy='sold' />
+
+          <h4 className="text-center p-3 mt-5 mb-5 display-3 jumbotron">Categories</h4>
+          <CategoryList />
+
       </>
     )
 }
