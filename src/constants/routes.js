@@ -14,7 +14,7 @@ export const ADMIN_COUPONS = '/admin/coupons'
 export const ADMIN_UPDATE_CATEGORY = '/admin/category'
 export const ADMIN_UPDATE_SUB = '/admin/sub'
 
-
+export const PRODUCT = '/product'
 
 export const USER_HISTORY = '/user/history'
 export const USER_PASSWORD = '/user/password'
