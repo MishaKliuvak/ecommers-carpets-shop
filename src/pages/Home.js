@@ -3,6 +3,7 @@ import React from 'react'
 import Jumbotron from '../components/cards/Jumbotron'
 import Products from '../components/home/Products'
 import CategoryList from '../components/category/CategoryList'
+import SubList from '../components/subs/SubList'
 
 const Home = () => {
     return (
@@ -19,6 +20,9 @@ const Home = () => {
 
           <h4 className="text-center p-3 mt-5 mb-5 display-3 jumbotron">Categories</h4>
           <CategoryList />
+
+          <h4 className="text-center p-3 mt-5 mb-5 display-3 jumbotron">Sub-Categories</h4>
+          <SubList />
 
       </>
     )

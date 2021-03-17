@@ -1,11 +1,11 @@
 import React, { useState, useEffect} from 'react'
-import { getCategory } from '../../axios/category'
+import { getSub } from '../../axios/sub'
 import { useParams } from 'react-router-dom'
 import ProductCard from '../../components/cards/ProductCard'
 
 
-const CategoryHome = () => {
-  const [category, setCategory] = useState({})
+const SubHome = () => {
+  const [sub, setSub] = useState({})
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -14,11 +14,11 @@ const CategoryHome = () => {
   useEffect(() => {
     setLoading(true)
 
-    getCategory(slug)
-      .then(category => {
+    getSub(slug)
+      .then(s => {
         setLoading(false)
-        setCategory(category.data.category)
-        setProducts(category.data.products)
+        setSub(s.data.sub)
+        setProducts(s.data.products)
       })
       .catch(err => {
         console.log(err)
@@ -33,7 +33,7 @@ const CategoryHome = () => {
           <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
             { loading
               ? 'Loading...'
-              : `${products.length} Products in "${category.name}" category`
+              : `${products.length} Products in "${sub.name}" sub category`
             }
           </h4>
         </div>
@@ -53,4 +53,4 @@ const CategoryHome = () => {
   )
 }
 
-export default CategoryHome
+export default SubHome

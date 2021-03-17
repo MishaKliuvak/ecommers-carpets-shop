@@ -16,6 +16,7 @@ export const ADMIN_UPDATE_SUB = '/admin/sub'
 
 export const PRODUCT = '/product'
 export const CATEGORY = '/category'
+export const SUB = '/sub'
 
 export const USER_HISTORY = '/user/history'
 export const USER_PASSWORD = '/user/password'

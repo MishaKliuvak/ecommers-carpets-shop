@@ -33,8 +33,8 @@ const UpdateSub = () => {
 
   const loadSub = () => getSub(slug).then(s => {
     console.log(s.data)
-      setName(s.data.name)
-      setParent(s.data.parent)
+      setName(s.data.sub.name)
+      setParent(s.data.sub.parent)
     })
 
   const handleSubmit = (e) => {
