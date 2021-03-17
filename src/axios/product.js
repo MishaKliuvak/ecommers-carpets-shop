@@ -32,3 +32,10 @@ export const getProductsToHome = async (sort, order, page) =>
 
 export const getProductsCount = async () =>
   await request.get('/products/total')
+
+export const productStar = async (productId, star, authToken) =>
+  await request.put(`/product/star/${productId}`, { star }, {
+    headers: {
+      authToken
+    }
+  })

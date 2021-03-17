@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
 
-import { getProduct } from '../axios/product'
+import { getProduct, productStar } from '../axios/product'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import SingleProduct from '../components/cards/SingleProduct'
 
 const Product = () => {
   const [product, setProduct] = useState({})
+  const [star, setStar] = useState(0)
   const { slug } = useParams()
+  const { user } = useSelector(state => ({...state}))
 
   useEffect(() => {
     loadProduct()
@@ -21,10 +24,26 @@ const Product = () => {
       })
       .catch(err => console.error(err))
 
+  const onStarClick = () => {
+    //setStar(newRating)
+
+    productStar(product._id, star, user.token)
+      .then((res) => {
+        console.log(res.data)
+        loadProduct()
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <div className="container-fluid">
       <div className="row pt-4">
-        <SingleProduct product={product} />
+        <SingleProduct
+          product={product}
+          onStarClick={onStarClick}
+          star={star}
+          setStar={setStar}
+        />
       </div>
 
       <div className="row">

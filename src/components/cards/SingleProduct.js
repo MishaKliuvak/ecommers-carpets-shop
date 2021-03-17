@@ -12,7 +12,7 @@ import RatingModal from '../modal/RatingModal'
 
 const { TabPane } = Tabs
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({ product, onStarClick, star, setStar }) => {
   const { title, images, slug, description, _id } = product
 
   return (
@@ -80,14 +80,14 @@ const SingleProduct = ({ product }) => {
               Add to Wishlist
             </Link>,
 
-            <RatingModal>
+            <RatingModal onStarClick={onStarClick} >
               <StarRatings
                 name={_id}
                 numberOfStars={5}
                 isSelectable
                 starRatedColor="red"
-                rating={2}
-                changeRating={ (newRating, name) => console.log(newRating, name) }
+                rating={star}
+                changeRating={(newValue) => setStar(newValue)}
               />
             </RatingModal>
           ]}
