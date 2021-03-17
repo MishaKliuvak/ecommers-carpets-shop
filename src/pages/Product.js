@@ -74,13 +74,13 @@ const Product = () => {
           <h4>Related products</h4>
           <hr/>
         </div>
-        <div className="row pb-5">
-          {related.length ? related.map(item => (
-            <div key={item._id} className="col-md-4">
-              <ProductCard product={item} />
-            </div>
-          )) : <div className="text-center col"> No products find</div> }
-        </div>
+      </div>
+      <div className="row pb-5">
+        {related.length ? related.map(item => (
+          <div key={item._id} className="col-md-4">
+            <ProductCard product={item} />
+          </div>
+        )) : <div className="text-center col"> No products find</div> }
       </div>
     </div>
   )

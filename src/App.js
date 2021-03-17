@@ -31,6 +31,7 @@ import Products from './pages/admin/product/Products'
 import UpdateProduct from './pages/admin/product/UpdateProduct'
 
 import Product from './pages/Product'
+import CategoryHome from './pages/category/CategoryHome'
 
 function App() {
   const dispatch = useDispatch()
@@ -115,6 +116,9 @@ function App() {
           </AdminRoute>
           <Route exact path={`${ROUTES.PRODUCT}/:slug`}>
             <Product />
+          </Route>
+          <Route exact path={`${ROUTES.CATEGORY}/:slug`}>
+            <CategoryHome />
           </Route>
         </Switch>
     </>
