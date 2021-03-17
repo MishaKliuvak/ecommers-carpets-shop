@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card } from 'antd'
+import { Card, Tabs } from 'antd'
 import { Link } from 'react-router-dom'
 import { EyeOutlined, HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
@@ -7,11 +7,13 @@ import { Carousel } from 'react-responsive-carousel'
 import custom from '../../images/default.png'
 import { PRODUCT } from '../../constants/routes'
 import ProductListItems from './ProductListItems'
+import StarRatings from 'react-star-ratings';
+import RatingModal from '../modal/RatingModal'
 
-const { Meta } = Card
+const { TabPane } = Tabs
 
 const SingleProduct = ({ product }) => {
-  const { title, images, slug } = product
+  const { title, images, slug, description, _id } = product
 
   return (
     <>
@@ -38,6 +40,23 @@ const SingleProduct = ({ product }) => {
           />
         )}
 
+        <Tabs
+          type="card"
+        >
+          <TabPane
+            tab="Description"
+            key={1}
+          >
+            {description && description}
+          </TabPane>
+
+          <TabPane
+            tab="More"
+            key={2}
+          >
+            Call use on xxxx xxxx xxxx xxxx
+          </TabPane>
+        </Tabs>
       </div>
 
 
@@ -46,6 +65,7 @@ const SingleProduct = ({ product }) => {
         <h1 className="bg-info p-3">
           {title}
         </h1>
+
         <Card
           actions={[
             <>
@@ -58,11 +78,23 @@ const SingleProduct = ({ product }) => {
               <HeartOutlined  className="text-info" />
               <br/>
               Add to Wishlist
-            </Link>
+            </Link>,
+
+            <RatingModal>
+              <StarRatings
+                name={_id}
+                numberOfStars={5}
+                isSelectable
+                starRatedColor="red"
+                rating={2}
+                changeRating={ (newRating, name) => console.log(newRating, name) }
+              />
+            </RatingModal>
           ]}
         >
           <ProductListItems product={product} />
         </Card>
+
       </div>
     </>
   )
