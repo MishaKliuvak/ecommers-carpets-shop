@@ -39,3 +39,6 @@ export const productStar = async (productId, star, authToken) =>
       authToken
     }
   })
+
+export const getRelatedProduct = async (productId) =>
+  await request.get(`/product/related/${productId}`)

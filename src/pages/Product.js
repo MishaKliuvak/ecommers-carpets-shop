@@ -1,17 +1,19 @@
 import React, { useEffect, useState, createContext } from 'react'
 
 
-import { getProduct, productStar } from '../axios/product'
+import { getProduct, productStar, getRelatedProduct } from '../axios/product'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import SingleProduct from '../components/cards/SingleProduct'
+import ProductCard from '../components/cards/ProductCard'
 
 export const ModalContext = createContext()
 
 const Product = () => {
   const [product, setProduct] = useState({})
   const [star, setStar] = useState(0)
+  const [related, setRelated] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
 
 
@@ -29,12 +31,18 @@ const Product = () => {
     }
   })
 
-  const loadProduct = () =>
+  const loadProduct = () => {
     getProduct(slug)
       .then(res => {
         setProduct(res.data)
+
+        getRelatedProduct(res.data._id)
+          .then(res => {
+            setRelated(res.data)
+          })
       })
       .catch(err => console.error(err))
+  }
 
   const onStarClick = () => {
     //setStar(newRating)
@@ -65,6 +73,13 @@ const Product = () => {
           <hr/>
           <h4>Related products</h4>
           <hr/>
+        </div>
+        <div className="row pb-5">
+          {related.length ? related.map(item => (
+            <div key={item._id} className="col-md-4">
+              <ProductCard product={item} />
+            </div>
+          )) : <div className="text-center col"> No products find</div> }
         </div>
       </div>
     </div>

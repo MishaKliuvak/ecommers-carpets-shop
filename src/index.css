@@ -3,3 +3,8 @@
     height: 450px;
     object-fit: cover;
 }
+
+.ant-card-meta-description {
+    height: 3em;
+    overflow: hidden
+}
