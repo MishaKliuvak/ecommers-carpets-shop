@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { getProducts } from '../axios/product'
+import { getProducts, getProductsByFilter } from '../axios/product'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductCard from '../components/cards/ProductCard'
 
@@ -7,9 +7,24 @@ const Shop = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
 
+  const { search } = useSelector(state => ({...state}))
+  const { text } = search
+
   useEffect(() => {
     loadAllProducts()
   }, [])
+
+  useEffect(() => {
+    const delayed = setTimeout(() => {
+      getProductsByFilter({ query: text })
+        .then(res => {
+          setProducts(res.data)
+        })
+        .catch(err => console.log(err))
+    }, 300)
+
+    return () => clearTimeout(delayed)
+  }, [text])
 
   const loadAllProducts = () => {
     getProducts(12)

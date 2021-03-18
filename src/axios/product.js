@@ -42,3 +42,6 @@ export const productStar = async (productId, star, authToken) =>
 
 export const getRelatedProduct = async (productId) =>
   await request.get(`/product/related/${productId}`)
+
+export const getProductsByFilter = async (args) =>
+  await request.post(`/search/filters`, args)
