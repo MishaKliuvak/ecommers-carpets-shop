@@ -3,14 +3,18 @@ import { getProducts, getProductsByFilter } from '../axios/product'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductCard from '../components/cards/ProductCard'
 
-import { Menu, Slider } from 'antd'
-import { DollarOutlined } from '@ant-design/icons'
+import { getCategories } from '../axios/category'
+
+import { Menu, Slider, Checkbox } from 'antd'
+import { DollarOutlined, DownSquareOutlined } from '@ant-design/icons'
 
 const Shop = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const [price, setPrice] = useState([0,0])
   const [ok,setOk] = useState(false)
+  const [categories, setCategories] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState([])
 
   const { search } = useSelector(state => ({...state}))
   const { text } = search
@@ -19,6 +23,8 @@ const Shop = () => {
 
   useEffect(() => {
     loadAllProducts()
+
+    getCategories().then(res => setCategories(res.data)).catch(err => console.log(err))
   }, [])
 
   useEffect(() => {
@@ -57,12 +63,51 @@ const Shop = () => {
         text: ''
       }
     })
+    setSelectedCategories([])
 
     setPrice(value)
     setTimeout(() => {
       setOk(!ok)
     }, 300)
   }
+
+  const handleCheck = (e) => {
+    dispatch({
+      type: 'SEARCH_QUERY',
+      payload: {
+        text: ''
+      }
+    })
+    setPrice([0,0])
+
+    let inTheState = [...selectedCategories]
+    let justChecked = e.target.value
+    let foundInTheState = inTheState.indexOf(justChecked)
+
+    if (foundInTheState === -1) {
+      inTheState.push(justChecked)
+    } else {
+      inTheState.splice(foundInTheState, 1)
+    }
+
+    setSelectedCategories(inTheState)
+    fetchProducts({ category: inTheState })
+  }
+
+  const showCategories = () => categories.map(category => (
+    <div key={category._id}>
+      <Checkbox
+        onChange={handleCheck}
+        className="pb-2 pl-4 pr-4"
+        value={category._id}
+        name="category"
+        checked={selectedCategories.includes(category._id)}
+      >
+        {category.name}
+      </Checkbox>
+      <br/>
+    </div>
+  ))
 
   return (
     <div className="container-fluid">
@@ -71,7 +116,7 @@ const Shop = () => {
           <h4>Search/Filter</h4>
           <hr/>
 
-          <Menu defaultOpenKeys={['1', '2']} mode="inline" style={{ background: 'transparent'}}>
+          <Menu defaultOpenKeys={['1', '2']} mode="inline">
             <Menu.SubMenu
               key="1"
               title={<span className="h6"><DollarOutlined/> Price</span>}>
@@ -85,6 +130,14 @@ const Shop = () => {
                      onChange={handleSlider}
                    />
                  </div>
+            </Menu.SubMenu>
+
+            <Menu.SubMenu
+              key="2"
+              title={<span className="h6"><DownSquareOutlined/> Categories</span>}>
+              <div>
+                {showCategories()}
+              </div>
             </Menu.SubMenu>
           </Menu>
         </div>
