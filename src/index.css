@@ -8,3 +8,7 @@
     height: 3em;
     overflow: hidden
 }
+
+.ant-menu-sub {
+    background: white !important;
+}

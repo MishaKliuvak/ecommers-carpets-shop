@@ -2,11 +2,12 @@ import React, { useState, useEffect} from 'react'
 import { getProducts, getProductsByFilter } from '../axios/product'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductCard from '../components/cards/ProductCard'
+import Star from '../components/forms/Star'
 
 import { getCategories } from '../axios/category'
 
 import { Menu, Slider, Checkbox } from 'antd'
-import { DollarOutlined, DownSquareOutlined } from '@ant-design/icons'
+import { DollarOutlined, DownSquareOutlined, StarOutlined } from '@ant-design/icons'
 
 const Shop = () => {
   const [products, setProducts] = useState([])
@@ -15,6 +16,7 @@ const Shop = () => {
   const [ok,setOk] = useState(false)
   const [categories, setCategories] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
+  const [star, setStar] = useState('')
 
   const { search } = useSelector(state => ({...state}))
   const { text } = search
@@ -38,6 +40,8 @@ const Shop = () => {
   useEffect(() => {
     fetchProducts({ price })
   }, [ok])
+
+
 
   const fetchProducts = (arg) => {
     getProductsByFilter(arg)
@@ -64,7 +68,7 @@ const Shop = () => {
       }
     })
     setSelectedCategories([])
-
+    setStar('')
     setPrice(value)
     setTimeout(() => {
       setOk(!ok)
@@ -79,7 +83,7 @@ const Shop = () => {
       }
     })
     setPrice([0,0])
-
+    setStar('')
     let inTheState = [...selectedCategories]
     let justChecked = e.target.value
     let foundInTheState = inTheState.indexOf(justChecked)
@@ -109,6 +113,31 @@ const Shop = () => {
     </div>
   ))
 
+  const handleStarClick = (e) => {
+    dispatch({
+      type: 'SEARCH_QUERY',
+      payload: {
+        text: ''
+      }
+    })
+    setPrice([0,0])
+    setSelectedCategories([])
+    setStar(e)
+
+    fetchProducts({ stars: e })
+  }
+
+  const showStars = () => (
+    <div className="pr-4 pl-4 pb-2">
+      <Star starClick={handleStarClick} numberOfStars={5}/>
+      <Star starClick={handleStarClick} numberOfStars={4}/>
+      <Star starClick={handleStarClick} numberOfStars={3}/>
+      <Star starClick={handleStarClick} numberOfStars={2}/>
+      <Star starClick={handleStarClick} numberOfStars={1}/>
+    </div>
+  )
+
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -116,7 +145,7 @@ const Shop = () => {
           <h4>Search/Filter</h4>
           <hr/>
 
-          <Menu defaultOpenKeys={['1', '2']} mode="inline">
+          <Menu defaultOpenKeys={['1', '2', '3']} mode="inline">
             <Menu.SubMenu
               key="1"
               title={<span className="h6"><DollarOutlined/> Price</span>}>
@@ -137,6 +166,14 @@ const Shop = () => {
               title={<span className="h6"><DownSquareOutlined/> Categories</span>}>
               <div>
                 {showCategories()}
+              </div>
+            </Menu.SubMenu>
+
+            <Menu.SubMenu
+              key="3"
+              title={<span className="h6"><StarOutlined/> Rating</span>}>
+              <div style={{ marginTop: "-10px" }}>
+                {showStars()}
               </div>
             </Menu.SubMenu>
           </Menu>
