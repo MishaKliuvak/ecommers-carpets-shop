@@ -12,7 +12,7 @@ const { Meta } = Card
 
 
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug } = product
+  const { title, description, images, slug, price } = product
 
 
   return (
@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
       >
         <Meta
           style={{ overflow: 'hidden' }}
-          title={title}
+          title={`${title} - $${price}`}
           description={description && `${description}...`}
         />
       </Card>
