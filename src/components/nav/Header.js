@@ -7,7 +7,7 @@ import firebase from "firebase";
 import * as ROUTES from '../../constants/routes'
 
 import { Menu } from 'antd'
-import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons'
+import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined, ShoppingOutlined } from '@ant-design/icons'
 import ProductSearch from '../forms/ProductSearch'
 
 const { SubMenu, Item } = Menu
@@ -36,6 +36,9 @@ const Header = () => {
         <Menu onClick={handleClick} selectedKeys={current} mode="horizontal">
             <Item key="home" icon={<HomeOutlined />}>
                 <Link to={ROUTES.HOME}>Home</Link>
+            </Item>
+            <Item key="shop" icon={<ShoppingOutlined />}>
+                <Link to={ROUTES.SHOP}>Shop</Link>
             </Item>
 
             {!user ? (
