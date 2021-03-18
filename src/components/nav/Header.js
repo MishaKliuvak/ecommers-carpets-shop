@@ -8,6 +8,7 @@ import * as ROUTES from '../../constants/routes'
 
 import { Menu } from 'antd'
 import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons'
+import ProductSearch from '../forms/ProductSearch'
 
 const { SubMenu, Item } = Menu
 
@@ -75,7 +76,9 @@ const Header = () => {
                         <Item icon={<UserOutlined />} onClick={logOut}>Log out</Item>
                     </SubMenu>
                 )}
-
+            <span className="float-right p-1">
+                <ProductSearch />
+            </span>
         </Menu>
     )
 }
