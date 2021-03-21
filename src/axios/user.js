@@ -6,3 +6,10 @@ export const userCart = async (cart, authToken) =>
       authToken
     }
   })
+
+export const getUserCart = async (authToken) =>
+  await base.get('/user/cart', {
+    headers: {
+      authToken
+    }
+  })
