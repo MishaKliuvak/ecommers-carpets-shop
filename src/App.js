@@ -35,6 +35,7 @@ import CategoryHome from './pages/category/CategoryHome'
 import SubHome from './pages/sub/SubHome'
 import Shop from './pages/Shop'
 import Cart from './pages/Cart'
+import SideDrawer from './components/drawer/SideDrawer'
 
 function App() {
   const dispatch = useDispatch()
@@ -67,6 +68,7 @@ function App() {
   return (
     <>
         <Header />
+        <SideDrawer />
         <ToastContainer />
         <Switch>
             <Route exact path={ROUTES.HOME}>
