@@ -1,17 +1,18 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { CART, LOGIN, SHOP } from '../constants/routes'
+import { Link, useHistory } from 'react-router-dom'
+import { CART, CHECKOUT, LOGIN, SHOP } from '../constants/routes'
 import TableCartItem from '../components/cards/TableCartItem'
 
 const Cart = () => {
   const { cart, user } = useSelector(state => ({...state}))
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const getTotal = () => cart.reduce((current, next) => current + next.count * next.price, 0)
 
   const saveOrder = () => {
-
+    history.push(CHECKOUT)
   }
 
   const showCartTable = () => (
