@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserCart } from '../axios/user'
+import { getUserCart, emptyCart } from '../axios/user'
+import { toast } from 'react-toastify'
 
 const Checkout = () => {
   const [products, setProducts] = useState([])
@@ -19,6 +20,24 @@ const Checkout = () => {
         console.log(err)
       })
   }, [])
+
+  const removeCart = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('cart')
+    }
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: []
+    })
+
+    emptyCart(user.token)
+      .then(res => {
+        setProducts([])
+        setTotal(0)
+        toast.success('Cart is empty')
+      })
+  }
 
   const saveAddress = () => {
 
@@ -64,6 +83,8 @@ const Checkout = () => {
             </button>
             <button
               className="btn btn-primary"
+              disabled={!products.length}
+              onClick={removeCart}
             >
               Empty Cart
             </button>

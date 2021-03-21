@@ -13,3 +13,10 @@ export const getUserCart = async (authToken) =>
       authToken
     }
   })
+
+export const emptyCart = async (authToken) =>
+  await base.delete('/user/cart',  {
+    headers: {
+      authToken
+    }
+  })
