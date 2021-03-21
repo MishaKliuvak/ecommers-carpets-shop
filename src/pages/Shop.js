@@ -7,7 +7,7 @@ import Star from '../components/forms/Star'
 import { getCategories } from '../axios/category'
 import { getSubs } from '../axios/sub'
 
-import { Menu, Slider, Checkbox } from 'antd'
+import { Menu, Slider, Checkbox, Radio } from 'antd'
 import { DollarOutlined, DownSquareOutlined, StarOutlined } from '@ant-design/icons'
 
 const Shop = () => {
@@ -20,6 +20,11 @@ const Shop = () => {
   const [star, setStar] = useState('')
   const [subs, setSubs] = useState([])
   const [sub, setSub] = useState('')
+  const [brands, setBrands] = useState(['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'])
+  const [selectedBrand, setSelectedBrand] = useState('')
+  const [colors, setColors] = useState(['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'])
+  const [selectedColor, setSelectedColor] = useState('')
+
 
   const { search } = useSelector(state => ({...state}))
   const { text } = search
@@ -76,6 +81,7 @@ const Shop = () => {
     setStar('')
     setPrice(value)
     setSub('')
+    setSelectedBrand('')
 
     setTimeout(() => {
       setOk(!ok)
@@ -92,6 +98,7 @@ const Shop = () => {
     setPrice([0,0])
     setStar('')
     setSub('')
+    setSelectedBrand('')
 
     let inTheState = [...selectedCategories]
     let justChecked = e.target.value
@@ -133,6 +140,8 @@ const Shop = () => {
     setSelectedCategories([])
     setStar(e)
     setSub('')
+    setSelectedBrand('')
+
 
     fetchProducts({ stars: e })
   }
@@ -159,6 +168,7 @@ const Shop = () => {
     setPrice([0,0])
     setSelectedCategories([])
     setStar('')
+    setSelectedBrand('')
     fetchProducts({ sub })
   }
 
@@ -168,6 +178,32 @@ const Shop = () => {
     </div>
   ))
 
+  const handleBrand = (e) => {
+    setSub('')
+
+    dispatch({
+      type: 'SEARCH_QUERY',
+      payload: {
+        text: ''
+      }
+    })
+    setPrice([0,0])
+    setSelectedCategories([])
+    setStar('')
+    setSelectedBrand(e.target.value)
+
+    fetchProducts({ brand: e.target.value })
+  }
+
+  const showBrands = () => brands.map(brand => (
+    <>
+      <Radio className="pb-1 pl-1 pr-4" value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
+        {brand}
+      </Radio>
+      <br/>
+    </>
+  ))
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -175,20 +211,20 @@ const Shop = () => {
           <h4>Search/Filter</h4>
           <hr/>
 
-          <Menu defaultOpenKeys={['1', '2', '3']} mode="inline">
+          <Menu defaultOpenKeys={['1', '2', '3', '4','5','6','7']} mode="inline">
             <Menu.SubMenu
               key="1"
               title={<span className="h6"><DollarOutlined/> Price</span>}>
-                 <div>
-                   <Slider
-                     max={4999}
-                     className="ml-4 mr-4"
-                     tipFormatter={(value) => `$${value}`}
-                     range
-                     value={price}
-                     onChange={handleSlider}
-                   />
-                 </div>
+              <div>
+                <Slider
+                  max={4999}
+                  className="ml-4 mr-4"
+                  tipFormatter={(value) => `$${value}`}
+                  range
+                  value={price}
+                  onChange={handleSlider}
+                />
+              </div>
             </Menu.SubMenu>
 
             <Menu.SubMenu
@@ -212,6 +248,14 @@ const Shop = () => {
               title={<span className="h6"><DownSquareOutlined/> Sub Categories</span>}>
               <div className="pl-4 pr-4">
                 {showSubs()}
+              </div>
+            </Menu.SubMenu>
+
+            <Menu.SubMenu
+              key="5"
+              title={<span className="h6"><DownSquareOutlined/> Brands</span>}>
+              <div className="pl-4 pr-4">
+                {showBrands()}
               </div>
             </Menu.SubMenu>
           </Menu>
