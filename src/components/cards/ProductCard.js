@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import _ from 'lodash'
 
 import { Card, Tooltip } from 'antd'
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
@@ -9,7 +8,7 @@ import custom from '../../images/default.png'
 import { PRODUCT } from '../../constants/routes'
 
 import { showAverage } from '../../helpers/rating'
-
+import { handleAddToCard } from '../../helpers/addToCart'
 const { Meta } = Card
 
 
@@ -17,32 +16,7 @@ const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product
   const [toolTip, setTooltip] = useState('Click to add')
 
-  const { user, cart } = useSelector(state => ({...state}))
   const dispatch = useDispatch()
-
-  const handleAddToCard = (e) => {
-
-    let cart = []
-
-    if (typeof window !== 'undefined') {
-      if (localStorage.getItem('cart')) {
-        cart = JSON.parse(localStorage.getItem('cart'))
-      }
-      cart.push({
-        ...product,
-        count: 1
-      })
-
-      let unique = _.uniqWith(cart, _.isEqual)
-      localStorage.setItem('cart', JSON.stringify(unique))
-      setTooltip('Added')
-
-      dispatch({
-        type: 'ADD_TO_CART',
-        payload: unique
-      })
-    }
-  }
 
   return (
     <>
@@ -68,7 +42,7 @@ const ProductCard = ({ product }) => {
             View Product
           </Link>,
           <Tooltip title={toolTip}>
-            <div onClick={handleAddToCard}>
+            <div onClick={() => handleAddToCard(product, dispatch, setTooltip)}>
               <ShoppingCartOutlined className="text-primary"/>
               <br/>
               Add to Cart

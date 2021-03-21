@@ -6,8 +6,8 @@ import firebase from "firebase";
 
 import * as ROUTES from '../../constants/routes'
 
-import { Menu } from 'antd'
-import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined, ShoppingOutlined } from '@ant-design/icons'
+import { Menu, Badge } from 'antd'
+import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined, ShoppingOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import ProductSearch from '../forms/ProductSearch'
 
 const { SubMenu, Item } = Menu
@@ -17,7 +17,7 @@ const Header = () => {
 
     let history = useHistory()
     let dispatch = useDispatch()
-    let { user } = useSelector((state) => ({...state}))
+    let { user, cart } = useSelector((state) => ({...state}))
 
     const handleClick = e => {
         setCurrent(e.key);
@@ -40,6 +40,13 @@ const Header = () => {
             <Item key="shop" icon={<ShoppingOutlined />}>
                 <Link to={ROUTES.SHOP}>Shop</Link>
             </Item>
+          <Item key="cart" icon={<ShoppingCartOutlined />}>
+            <Link to={ROUTES.SHOP}>
+              <Badge count={cart.length} offset={[9,0]}>
+                Cart
+              </Badge>
+            </Link>
+          </Item>
 
             {!user ? (
                 <>
