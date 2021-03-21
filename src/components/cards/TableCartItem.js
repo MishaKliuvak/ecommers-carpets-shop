@@ -1,10 +1,15 @@
 import React from 'react'
 import ModalImage from "react-modal-image";
 
+import { useDispatch } from 'react-redux'
 import custom from '../../images/default.png'
 
+import { changeProperty } from '../../helpers/addToCart'
+
 const TableCartItem = ({ product, ...restProps }) => {
-  const { title, price, brand, color, count, images } = product
+  const { _id, title, price, brand, color, count, images, quantity } = product
+  const dispatch = useDispatch()
+
   return (
       <tr {...restProps}>
         <td style={{ width: 150, height: 'auto' }}>
@@ -21,7 +26,16 @@ const TableCartItem = ({ product, ...restProps }) => {
         <td>${price}</td>
         <td>{brand}</td>
         <td>{color}</td>
-        <td>{count}</td>
+        <td className="text-center">
+          <input
+            min={1}
+            max={quantity}
+            type="number"
+            className="form-control"
+            value={count}
+            onChange={(e) => changeProperty(_id, e.target.value, dispatch)}
+          />
+        </td>
         <td>Shipping</td>
         <td>Delete</td>
       </tr>
