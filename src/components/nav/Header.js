@@ -42,9 +42,9 @@ const Header = () => {
             </Item>
           <Item key="cart" icon={<ShoppingCartOutlined />}>
             <Link to={ROUTES.CART}>
-              <Badge count={cart.length} offset={[9,0]}>
-                Cart
-              </Badge>
+              Cart
+              <Badge count={cart.length} offset={[0,-15]} />
+
             </Link>
           </Item>
 
