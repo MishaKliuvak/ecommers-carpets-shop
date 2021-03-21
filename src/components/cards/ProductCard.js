@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import _ from 'lodash'
+
 import { Card } from 'antd'
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import custom from '../../images/default.png'
@@ -14,6 +16,22 @@ const { Meta } = Card
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product
 
+  const handleAddToCard = (e) => {
+    let cart = []
+
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'))
+      }
+      cart.push({
+        ...product,
+        count: 1
+      })
+
+      let unique = _.uniqWith(cart, _.isEqual)
+      localStorage.setItem('cart', JSON.stringify(unique))
+    }
+  }
 
   return (
     <>
@@ -38,11 +56,11 @@ const ProductCard = ({ product }) => {
             <br/>
             View Product
           </Link>,
-          <>
+          <div onClick={handleAddToCard}>
             <ShoppingCartOutlined className="text-primary"/>
             <br/>
             Add to Cart
-          </>
+          </div>
         ]}
       >
         <Meta
