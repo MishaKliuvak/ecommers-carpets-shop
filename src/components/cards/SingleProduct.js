@@ -10,7 +10,7 @@ import { PRODUCT } from '../../constants/routes'
 import ProductListItems from './ProductListItems'
 import StarRatings from 'react-star-ratings';
 import RatingModal from '../modal/RatingModal'
-import { handleAddToCard } from '../../helpers/addToCart'
+import { handleAddToCard } from '../../helpers/cart'
 import { showAverage } from '../../helpers/rating'
 import { useDispatch } from 'react-redux'
 

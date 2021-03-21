@@ -4,11 +4,16 @@ import ModalImage from "react-modal-image";
 import { useDispatch } from 'react-redux'
 import custom from '../../images/default.png'
 
-import { changeProperty } from '../../helpers/addToCart'
+import { changeProperty, removeProperty } from '../../helpers/cart'
+import { CheckCircleOutlined, CloseCircleOutlined, CloseOutlined } from '@ant-design/icons'
 
 const TableCartItem = ({ product, ...restProps }) => {
-  const { _id, title, price, brand, color, count, images, quantity } = product
+  const { _id, title, price, brand, color, count, images, quantity, shipping } = product
   const dispatch = useDispatch()
+
+  const handleRemove = e => {
+
+  }
 
   return (
       <tr {...restProps}>
@@ -36,8 +41,18 @@ const TableCartItem = ({ product, ...restProps }) => {
             onChange={(e) => changeProperty(_id, e.target.value, dispatch)}
           />
         </td>
-        <td>Shipping</td>
-        <td>Delete</td>
+        <td className="text-center">
+          { shipping === "Yes"
+            ? <CheckCircleOutlined className="text-success" />
+            : <CloseCircleOutlined className="text-danger" />
+          }
+        </td>
+        <td className="text-center">
+          <CloseOutlined
+            onClick={() => removeProperty(_id, dispatch)}
+            className="text-danger pointer"
+          />
+        </td>
       </tr>
   )
 }

@@ -12,3 +12,7 @@
 .ant-menu-sub {
     background: white !important;
 }
+
+.pointer {
+    cursor: pointer;
+}

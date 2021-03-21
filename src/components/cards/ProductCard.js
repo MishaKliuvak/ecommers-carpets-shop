@@ -8,7 +8,7 @@ import custom from '../../images/default.png'
 import { PRODUCT } from '../../constants/routes'
 
 import { showAverage } from '../../helpers/rating'
-import { handleAddToCard } from '../../helpers/addToCart'
+import { handleAddToCard } from '../../helpers/cart'
 const { Meta } = Card
 
 
