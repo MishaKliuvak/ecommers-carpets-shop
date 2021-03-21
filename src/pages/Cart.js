@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { CART, CHECKOUT, LOGIN, SHOP } from '../constants/routes'
 import TableCartItem from '../components/cards/TableCartItem'
+import { userCart } from '../axios/user'
 
 const Cart = () => {
   const { cart, user } = useSelector(state => ({...state}))
@@ -12,7 +13,12 @@ const Cart = () => {
   const getTotal = () => cart.reduce((current, next) => current + next.count * next.price, 0)
 
   const saveOrder = () => {
-    history.push(CHECKOUT)
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log(res)
+        if (res.data.ok) history.push(CHECKOUT)
+      })
+      .catch((err) => console.log(err))
   }
 
   const showCartTable = () => (
