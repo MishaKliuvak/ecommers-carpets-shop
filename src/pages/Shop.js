@@ -83,6 +83,7 @@ const Shop = () => {
     setPrice(value)
     setSub('')
     setSelectedBrand('')
+    setShipping('')
     setSelectedColor('')
 
     setTimeout(() => {
@@ -99,6 +100,7 @@ const Shop = () => {
     })
     setPrice([0,0])
     setStar('')
+    setShipping('')
     setSub('')
     setSelectedBrand('')
     setSelectedColor('')
@@ -144,6 +146,7 @@ const Shop = () => {
     setStar(e)
     setSub('')
     setSelectedColor('')
+    setShipping('')
     setSelectedBrand('')
 
 
@@ -174,6 +177,7 @@ const Shop = () => {
     setStar('')
     setSelectedColor('')
     setSelectedBrand('')
+    setShipping('')
     fetchProducts({ sub })
   }
 
@@ -196,6 +200,7 @@ const Shop = () => {
     setSelectedCategories([])
     setStar('')
     setSelectedColor('')
+    setShipping('')
     setSelectedBrand(e.target.value)
 
     fetchProducts({ brand: e.target.value })
@@ -223,6 +228,7 @@ const Shop = () => {
     setSelectedCategories([])
     setStar('')
     setSelectedBrand('')
+    setShipping('')
     setSelectedColor(e.target.value)
 
     fetchProducts({ color: e.target.value })
@@ -237,9 +243,36 @@ const Shop = () => {
     </>
   ))
 
-  const showShipping = (e) => {
+  const handleShipping = (e) => {
+    setSub('')
 
+    dispatch({
+      type: 'SEARCH_QUERY',
+      payload: {
+        text: ''
+      }
+    })
+    setPrice([0,0])
+    setSelectedCategories([])
+    setStar('')
+    setSelectedBrand('')
+    setSelectedColor('')
+    setShipping(e.target.value)
+
+    fetchProducts({ shipping: e.target.value })
   }
+
+  const showShipping = (e) => (
+    <>
+      <Checkbox className="pb-2 pl-1 pr-4" onChange={handleShipping} value="Yes" checked={shipping === 'Yes'}>
+        Yes
+      </Checkbox>
+      <br/>
+      <Checkbox className="pb-2 pl-1 pr-4" onChange={handleShipping} value="No" checked={shipping === 'No'}>
+        No
+      </Checkbox>
+    </>
+  )
 
   return (
     <div className="container-fluid">
