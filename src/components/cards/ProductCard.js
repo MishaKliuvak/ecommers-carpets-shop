@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import _ from 'lodash'
 
-import { Card } from 'antd'
+import { Card, Tooltip } from 'antd'
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import custom from '../../images/default.png'
 import { PRODUCT } from '../../constants/routes'
@@ -15,8 +15,10 @@ const { Meta } = Card
 
 const ProductCard = ({ product }) => {
   const { title, description, images, slug, price } = product
+  const [toolTip, setTooltip] = useState('Click to add')
 
   const handleAddToCard = (e) => {
+
     let cart = []
 
     if (typeof window !== 'undefined') {
@@ -30,6 +32,7 @@ const ProductCard = ({ product }) => {
 
       let unique = _.uniqWith(cart, _.isEqual)
       localStorage.setItem('cart', JSON.stringify(unique))
+      setTooltip('Added')
     }
   }
 
@@ -56,11 +59,13 @@ const ProductCard = ({ product }) => {
             <br/>
             View Product
           </Link>,
-          <div onClick={handleAddToCard}>
-            <ShoppingCartOutlined className="text-primary"/>
-            <br/>
-            Add to Cart
-          </div>
+          <Tooltip title={toolTip}>
+            <div onClick={handleAddToCard}>
+              <ShoppingCartOutlined className="text-primary"/>
+              <br/>
+              Add to Cart
+            </div>
+          </Tooltip>
         ]}
       >
         <Meta
