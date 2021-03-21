@@ -22,8 +22,9 @@ const Shop = () => {
   const [sub, setSub] = useState('')
   const [brands, setBrands] = useState(['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'])
   const [selectedBrand, setSelectedBrand] = useState('')
-  const [colors, setColors] = useState(['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'])
+  const [colors, setColors] = useState(['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'])
   const [selectedColor, setSelectedColor] = useState('')
+  const [shipping, setShipping] = useState('')
 
 
   const { search } = useSelector(state => ({...state}))
@@ -82,6 +83,7 @@ const Shop = () => {
     setPrice(value)
     setSub('')
     setSelectedBrand('')
+    setSelectedColor('')
 
     setTimeout(() => {
       setOk(!ok)
@@ -99,6 +101,7 @@ const Shop = () => {
     setStar('')
     setSub('')
     setSelectedBrand('')
+    setSelectedColor('')
 
     let inTheState = [...selectedCategories]
     let justChecked = e.target.value
@@ -140,6 +143,7 @@ const Shop = () => {
     setSelectedCategories([])
     setStar(e)
     setSub('')
+    setSelectedColor('')
     setSelectedBrand('')
 
 
@@ -168,6 +172,7 @@ const Shop = () => {
     setPrice([0,0])
     setSelectedCategories([])
     setStar('')
+    setSelectedColor('')
     setSelectedBrand('')
     fetchProducts({ sub })
   }
@@ -190,6 +195,7 @@ const Shop = () => {
     setPrice([0,0])
     setSelectedCategories([])
     setStar('')
+    setSelectedColor('')
     setSelectedBrand(e.target.value)
 
     fetchProducts({ brand: e.target.value })
@@ -203,6 +209,37 @@ const Shop = () => {
       <br/>
     </>
   ))
+
+  const handleColor = (e) => {
+    setSub('')
+
+    dispatch({
+      type: 'SEARCH_QUERY',
+      payload: {
+        text: ''
+      }
+    })
+    setPrice([0,0])
+    setSelectedCategories([])
+    setStar('')
+    setSelectedBrand('')
+    setSelectedColor(e.target.value)
+
+    fetchProducts({ color: e.target.value })
+  }
+
+  const showColors = () => colors.map(color => (
+    <>
+      <Radio className="pb-1 pl-1 pr-4" value={color} name={color} checked={color === selectedColor} onChange={handleColor}>
+        {color}
+      </Radio>
+      <br/>
+    </>
+  ))
+
+  const showShipping = (e) => {
+
+  }
 
   return (
     <div className="container-fluid">
@@ -256,6 +293,22 @@ const Shop = () => {
               title={<span className="h6"><DownSquareOutlined/> Brands</span>}>
               <div className="pl-4 pr-4">
                 {showBrands()}
+              </div>
+            </Menu.SubMenu>
+
+            <Menu.SubMenu
+              key="6"
+              title={<span className="h6"><DownSquareOutlined/> Colors</span>}>
+              <div className="pl-4 pr-4">
+                {showColors()}
+              </div>
+            </Menu.SubMenu>
+
+            <Menu.SubMenu
+              key="7"
+              title={<span className="h6"><DownSquareOutlined/> Shipping</span>}>
+              <div className="pl-4 pr-4">
+                {showShipping()}
               </div>
             </Menu.SubMenu>
           </Menu>
