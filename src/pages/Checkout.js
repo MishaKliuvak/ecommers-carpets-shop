@@ -28,29 +28,32 @@ const Checkout = () => {
     <div className="row">
       <div className="col-md-6">
         <h4 className="mb-4">Delivery Address</h4>
-        textarea
 
-        <button
-          className="btn btn-primary mt-2"
-          onClick={saveAddress}
-        >
+        textarea
+        <button className="btn btn-primary mt-2" onClick={saveAddress}>
           Save
         </button>
         <hr/>
+
         <h4 className="mb-2">Gor Coupon?</h4>
         Coupon input
       </div>
 
       <div className="col-md-6">
         <h4 className="mb-2">Order Summary</h4>
-        <h1>{total}</h1>
-        {JSON.stringify(products)}
         <hr/>
-        <p>Products x</p>
+
+        <p>Products {products.length}</p>
         <hr/>
-        <p>List of products</p>
+
+        {products.length && products.map((product, i) => (
+          <div key={i}>
+            <p>{product.product.title} ({product.product.color}) x {product.count} = {product.product.price * product.count}</p>
+          </div>
+        ))}
         <hr/>
-        <p>Cart total: $x</p>
+
+        <p>Cart total: ${total}</p>
 
         <div className="row">
           <div className="col-md-6">
