@@ -34,6 +34,7 @@ import Product from './pages/Product'
 import CategoryHome from './pages/category/CategoryHome'
 import SubHome from './pages/sub/SubHome'
 import Shop from './pages/Shop'
+import Cart from './pages/Cart'
 
 function App() {
   const dispatch = useDispatch()
@@ -127,6 +128,9 @@ function App() {
           </Route>
           <Route exact path={ROUTES.SHOP}>
             <Shop />
+          </Route>
+          <Route exact path={ROUTES.CART}>
+            <Cart />
           </Route>
         </Switch>
     </>
