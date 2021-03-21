@@ -28,17 +28,21 @@ const Cart = () => {
           <th scope="col">Remove</th>
         </tr>
       </thead>
-      { cart.map((c, i) => (
-        <TableCartItem key={c._id} product={c} />
-      )) }
+      <tbody>
+        { cart.map((c, i) => (
+          <TableCartItem key={c._id} product={c} />
+        )) }
+      </tbody>
+
     </table>
   )
 
   return (
-    <div className="container-fluid pt-2">
+    <div className="container-fluid pt-4">
       <div className="row">
         <div className="col-md-8">
           <h4>Cart ({cart.length} products)</h4>
+          <hr/>
           {!cart.length ?
             <p>
               Cart is empty. <Link to={SHOP}>Continue Shopping</Link>

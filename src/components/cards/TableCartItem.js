@@ -1,21 +1,30 @@
 import React from 'react'
+import ModalImage from "react-modal-image";
+
+import custom from '../../images/default.png'
 
 const TableCartItem = ({ product, ...restProps }) => {
+  const { title, price, brand, color, count, images } = product
   return (
-    <tbody {...restProps}>
-      <tr>
-        <td>
-          Image
+      <tr {...restProps}>
+        <td style={{ width: 150, height: 'auto' }}>
+          <div>
+            <ModalImage
+              small={ images.length ? images[0].url : custom }
+              large={ images.length ? images[0].url : custom }
+              alt={title}
+            />
+          </div>
+
         </td>
-        <td>{product.title}</td>
-        <td>${product.price}</td>
-        <td>{product.brand}</td>
-        <td>{product.color}</td>
-        <td>{product.count}</td>
+        <td>{title}</td>
+        <td>${price}</td>
+        <td>{brand}</td>
+        <td>{color}</td>
+        <td>{count}</td>
         <td>Shipping</td>
         <td>Delete</td>
       </tr>
-    </tbody>
   )
 }
 
