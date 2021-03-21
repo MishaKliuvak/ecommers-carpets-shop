@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { SHOP } from '../constants/routes'
+import { CART, LOGIN, SHOP } from '../constants/routes'
 
 const Cart = () => {
   const { cart, user } = useSelector(state => ({...state}))
@@ -9,6 +9,9 @@ const Cart = () => {
 
   const getTotal = () => cart.reduce((current, next) => current + next.count * next.price, 0)
 
+  const saveOrder = () => {
+
+  }
 
   return (
     <div className="container-fluid pt-2">
@@ -41,9 +44,23 @@ const Cart = () => {
 
           {
             user ? (
-              <button className="btn btn-sm btn-primary mt-2">Proceed to Checkout</button>
+              <button
+                className="btn btn-sm btn-primary mt-2"
+                onClick={saveOrder}
+                disabled={!cart.length}
+              >
+                Proceed to Checkout
+              </button>
             ) : (
-              <button className="btn btn-sm btn-primary mt-2">Login to Checkout</button>
+                <Link
+                  className="btn btn-sm btn-primary mt-2"
+                  to={{
+                    pathname: LOGIN,
+                    state: { from: CART },
+                  }}
+                >
+                  Login to Checkout
+                </Link>
             )
           }
         </div>
