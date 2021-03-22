@@ -11,7 +11,7 @@ export const removeCoupon = async (couponId, authToken) =>
   })
 
 export const createCoupon = async (coupon, authToken) =>
-  await base.post(`/coupon`, { coupon }, {
+  await base.post(`/coupon`, coupon, {
     headers: {
       authToken
     }
