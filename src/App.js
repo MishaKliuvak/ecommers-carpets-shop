@@ -25,10 +25,11 @@ import CreateCategory from "./pages/admin/categories/CreateCategory"
 import UpdateCategory from "./pages/admin/categories/UpdateCategory"
 import UpdateSub from "./pages/admin/sub/UpdateSub"
 import CreateSub from "./pages/admin/sub/CreateSub"
-import { ADMIN_PRODUCT, ADMIN_PRODUCTS, ADMIN_SINGLE_PRODUCT } from './constants/routes'
+import { ADMIN_COUPONS, ADMIN_PRODUCT, ADMIN_PRODUCTS, ADMIN_SINGLE_PRODUCT } from './constants/routes'
 import CreateProduct from './pages/admin/product/CreateProduct'
 import Products from './pages/admin/product/Products'
 import UpdateProduct from './pages/admin/product/UpdateProduct'
+import CreateCoupon from './pages/admin/coupon/CreateCoupon'
 
 import Product from './pages/Product'
 import CategoryHome from './pages/category/CategoryHome'
@@ -119,6 +120,9 @@ function App() {
           </AdminRoute>
           <AdminRoute exact path={`${ADMIN_SINGLE_PRODUCT}/:slug`}>
             <UpdateProduct />
+          </AdminRoute>
+          <AdminRoute exact path={ADMIN_COUPONS}>
+            <CreateCoupon />
           </AdminRoute>
           <Route exact path={`${ROUTES.PRODUCT}/:slug`}>
             <Product />
