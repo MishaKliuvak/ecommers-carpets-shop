@@ -20,3 +20,10 @@ export const emptyCart = async (authToken) =>
       authToken
     }
   })
+
+export const saveUserAddress = async (address, authToken) =>
+  await base.post('/user/address', { address }, {
+    headers: {
+      authToken
+    }
+  })
