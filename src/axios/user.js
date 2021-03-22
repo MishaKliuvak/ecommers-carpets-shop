@@ -27,3 +27,11 @@ export const saveUserAddress = async (address, authToken) =>
       authToken
     }
   })
+
+
+export const applyCoupon = async (coupon, authToken) =>
+  await base.post('/user/cart/coupon', { coupon }, {
+    headers: {
+      authToken
+    }
+  })

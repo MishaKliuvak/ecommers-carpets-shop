@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getUserCart, emptyCart, saveUserAddress } from '../axios/user'
+import { getUserCart, emptyCart, saveUserAddress, applyCoupon } from '../axios/user'
 import { toast } from 'react-toastify'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -11,6 +11,8 @@ const Checkout = () => {
   const [address, setAddress] = useState('')
   const [addressSaved, setAddressSaved] = useState(false)
   const [coupon, setCoupon] = useState('')
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
+  const [discountError, setDiscountError] = useState('')
 
   const dispatch = useDispatch()
   const { user } = useSelector(state => ({...state}))
@@ -19,7 +21,6 @@ const Checkout = () => {
     if (user) {
       getUserCart(user.token)
         .then(res => {
-          console.log(JSON.stringify(res))
           setProducts(res.data.products)
           setTotal(res.data.cartTotal)
         })
@@ -43,6 +44,8 @@ const Checkout = () => {
       .then(res => {
         setProducts([])
         setTotal(0)
+        setTotalAfterDiscount(0)
+        setCoupon('')
         toast.success('Cart is empty')
       })
   }
@@ -76,8 +79,16 @@ const Checkout = () => {
     </>
   )
 
-  const applyCoupon = () => {
-
+  const applyCouponHandler = () => {
+    applyCoupon(coupon, user.token)
+      .then((res) => {
+        if (res.data) {
+          setTotalAfterDiscount(res.data)
+        }
+        if (res.data.err) {
+          setDiscountError(res.data.err)
+        }
+      })
   }
 
   const showApplyCoupon = () => (
@@ -86,12 +97,15 @@ const Checkout = () => {
         type="text"
         className="form-control"
         placeholder="Coupon"
-        onChange={(e) => setCoupon(e.target.value)}
+        onChange={(e) => {
+          setCoupon(e.target.value)
+          setDiscountError('')
+        }}
         value={coupon}
       />
       <button
         className="btn btn-primary mt-4"
-        onClick={applyCoupon}
+        onClick={applyCouponHandler}
       >
         Apply
       </button>
@@ -106,8 +120,9 @@ const Checkout = () => {
         {showAddress()}
         <hr/>
 
-        <h4 className="mb-2">Got Coupon?</h4>
+        <h4 className="mb-3">Got Coupon?</h4>
         {showApplyCoupon()}
+        {discountError && <div className="mt-2 float-right text-danger">{discountError}</div>}
       </div>
 
       <div className="col-md-6">
@@ -121,6 +136,11 @@ const Checkout = () => {
         <hr/>
 
         <p>Cart total: ${total}</p>
+        {totalAfterDiscount > 0 && (
+          <p className="p-2 bg-success">
+            Discount Applied: ${totalAfterDiscount}
+          </p>
+        )}
 
         <div className="row">
           <div className="col-md-6">
