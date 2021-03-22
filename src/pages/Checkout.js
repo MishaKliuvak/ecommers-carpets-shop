@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { getUserCart, emptyCart, saveUserAddress, applyCoupon } from '../axios/user'
 import { toast } from 'react-toastify'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { PAYMENT } from '../constants/routes'
 
 const Checkout = () => {
   const [products, setProducts] = useState([])
   const [total, setTotal] = useState(0)
   const [address, setAddress] = useState('')
   const [addressSaved, setAddressSaved] = useState(false)
-  const [coupon, setCoupon] = useState('')
+  const [couponEntered, setCouponEntered] = useState('')
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0)
   const [discountError, setDiscountError] = useState('')
+  const history = useHistory()
 
   const dispatch = useDispatch()
   const { user } = useSelector(state => ({...state}))
@@ -45,7 +48,7 @@ const Checkout = () => {
         setProducts([])
         setTotal(0)
         setTotalAfterDiscount(0)
-        setCoupon('')
+        setCouponEntered('')
         toast.success('Cart is empty')
       })
   }
@@ -80,13 +83,21 @@ const Checkout = () => {
   )
 
   const applyCouponHandler = () => {
-    applyCoupon(coupon, user.token)
+    applyCoupon(couponEntered, user.token)
       .then((res) => {
         if (res.data) {
           setTotalAfterDiscount(res.data)
+          dispatch({
+            type: 'COUPON_APPLIED',
+            payload: true
+          })
         }
         if (res.data.err) {
           setDiscountError(res.data.err)
+          dispatch({
+            type: 'COUPON_APPLIED',
+            payload: false
+          })
         }
       })
   }
@@ -98,10 +109,10 @@ const Checkout = () => {
         className="form-control"
         placeholder="Coupon"
         onChange={(e) => {
-          setCoupon(e.target.value)
+          setCouponEntered(e.target.value)
           setDiscountError('')
         }}
-        value={coupon}
+        value={couponEntered}
       />
       <button
         className="btn btn-primary mt-4"
@@ -147,6 +158,7 @@ const Checkout = () => {
             <button
               className="btn btn-primary"
               disabled={!addressSaved || !products.length}
+              onClick={() => history.push(PAYMENT)}
             >
               Place Order
             </button>

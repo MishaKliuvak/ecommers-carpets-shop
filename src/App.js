@@ -38,6 +38,7 @@ import Shop from './pages/Shop'
 import Cart from './pages/Cart'
 import SideDrawer from './components/drawer/SideDrawer'
 import Checkout from './pages/Checkout'
+import Payment from './pages/Payment'
 
 function App() {
   const dispatch = useDispatch()
@@ -142,6 +143,9 @@ function App() {
           <Route exact path={ROUTES.CHECKOUT}>
             <Checkout />
           </Route>
+          <UserRoute exact path={ROUTES.PAYMENT}>
+            <Payment />
+          </UserRoute>
         </Switch>
     </>
   );
