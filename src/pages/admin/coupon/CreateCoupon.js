@@ -61,13 +61,13 @@ const CreateCoupon = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Create Coupon { loading && <LoadingOutlined /> }</h4>
+          <h4 className="pb-4">Create Coupon { loading && <LoadingOutlined /> }</h4>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label className="text-muted">Name:</label>
@@ -85,6 +85,8 @@ const CreateCoupon = () => {
               <label className="text-muted">Discount %:</label>
               <input
                 type="number"
+                min="1"
+                max="99"
                 className="form-control"
                 value={discount}
                 onChange={(e) => setDiscount(e.target.value)}
@@ -108,7 +110,7 @@ const CreateCoupon = () => {
           </form>
           <br/>
 
-          <h4>{coupons.length} Coupons</h4>
+          <h4 className="pb-4">{coupons.length} Coupons</h4>
           <table className="table table-bordered">
             <thead className="thead-light">
               <tr>

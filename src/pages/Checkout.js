@@ -10,21 +10,24 @@ const Checkout = () => {
   const [total, setTotal] = useState(0)
   const [address, setAddress] = useState('')
   const [addressSaved, setAddressSaved] = useState(false)
+  const [coupon, setCoupon] = useState('')
 
   const dispatch = useDispatch()
   const { user } = useSelector(state => ({...state}))
 
   useEffect(() => {
-    getUserCart(user.token)
-      .then(res => {
-        console.log(JSON.stringify(res))
-        setProducts(res.data.products)
-        setTotal(res.data.cartTotal)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [])
+    if (user) {
+      getUserCart(user.token)
+        .then(res => {
+          console.log(JSON.stringify(res))
+          setProducts(res.data.products)
+          setTotal(res.data.cartTotal)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }, [user])
 
   const removeCart = () => {
     if (typeof window !== 'undefined') {
@@ -54,19 +57,57 @@ const Checkout = () => {
       })
   }
 
+  const showAddress = () => (
+    <>
+      <ReactQuill theme="snow" value={address} onChange={setAddress} />
+      <button className="btn btn-primary mt-2" onClick={saveAddress}>
+        Save
+      </button>
+    </>
+  )
+
+  const showProductSummary = () => (
+    <>
+      {products.length && products.map((product, i) => (
+        <div key={i}>
+          <p>{product.product.title} ({product.product.color}) x {product.count} = {product.product.price * product.count}</p>
+        </div>
+      ))}
+    </>
+  )
+
+  const applyCoupon = () => {
+
+  }
+
+  const showApplyCoupon = () => (
+    <>
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Coupon"
+        onChange={(e) => setCoupon(e.target.value)}
+        value={coupon}
+      />
+      <button
+        className="btn btn-primary mt-4"
+        onClick={applyCoupon}
+      >
+        Apply
+      </button>
+    </>
+  )
+
   return (
-    <div className="row">
-      <div className="col-md-6">
+    <div className="row mt-4 ml-4 mr-4">
+      <div className="col-md-6 ">
         <h4 className="mb-4">Delivery Address</h4>
 
-        <ReactQuill theme="snow" value={address} onChange={setAddress} />
-        <button className="btn btn-primary mt-2" onClick={saveAddress}>
-          Save
-        </button>
+        {showAddress()}
         <hr/>
 
-        <h4 className="mb-2">Gor Coupon?</h4>
-        Coupon input
+        <h4 className="mb-2">Got Coupon?</h4>
+        {showApplyCoupon()}
       </div>
 
       <div className="col-md-6">
@@ -76,11 +117,7 @@ const Checkout = () => {
         <p>Products {products.length}</p>
         <hr/>
 
-        {products.length && products.map((product, i) => (
-          <div key={i}>
-            <p>{product.product.title} ({product.product.color}) x {product.count} = {product.product.price * product.count}</p>
-          </div>
-        ))}
+        {showProductSummary()}
         <hr/>
 
         <p>Cart total: ${total}</p>
