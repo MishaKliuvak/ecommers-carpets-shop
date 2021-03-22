@@ -2,7 +2,8 @@ import React, { useState, useEffect} from 'react'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { useSelector, useDispatch } from 'react-redux'
 import { createPaymentIntent } from '../axios/stripe'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { USER_HISTORY } from '../constants/routes'
 
 
 
@@ -49,14 +50,39 @@ const StripeCheckout = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
+
+    setProcessing(true)
+
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: e.target.name.value
+        }
+      }
+    })
+
+    if (payload.error) {
+      setError(payload.error.message)
+      setProcessing(false)
+    } else {
+      console.log(JSON.stringify(payload, null, 4))
+      setError(null)
+      setProcessing(false)
+      setSuccessed(true)
+    }
   }
 
   const handleChange = async e => {
-
+    setDisabled(e.empty)
+    setError(e.error ? e.error.message : '')
   }
 
   return (
     <>
+      <p className={successed ? 'result-message' : 'result-message hidden'}>
+        Payment Successful. <Link to={USER_HISTORY}>See it in your purchase history</Link>
+      </p>
       <form
         id="payment-form"
         className="stripe-form"
@@ -78,6 +104,8 @@ const StripeCheckout = () => {
             }
           </span>
         </button>
+
+        {error && <div className="card-error mt-3">{error}</div>}
       </form>
     </>
   )
