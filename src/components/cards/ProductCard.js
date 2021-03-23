@@ -42,11 +42,15 @@ const ProductCard = ({ product }) => {
             View Product
           </Link>,
           <Tooltip title={toolTip}>
-            <div onClick={() => handleAddToCard(product, dispatch, setTooltip)}>
+            <button
+              style={{ background: 'transparent', outline: 'none', border: 'none', cursor: 'pointer'}}
+              onClick={() => handleAddToCard(product, dispatch, setTooltip)}
+              disabled={product.quantity < 1}
+            >
               <ShoppingCartOutlined className="text-primary"/>
               <br/>
-              Add to Cart
-            </div>
+              { product.quantity < 1 ? 'Not avaible' : 'Add to Cart' }
+            </button>
           </Tooltip>
         ]}
       >
