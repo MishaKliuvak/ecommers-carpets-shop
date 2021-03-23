@@ -1,15 +1,44 @@
 import React from 'react'
 import { Document, Page, Text, StyleSheet } from '@react-pdf/renderer';
-import { Table, TableHeader, TableCell, TableBody, DataTableCell } from '@react-pdf/renderer'
+import { Table, TableHeader, TableCell, TableBody, DataTableCell } from '@david.kucsai/react-pdf-table'
 
-const Invoice = () => {
+const Invoice = ({ order }) => {
   return (
     <Document>
-      <Page styles={styles.body}>
-         <Text styles={styles.header} fixed>~ {new Date().toLocaleString()} ~</Text>
-        <Text styles={styles.title}>Order Invoice</Text>
-        <Text styles={styles.author}>React Redux Ecommerce</Text>
-        <Text styles={styles.subtitle}>Order Summary</Text>
+      <Page style={styles.body}>
+        <Text style={styles.header} fixed>~ {new Date().toLocaleString()} ~</Text>
+        <Text style={styles.title}>Order Invoice</Text>
+        <Text style={styles.author}>React Redux Ecommerce</Text>
+        <Text style={styles.subtitle}>Order Summary</Text>
+
+        <Table>
+          <TableHeader>
+            <TableCell>Title</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Count</TableCell>
+            <TableCell>Brand</TableCell>
+            <TableCell>Color</TableCell>
+          </TableHeader>
+        </Table>
+
+        <Table data={order.products}>
+          <TableBody>
+            <DataTableCell getContent={(x) => x.product.title} />
+            <DataTableCell getContent={(x) => `$${x.product.price}`} />
+            <DataTableCell getContent={(x) => x.count} />
+            <DataTableCell getContent={(x) => x.product.brand} />
+            <DataTableCell getContent={(x) => x.product.color} />
+          </TableBody>
+        </Table>
+
+        <Text style={styles.text}>
+          <Text>Date: {new Date(order.paymentIntent.created * 1000).toLocaleString()}</Text>{'\n'}
+          <Text>Order Id: {order.paymentIntent.id}</Text>{'\n'}
+          <Text>Order status: {order.orderStatus}</Text>{'\n'}
+          <Text>Total paid: ${order.paymentIntent.amount / 1000}</Text>{'\n'}
+        </Text>
+
+        <Text style={styles.footer}>~ Thank you for shopping with us ~</Text>
       </Page>
     </Document>
   )
