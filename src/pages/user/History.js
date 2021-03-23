@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import UserNav from '../../components/nav/UserNav'
+
+import ShowPaymentInfo from '../../components/cards/ShowPaymentInfo'
 import { getUserOrders } from '../../axios/user'
 import { useSelector, useDispatch } from 'react-redux'
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons'
@@ -57,7 +59,7 @@ const History = () => {
 
   const showEachOrders = () => orders.map((order, i) => (
     <div key={i} className="m-5 p-3 card">
-      <p>Show payment info</p>
+      <ShowPaymentInfo  order={order} />
       {showOrderInTable(order)}
       <div className="row">
         <div className="col">
