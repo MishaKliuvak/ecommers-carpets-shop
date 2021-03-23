@@ -210,12 +210,11 @@ const Shop = () => {
   }
 
   const showBrands = () => brands.map(brand => (
-    <>
-      <Radio className="pb-1 pl-1 pr-4" value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
+
+      <Radio key={brand} className="pb-1 pl-1 pr-4" value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
         {brand}
+        <br/>
       </Radio>
-      <br/>
-    </>
   ))
 
   const handleColor = (e) => {
@@ -238,12 +237,10 @@ const Shop = () => {
   }
 
   const showColors = () => colors.map(color => (
-    <>
-      <Radio className="pb-1 pl-1 pr-4" value={color} name={color} checked={color === selectedColor} onChange={handleColor}>
+      <Radio key={color} className="pb-1 pl-1 pr-4" value={color} name={color} checked={color === selectedColor} onChange={handleColor}>
         {color}
+        <br/>
       </Radio>
-      <br/>
-    </>
   ))
 
   const handleShipping = (e) => {

@@ -7,7 +7,9 @@ import { USER_HISTORY } from '../constants/routes'
 
 import { Card } from 'antd'
 import { DollarOutlined, CheckOutlined } from '@ant-design/icons'
-import custom from '../images/default.png'
+import cart from '../images/cart.png'
+
+import { createOrder, emptyCart } from '../axios/user'
 
 const StripeCheckout = () => {
   const history = useHistory()
@@ -76,7 +78,20 @@ const StripeCheckout = () => {
       setError(payload.error.message)
       setProcessing(false)
     } else {
-      console.log(JSON.stringify(payload, null, 4))
+      createOrder(payload, user.token)
+        .then(res => {
+          if (res.data.ok) {
+            if (typeof window !== 'undefined') localStorage.removeItem('cart')
+
+            dispatch({ type: 'ADD_TO_CART', payload: [] })
+            dispatch({ type: 'COUPON_APPLIED', payload: false })
+            emptyCart(user.token)
+          }
+        })
+        .catch(err => {
+
+        })
+
       setError(null)
       setProcessing(false)
       setSuccessed(true)
@@ -100,6 +115,9 @@ const StripeCheckout = () => {
       }
       <div className="text-center mb-5">
         <Card
+          cover={
+            <img src={cart} alt="Cart" style={{ height: 150, objectFit: 'contain', marginBottom: '-50px' }}/>
+          }
           actions={[
             <>
               <DollarOutlined className="text-info" /><br/>

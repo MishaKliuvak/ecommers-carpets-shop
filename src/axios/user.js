@@ -35,3 +35,10 @@ export const applyCoupon = async (coupon, authToken) =>
       authToken
     }
   })
+
+export const createOrder = async (stripeResponse, authToken) =>
+  await base.post('/user/order', { stripeResponse }, {
+    headers: {
+      authToken
+    }
+  })
