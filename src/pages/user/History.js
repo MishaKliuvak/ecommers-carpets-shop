@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import UserNav from '../../components/nav/UserNav'
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 
 import ShowPaymentInfo from '../../components/cards/ShowPaymentInfo'
 import { getUserOrders } from '../../axios/user'
@@ -27,14 +28,14 @@ const History = () => {
   const showOrderInTable = (order) => (
     <table className="table table-bordered">
       <thead className="thead-light">
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Price</th>
-          <th scope="col">Brand</th>
-          <th scope="col">Color</th>
-          <th scope="col">Count</th>
-          <th scope="col">Shipping</th>
-        </tr>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Color</th>
+        <th scope="col">Count</th>
+        <th scope="col">Shipping</th>
+      </tr>
       </thead>
       <tbody>
       { order.products.map((product, i) => (
@@ -46,8 +47,8 @@ const History = () => {
           <td>{product.count}</td>
           <td>
             { product.product.shipping === 'Yes'
-                ? <CheckCircleOutlined className="text-success" />
-                : <CloseCircleOutlined className="text-danger" />
+              ? <CheckCircleOutlined className="text-success" />
+              : <CloseCircleOutlined className="text-danger" />
             }
           </td>
 
@@ -57,13 +58,32 @@ const History = () => {
     </table>
   )
 
+  const showDownloadLink = (order) => (
+    <PDFDownloadLink
+      document={
+        <Document>
+          <Page size="A4">
+            <View>
+              <Text>Text #1</Text>
+              <Text>Text #2</Text>
+            </View>
+          </Page>
+        </Document>
+      }
+      fileName="invoice.pdf"
+      className="btn btn-sm btn-block btn-outline-primary"
+    >
+      Download PDF
+    </PDFDownloadLink>
+  )
+
   const showEachOrders = () => orders.map((order, i) => (
     <div key={i} className="m-5 p-3 card">
       <ShowPaymentInfo  order={order} />
       {showOrderInTable(order)}
       <div className="row">
         <div className="col">
-          <p>PDF download</p>
+          {showDownloadLink(order)}
         </div>
       </div>
     </div>
@@ -72,13 +92,13 @@ const History = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-          <div className="col-md-2">
-            <UserNav />
-          </div>
-          <div className="col text-center">
-            <h4>{ orders.length > 0 ? 'User purchase orders' : 'No purchase orders' }</h4>
-            {showEachOrders()}
-          </div>
+        <div className="col-md-2">
+          <UserNav />
+        </div>
+        <div className="col text-center">
+          <h4>{ orders.length > 0 ? 'User purchase orders' : 'No purchase orders' }</h4>
+          {showEachOrders()}
+        </div>
       </div>
     </div>
   )
