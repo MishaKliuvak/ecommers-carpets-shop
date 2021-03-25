@@ -49,3 +49,24 @@ export const getUserOrders = async (authToken) =>
       authToken
     }
   })
+
+export const getWishlist = async (authToken) =>
+    await base.get('/user/wishlist', {
+        headers: {
+            authToken
+        }
+    })
+
+export const removeWishlist = async (productId, authToken) =>
+    await base.put(`/user/wishlist/${productId}`, {}, {
+        headers: {
+            authToken
+        }
+    })
+
+export const addToWishlist = async (productId, authToken) =>
+    await base.post('/user/wishlist', { productId }, {
+        headers: {
+            authToken
+        }
+    })
