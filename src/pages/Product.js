@@ -56,7 +56,7 @@ const Product = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row pt-4">
         <ModalContext.Provider value={{ modalVisible, setModalVisible }}>
           <SingleProduct

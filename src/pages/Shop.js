@@ -126,7 +126,7 @@ const Shop = () => {
     <div key={category._id}>
       <Checkbox
         onChange={handleCheck}
-        className="pb-2 pl-4 pr-4"
+        className="pb-2"
         value={category._id}
         name="category"
         checked={selectedCategories.includes(category._id)}
@@ -157,7 +157,7 @@ const Shop = () => {
   }
 
   const showStars = () => (
-    <div className="pr-4 pl-4 pb-2">
+    <div className="pb-2">
       <Star starClick={handleStarClick} numberOfStars={5}/>
       <Star starClick={handleStarClick} numberOfStars={4}/>
       <Star starClick={handleStarClick} numberOfStars={3}/>
@@ -211,7 +211,7 @@ const Shop = () => {
 
   const showBrands = () => brands.map(brand => (
 
-      <Radio key={brand} className="pb-1 pl-1 pr-4" value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
+      <Radio key={brand} className="pb-1" value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
         {brand}
         <br/>
       </Radio>
@@ -237,7 +237,7 @@ const Shop = () => {
   }
 
   const showColors = () => colors.map(color => (
-      <Radio key={color} className="pb-1 pl-1 pr-4" value={color} name={color} checked={color === selectedColor} onChange={handleColor}>
+      <Radio key={color} className="pb-1" value={color} name={color} checked={color === selectedColor} onChange={handleColor}>
         {color}
         <br/>
       </Radio>
@@ -264,18 +264,18 @@ const Shop = () => {
 
   const showShipping = (e) => (
     <>
-      <Checkbox className="pb-2 pl-1 pr-4" onChange={handleShipping} value="Yes" checked={shipping === 'Yes'}>
+      <Checkbox className="pb-2" onChange={handleShipping} value="Yes" checked={shipping === 'Yes'}>
         Yes
       </Checkbox>
       <br/>
-      <Checkbox className="pb-2 pl-1 pr-4" onChange={handleShipping} value="No" checked={shipping === 'No'}>
+      <Checkbox className="pb-2" onChange={handleShipping} value="No" checked={shipping === 'No'}>
         No
       </Checkbox>
     </>
   )
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">
         <div className="col-md-3 pt-4">
           <h4>Search/Filter</h4>
@@ -288,7 +288,6 @@ const Shop = () => {
               <div>
                 <Slider
                   max={4999}
-                  className="ml-4 mr-4"
                   tipFormatter={(value) => `$${value}`}
                   range
                   value={price}
@@ -316,7 +315,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="4"
               title={<span className="h6"><DownSquareOutlined/> Sub Categories</span>}>
-              <div className="pl-4 pr-4">
+              <div>
                 {showSubs()}
               </div>
             </Menu.SubMenu>
@@ -324,7 +323,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="5"
               title={<span className="h6"><DownSquareOutlined/> Brands</span>}>
-              <div className="pl-4 pr-4">
+              <div>
                 {showBrands()}
               </div>
             </Menu.SubMenu>
@@ -332,7 +331,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="6"
               title={<span className="h6"><DownSquareOutlined/> Colors</span>}>
-              <div className="pl-4 pr-4">
+              <div>
                 {showColors()}
               </div>
             </Menu.SubMenu>
@@ -340,7 +339,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="7"
               title={<span className="h6"><DownSquareOutlined/> Shipping</span>}>
-              <div className="pl-4 pr-4">
+              <div>
                 {showShipping()}
               </div>
             </Menu.SubMenu>

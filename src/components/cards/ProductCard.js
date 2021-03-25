@@ -26,6 +26,7 @@ const ProductCard = ({ product }) => {
         </div>
       )}
       <Card
+
         hoverable
         cover={
           <img

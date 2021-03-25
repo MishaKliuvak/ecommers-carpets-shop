@@ -2,6 +2,9 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { SearchOutlined } from '@ant-design/icons'
+import { Input } from 'antd'
+
+const { Search } = Input
 
 const ProductSearch = () => {
   const dispatch = useDispatch()
@@ -24,14 +27,14 @@ const ProductSearch = () => {
 
   return (
     <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
-      <input
-        className="form-control mr-sm-2"
+      <Search
+        style={{ width: 200 }}
+        className="mt-1 mb-1"
         type="search"
         value={text}
         onChange={handleChange}
         placeholder="Search"
       />
-      <SearchOutlined  onClick={handleSubmit}  style={{ cursor: 'pointer' }} />
     </form>
   )
 }
