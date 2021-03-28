@@ -20,7 +20,7 @@ const Shop = () => {
   const [star, setStar] = useState('')
   const [subs, setSubs] = useState([])
   const [sub, setSub] = useState('')
-  const [brands, setBrands] = useState(['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'])
+  const [brands, setBrands] = useState(['IKEA', 'Karat', 'AW', 'ITC', 'Ideal', 'Kartal', 'Looshchoow', 'Penny', 'Sanat', 'Киевгума', 'Лущув'])
   const [selectedBrand, setSelectedBrand] = useState('')
   const [colors, setColors] = useState(['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'])
   const [selectedColor, setSelectedColor] = useState('')
@@ -157,7 +157,7 @@ const Shop = () => {
   }
 
   const showStars = () => (
-    <div className="pb-2">
+    <div className="pb-1 mt-1">
       <Star starClick={handleStarClick} numberOfStars={5}/>
       <Star starClick={handleStarClick} numberOfStars={4}/>
       <Star starClick={handleStarClick} numberOfStars={3}/>
@@ -279,11 +279,12 @@ const Shop = () => {
       <div className="row">
         <div className="col-md-3 pt-4">
           <h4>Search/Filter</h4>
-          <hr/>
+          <br/>
 
           <Menu defaultOpenKeys={['1', '2', '3', '4','5','6','7']} mode="inline">
             <Menu.SubMenu
               key="1"
+              style={{ borderTop: '2px solid #F0F0F0' }}
               title={<span className="h6"><DollarOutlined/> Price</span>}>
               <div>
                 <Slider
@@ -346,8 +347,7 @@ const Shop = () => {
           </Menu>
         </div>
 
-        <div className="col-md-9">
-          <h4 className="pt-4">{ loading ? 'Loading...' : 'Products' }</h4>
+        <div className="col-md-9 mt-5 pt-2">
           {products.length < 1 && <p>Products not found</p>}
 
           <div className="row pb-5">

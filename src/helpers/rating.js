@@ -1,7 +1,7 @@
 import React from 'react'
 import StarRatings from 'react-star-ratings'
 
-export const showAverage = (product) => {
+export const showAverage = (product, center = false) => {
   if (product && product.ratings) {
 
     let ratingsArray = product.ratings
@@ -16,7 +16,7 @@ export const showAverage = (product) => {
     let result = (totalReduced * 5) / highest
 
     return (
-      <div className="text-center pt-1 pb-3">
+      <div className={`${center ? 'text-center' : 'text-left'} pb-1`}>
         <span>
           <StarRatings
             starDimension="20px"

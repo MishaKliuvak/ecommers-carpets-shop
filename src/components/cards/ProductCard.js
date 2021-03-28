@@ -20,13 +20,13 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-      {product && product.ratings && product.ratings.length > 0 ? showAverage(product) : (
-        <div className="text-center pt-1 pb-3">
+      {product && product.ratings && product.ratings.length > 0 ? showAverage(product, true) : (
+        <div className="text-center pt-1 pb-1">
           No rating yet
         </div>
       )}
       <Card
-
+        className="mt-2"
         hoverable
         cover={
           <img

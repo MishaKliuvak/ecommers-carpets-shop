@@ -37,7 +37,11 @@ const ProductListItems = ({ product }) => {
         </li>
       )}
       { liItem(`Shipping: `, `${shipping}`) }
-      { liItem(`Color: `, `${color}`) }
+      <li className="list-group-item">
+        Color:
+        <span className="color-circle pull-xs-right" style={{ background: color }} />
+        <span className="label label-default label-pill pull-xs-right color-text">{color}</span>
+      </li>
       { liItem(`Brand: `, `${brand}`) }
       { liItem(`Available: `, `${quantity}`) }
       { liItem(`Sold: `, `${sold}`) }

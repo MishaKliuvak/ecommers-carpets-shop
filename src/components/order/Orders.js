@@ -21,16 +21,18 @@ const Orders = ({ orders, handleStatusChange }) => {
             <tbody>
             { order.products.map((product, i) => (
                 <tr key={i}>
-                    <td><b>{product.product.title}</b></td>
-                    <td>{product.product.price}</td>
-                    <td>{product.product.brand}</td>
-                    <td>{product.product.color}</td>
+                    <td><b>{product.product ? product.product.title : 'Продукт видалено'}</b></td>
+                    <td>{ product.product ? product.product.price : ''}</td>
+                    <td>{ product.product ? product.product.brand : ''}</td>
+                    <td>{ product.product ? product.product.color : ''}</td>
                     <td>{product.count}</td>
+
                     <td>
-                        { product.product.shipping === 'Yes'
-                            ? <CheckCircleOutlined className="text-success" />
-                            : <CloseCircleOutlined className="text-danger" />
+                        { product.product && product.product.shipping === 'Yes'
+                                ? <CheckCircleOutlined className="text-success"/>
+                                : <CloseCircleOutlined className="text-danger"/>
                         }
+
                     </td>
 
                 </tr>
@@ -48,20 +50,20 @@ const Orders = ({ orders, handleStatusChange }) => {
                     </div>
 
                     <div className="col-md-6" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                            <h6 className="mb-3">Delivery Status</h6>
+                        <h6 className="mb-3">Delivery Status</h6>
 
-                            <Select
-                                onChange={value => handleStatusChange(order._id, value)}
-                                defaultValue={ order.orderStatus }
-                                className="form-control text-center"
-                                name="status"
-                            >
-                                <Option value="Not processed">Not Processed</Option>
-                                <Option value="Processing">Processing</Option>
-                                <Option value="Dispatched">Dispatched</Option>
-                                <Option value="Cancelled">Cancelled</Option>
-                                <Option value="Completed">Completed</Option>
-                            </Select>
+                        <Select
+                            onChange={value => handleStatusChange(order._id, value)}
+                            defaultValue={ order.orderStatus }
+                            className="form-control text-center"
+                            name="status"
+                        >
+                            <Option value="Not processed">Not Processed</Option>
+                            <Option value="Processing">Processing</Option>
+                            <Option value="Dispatched">Dispatched</Option>
+                            <Option value="Cancelled">Cancelled</Option>
+                            <Option value="Completed">Completed</Option>
+                        </Select>
                     </div>
 
                     {showOrderInTable(order)}

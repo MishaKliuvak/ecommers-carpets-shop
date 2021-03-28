@@ -24,7 +24,7 @@ const initialState = {
 
   ],
   colors: ['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'],
+  brands: ['IKEA', 'Karat', 'AW', 'ITC', 'Ideal', 'Kartal', 'Looshchoow', 'Penny', 'Sanat', 'Киевгума', 'Лущув'],
   color: '',
   brand: ''
 }
@@ -60,6 +60,10 @@ const CreateProduct = () => {
     setValues({...values, [e.target.name]: e.target.value})
   }
 
+  const handleDescription = (description) => {
+    setValues({...values, description })
+  }
+
   const handleCategoryChange = e => {
     e.preventDefault()
     setValues({...values, subs: [], category: e.target.value})
@@ -74,7 +78,7 @@ const CreateProduct = () => {
 
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
@@ -99,6 +103,7 @@ const CreateProduct = () => {
             handleCategoryChange={handleCategoryChange}
             subOptions={subOptions}
             showSubs={showSubs}
+            handleDescription={handleDescription}
           />
         </div>
       </div>

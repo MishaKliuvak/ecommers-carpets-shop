@@ -21,6 +21,16 @@ const Cart = () => {
       .catch((err) => console.log(err))
   }
 
+  const saveCashOrder = () => {
+    dispatch({ type: 'COD', payload: true })
+    userCart(cart, user.token)
+        .then((res) => {
+          console.log(res)
+          if (res.data.ok) history.push(CHECKOUT)
+        })
+        .catch((err) => console.log(err))
+  }
+
   const showCartTable = () => (
     <table className="table table-bordered">
       <thead className="thead-light">
@@ -76,13 +86,23 @@ const Cart = () => {
 
           {
             user ? (
-              <button
-                className="btn btn-sm btn-primary mt-2"
-                onClick={saveOrder}
-                disabled={!cart.length}
-              >
-                Proceed to Checkout
-              </button>
+              <>
+                <button
+                    className="btn btn-sm btn-primary mt-2"
+                    onClick={saveOrder}
+                    disabled={!cart.length}
+                >
+                  Proceed to Checkout
+                </button>
+                <br/>
+                <button
+                    className="btn btn-sm btn-warning mt-2"
+                    onClick={saveCashOrder}
+                    disabled={!cart.length}
+                >
+                  Pay cash on Delivery
+                </button>
+              </>
             ) : (
                 <Link
                   className="btn btn-sm btn-primary mt-2"

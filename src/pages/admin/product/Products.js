@@ -48,7 +48,7 @@ const Products = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />

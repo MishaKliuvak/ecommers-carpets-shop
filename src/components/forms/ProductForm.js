@@ -1,8 +1,10 @@
 import React from 'react'
 import { Select } from 'antd'
+import ReactQuill from "react-quill"
+import 'react-quill/dist/quill.snow.css'
 const { Option } = Select
 
-const ProductForm = ({ handleSubmit, handleChange, values, handleCategoryChange, showSubs, subOptions, setValues }) => {
+const ProductForm = ({ handleDescription, handleSubmit, handleChange, values, handleCategoryChange, showSubs, subOptions, setValues }) => {
   // destructure
   const {
     title,
@@ -20,10 +22,12 @@ const ProductForm = ({ handleSubmit, handleChange, values, handleCategoryChange,
     brand
   } = values
 
+
+
   return (
     <form onSubmit={handleSubmit} >
       <div className="form-group">
-        <label>Title</label>
+        <h6>Title</h6>
         <input
           type="text"
           name="title"
@@ -34,18 +38,19 @@ const ProductForm = ({ handleSubmit, handleChange, values, handleCategoryChange,
       </div>
 
       <div className="form-group">
-        <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          className="form-control"
-          value={description}
-          onChange={handleChange}
-        />
+        <h6>Description</h6>
+        {/*<input*/}
+        {/*  type="text"*/}
+        {/*  name="description"*/}
+        {/*  className="form-control"*/}
+        {/*  value={description}*/}
+        {/*  onChange={handleChange}*/}
+        {/*/>*/}
+        <ReactQuill theme="snow" value={description} onChange={handleDescription} />
       </div>
 
       <div className="form-group">
-        <label>Price</label>
+        <h6>Price</h6>
         <input
           type="number"
           name="price"
@@ -56,20 +61,20 @@ const ProductForm = ({ handleSubmit, handleChange, values, handleCategoryChange,
       </div>
 
       <div className="form-group">
-        <label>Shipping</label>
+        <h6>Shipping</h6>
         <select
           name="shipping"
           className="form-control"
           onChange={handleChange}
         >
-          <option>Please select</option>
+            <option value="" disabled selected>Select your option</option>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
       </div>
 
       <div className="form-group">
-        <label>Quantity</label>
+        <h6>Quantity</h6>
         <input
           type="number"
           name="quantity"
@@ -80,38 +85,39 @@ const ProductForm = ({ handleSubmit, handleChange, values, handleCategoryChange,
       </div>
 
       <div className="form-group">
-        <label>Color</label>
+        <h6>Color</h6>
         <select
           name="color"
           className="form-control"
           onChange={handleChange}
         >
-          <option>Please select</option>
+            <option value="" disabled selected>Select your option</option>
           {colors.map(c => <option value={c} key={c}>{c}</option>)}
         </select>
       </div>
 
       <div className="form-group">
-        <label>Brand</label>
+        <h6>Brand</h6>
         <select
           name="brand"
           className="form-control"
           onChange={handleChange}
         >
-          <option>Please select</option>
+            <option value="" disabled selected>Select your option</option>
           {brands.map(b => <option value={b} key={b}>{b}</option>)}
         </select>
       </div>
 
       <div className="form-group">
-        <label>Category</label>
+        <h6>Category</h6>
 
         <select
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
+          placeholder="Please select"
         >
-          <option>Please, select</option>
+            <option value="" disabled selected>Select your option</option>
           {categories.length > 0 && categories.map((c) => (
             <option key={c._id} value={c._id}>
               {c.name}
@@ -122,7 +128,7 @@ const ProductForm = ({ handleSubmit, handleChange, values, handleCategoryChange,
 
       {showSubs && (
         <div>
-          <label>Sub-Category</label>
+          <h6>Sub-Category</h6>
           <Select
             className="mb-4"
             mode="multiple"

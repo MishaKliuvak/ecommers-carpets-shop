@@ -1,8 +1,9 @@
 import React from 'react'
 import { Select } from 'antd'
+import ReactQuill from "react-quill";
 const { Option } = Select
 
-const ProductUpdate = ({ handleSubmit, selectedCategory, handleChange, values, setValues, handleCategoryChange, categories, arrayOfSubIds, subOptions, setArrayOfSubIds }) => {
+const ProductUpdate = ({ handleSubmit, handleDescription, selectedCategory, handleChange, values, setValues, handleCategoryChange, categories, arrayOfSubIds, subOptions, setArrayOfSubIds }) => {
   // destructure
   const {
     title,
@@ -34,13 +35,7 @@ const ProductUpdate = ({ handleSubmit, selectedCategory, handleChange, values, s
 
       <div className="form-group">
         <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          className="form-control"
-          value={description}
-          onChange={handleChange}
-        />
+          <ReactQuill theme="snow" value={description} onChange={handleDescription} />
       </div>
 
       <div className="form-group">

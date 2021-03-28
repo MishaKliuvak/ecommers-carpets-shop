@@ -43,6 +43,13 @@ export const createOrder = async (stripeResponse, authToken) =>
     }
   })
 
+export const cashOrder = async (authToken, COD) =>
+    await base.post('/user/cash-order', { COD }, {
+        headers: {
+            authToken
+        }
+    })
+
 export const getUserOrders = async (authToken) =>
   await base.get('/user/orders', {
     headers: {

@@ -23,7 +23,7 @@ const initialState = {
   quantity: '',
   images: [],
   colors: ['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'],
+  brands: ['IKEA', 'Karat', 'AW', 'ITC', 'Ideal', 'Kartal', 'Looshchoow', 'Penny', 'Sanat', 'Киевгума', 'Лущув'],
   color: '',
   brand: ''
 }
@@ -52,8 +52,8 @@ const UpdateProduct = (props) => {
     getProduct(slug)
       .then((product) =>{
         // Single product
-        setValues({...values, ...product.data})
-
+        setValues({ ...values, ...product.data })
+        console.log({...product.data});
         // Category subs
         getCategorySubs(product.data.category._id)
           .then((subs) => setSubOptions(subs.data))
@@ -66,6 +66,7 @@ const UpdateProduct = (props) => {
         })
 
         setArrayOfSubIds(arr)
+
       })
       .catch((error) => {
         console.log(error)
@@ -93,6 +94,7 @@ const UpdateProduct = (props) => {
 
   const handleChange = (e) => {
     setValues({...values, [e.target.name]: e.target.value})
+    console.log(e);
   }
 
   const loadCategories = () =>
@@ -120,9 +122,12 @@ const UpdateProduct = (props) => {
     setArrayOfSubIds([])
   }
 
+  const handleDescription = (description) => {
+    setValues({...values, description })
+  }
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
@@ -137,7 +142,6 @@ const UpdateProduct = (props) => {
               setLoading={setLoading}
             />
           </div>
-
           <ProductUpdate
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -150,6 +154,7 @@ const UpdateProduct = (props) => {
             arrayOfSubIds={arrayOfSubIds}
             setArrayOfSubIds={setArrayOfSubIds}
             selectedCategory={selectedCategory}
+            handleDescription={handleDescription}
           />
           <hr/>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { getUserCart, emptyCart, saveUserAddress, applyCoupon } from '../axios/user'
+import { getUserCart, emptyCart, saveUserAddress, applyCoupon, cashOrder } from '../axios/user'
 import { toast } from 'react-toastify'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -18,7 +18,7 @@ const Checkout = () => {
   const history = useHistory()
 
   const dispatch = useDispatch()
-  const { user } = useSelector(state => ({...state}))
+  const { user, COD } = useSelector(state => ({...state}))
 
   useEffect(() => {
     if (user) {
@@ -102,6 +102,15 @@ const Checkout = () => {
       })
   }
 
+  const createCashOrder = () => {
+      cashOrder(user.token, COD)
+          .then(res => {
+              console.log(res.data);
+
+          })
+          .catch(err => console.log(err))
+  }
+
   const showApplyCoupon = () => (
     <>
       <input
@@ -155,13 +164,26 @@ const Checkout = () => {
 
         <div className="row">
           <div className="col-md-6">
-            <button
-              className="btn btn-primary"
-              disabled={!addressSaved || !products.length}
-              onClick={() => history.push(PAYMENT)}
-            >
-              Place Order
-            </button>
+              { COD
+                  ? (
+                      <button
+                          className="btn btn-primary"
+                          disabled={!addressSaved || !products.length}
+                          onClick={createCashOrder}
+                      >
+                          Place Order
+                      </button>
+                  )
+                  : (
+                      <button
+                          className="btn btn-primary"
+                          disabled={!addressSaved || !products.length}
+                          onClick={() => history.push(PAYMENT)}
+                      >
+                          Place Order
+                      </button>
+                  )
+              }
             <button
               className="btn btn-primary"
               disabled={!products.length}
