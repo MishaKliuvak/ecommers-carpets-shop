@@ -9,11 +9,13 @@ import { PRODUCT } from '../../constants/routes'
 
 import { showAverage } from '../../helpers/rating'
 import { handleAddToCard } from '../../helpers/cart'
+const { htmlToText } = require('html-to-text')
+
 const { Meta } = Card
 
 
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug, price } = product
+  const { title, description, images, slug, price, shipping } = product
   const [toolTip, setTooltip] = useState('Click to add')
 
   const dispatch = useDispatch()
@@ -57,9 +59,21 @@ const ProductCard = ({ product }) => {
       >
         <Meta
           style={{ overflow: 'hidden' }}
-          title={`${title} - $${price}`}
-          description={description && `${description}...`}
+          title={title}
+          description={description && <div>{htmlToText(description)}</div>}
         />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} className="mt-4 mb-0 ">
+          <div
+              className="available"
+              style={{
+                background: shipping === 'Yes' ? '#f6ffed' : '#fff1f0',
+                color: shipping === 'Yes' ? '#3f6600' : '#5c0011'
+              }}
+          >
+            { shipping === 'Yes' ? 'В наявності' : 'Відсутній'}
+          </div>
+          <h4 className="text-right mb-0">{price} ₴</h4>
+        </div>
       </Card>
     </>
   )

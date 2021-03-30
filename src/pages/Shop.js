@@ -7,8 +7,8 @@ import Star from '../components/forms/Star'
 import { getCategories } from '../axios/category'
 import { getSubs } from '../axios/sub'
 
-import { Menu, Slider, Checkbox, Radio } from 'antd'
-import { DollarOutlined, DownSquareOutlined, StarOutlined } from '@ant-design/icons'
+import { Menu, Slider, Checkbox, Radio, Empty } from 'antd'
+import { DollarOutlined, DownSquareOutlined, StarOutlined, BgColorsOutlined } from '@ant-design/icons'
 
 const Shop = () => {
   const [products, setProducts] = useState([])
@@ -25,7 +25,6 @@ const Shop = () => {
   const [colors, setColors] = useState(['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'])
   const [selectedColor, setSelectedColor] = useState('')
   const [shipping, setShipping] = useState('')
-
 
   const { search } = useSelector(state => ({...state}))
   const { text } = search
@@ -210,11 +209,13 @@ const Shop = () => {
   }
 
   const showBrands = () => brands.map(brand => (
-
-      <Radio key={brand} className="pb-1" value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
-        {brand}
+      <div key={brand} className="pb-1">
+        <Radio  value={brand} name={brand} checked={brand === selectedBrand} onChange={handleBrand}>
+          {brand}
+        </Radio>
         <br/>
-      </Radio>
+      </div>
+
   ))
 
   const handleColor = (e) => {
@@ -283,13 +284,15 @@ const Shop = () => {
 
           <Menu defaultOpenKeys={['1', '2', '3', '4','5','6','7']} mode="inline">
             <Menu.SubMenu
+              className="pt-3"
               key="1"
               style={{ borderTop: '2px solid #F0F0F0' }}
               title={<span className="h6"><DollarOutlined/> Price</span>}>
               <div>
                 <Slider
-                  max={4999}
-                  tipFormatter={(value) => `$${value}`}
+                  className="m-3"
+                  max={10999}
+                  tipFormatter={(value) => `₴ ${value}`}
                   range
                   value={price}
                   onChange={handleSlider}
@@ -300,7 +303,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="2"
               title={<span className="h6"><DownSquareOutlined/> Categories</span>}>
-              <div>
+              <div className="m-3">
                 {showCategories()}
               </div>
             </Menu.SubMenu>
@@ -308,7 +311,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="3"
               title={<span className="h6"><StarOutlined/> Rating</span>}>
-              <div style={{ marginTop: "-10px" }}>
+              <div className="m-3" style={{ marginTop: "-10px" }}>
                 {showStars()}
               </div>
             </Menu.SubMenu>
@@ -316,7 +319,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="4"
               title={<span className="h6"><DownSquareOutlined/> Sub Categories</span>}>
-              <div>
+              <div className="m-3">
                 {showSubs()}
               </div>
             </Menu.SubMenu>
@@ -324,15 +327,15 @@ const Shop = () => {
             <Menu.SubMenu
               key="5"
               title={<span className="h6"><DownSquareOutlined/> Brands</span>}>
-              <div>
+              <div className="m-3">
                 {showBrands()}
               </div>
             </Menu.SubMenu>
 
             <Menu.SubMenu
               key="6"
-              title={<span className="h6"><DownSquareOutlined/> Colors</span>}>
-              <div>
+              title={<span className="h6"><BgColorsOutlined /> Colors</span>}>
+              <div className="m-3">
                 {showColors()}
               </div>
             </Menu.SubMenu>
@@ -340,7 +343,7 @@ const Shop = () => {
             <Menu.SubMenu
               key="7"
               title={<span className="h6"><DownSquareOutlined/> Shipping</span>}>
-              <div>
+              <div className="m-3">
                 {showShipping()}
               </div>
             </Menu.SubMenu>
@@ -348,7 +351,12 @@ const Shop = () => {
         </div>
 
         <div className="col-md-9 mt-5 pt-2">
-          {products.length < 1 && <p>Products not found</p>}
+          { products.length < 1
+              && <Empty
+                    description="Продуктів не знайдено"
+                    className="text-center mt-5"
+                />
+          }
 
           <div className="row pb-5">
             {products.map(product => (

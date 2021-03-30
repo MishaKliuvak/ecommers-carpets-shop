@@ -7,10 +7,10 @@ import { LOGIN, PRODUCT } from '../../constants/routes'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { ModalContext } from '../../pages/Product'
+import TextArea from "antd/es/input/TextArea";
 
-const RatingModal = ({ children, onStarClick }) => {
+const RatingModal = ({ children, onStarClick, star, comment, setComment }) => {
   const { user } = useSelector((state) =>({...state}))
-
   const { modalVisible, setModalVisible } = useContext(ModalContext)
 
   let history = useHistory()
@@ -40,11 +40,19 @@ const RatingModal = ({ children, onStarClick }) => {
         visible={modalVisible}
         onOk={() => {
           onStarClick()
-          setModalVisible(false)
+          if (star !== 0)
+            setModalVisible(false)
         }}
         onCancel={() => setModalVisible(false)}
       >
         { children }
+          <TextArea
+              className="mt-4"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Ваші враження"
+              autoSize={{ minRows: 3, maxRows: 3 }}
+          />
       </Modal>
     </>
   )

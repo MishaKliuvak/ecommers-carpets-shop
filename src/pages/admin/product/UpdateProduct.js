@@ -12,7 +12,6 @@ import { getCategories, getCategorySubs } from '../../../axios/category'
 import { LoadingOutlined } from '@ant-design/icons'
 import { toast } from 'react-toastify'
 import { ADMIN_PRODUCTS } from '../../../constants/routes'
-
 const initialState = {
   title: '',
   description: '',
@@ -53,7 +52,6 @@ const UpdateProduct = (props) => {
       .then((product) =>{
         // Single product
         setValues({ ...values, ...product.data })
-        console.log({...product.data});
         // Category subs
         getCategorySubs(product.data.category._id)
           .then((subs) => setSubOptions(subs.data))
@@ -102,28 +100,31 @@ const UpdateProduct = (props) => {
       setCategories(c.data)
     })
 
-  const handleCategoryChange = e => {
-    e.preventDefault()
+  const handleSelect = (name, value) => {
+    setValues({...values, [name]: value})
+  }
+
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value)
     setValues({...values, subs: []})
 
-    setSelectedCategory(e.target.value)
+    getCategorySubs(value)
+        .then(res => {
+          setSubOptions(res.data)
+          setShowSubs(true)
+        })
+        .catch()
 
-    getCategorySubs(e.target.value)
-      .then(res => {
-        setSubOptions(res.data)
-        setShowSubs(true)
-      })
-      .catch()
-
-
-    if (values.category._id === e.target.value) {
+    if (values.category._id === value) {
       loadProduct()
     }
     setArrayOfSubIds([])
   }
 
+
   const handleDescription = (description) => {
-    setValues({...values, description })
+    if (values.quantity !== '')
+      setValues({...values, ['description']: description.toString() })
   }
 
   return (
@@ -150,6 +151,7 @@ const UpdateProduct = (props) => {
             categories={categories}
             handleCategoryChange={handleCategoryChange}
             subOptions={subOptions}
+            handleSelect={handleSelect}
             showSubs={showSubs}
             arrayOfSubIds={arrayOfSubIds}
             setArrayOfSubIds={setArrayOfSubIds}

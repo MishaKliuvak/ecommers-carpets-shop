@@ -41,17 +41,19 @@ const History = () => {
       <tbody>
       { order.products.map((product, i) => (
         <tr key={i}>
-          <td><b>{product.product.title}</b></td>
-          <td>{product.product.price}</td>
-          <td>{product.product.brand}</td>
-          <td>{product.product.color}</td>
-          <td>{product.count}</td>
-          <td>
-            { product.product.shipping === 'Yes'
-              ? <CheckCircleOutlined className="text-success" />
-              : <CloseCircleOutlined className="text-danger" />
-            }
-          </td>
+            <td><b>{product.product ? product.product.title : 'Продукт видалено'}</b></td>
+            <td>{ product.product ? product.product.price : ''}</td>
+            <td>{ product.product ? product.product.brand : ''}</td>
+            <td>{ product.product ? product.product.color : ''}</td>
+            <td>{product.count}</td>
+
+            <td>
+                { product.product && product.product.shipping === 'Yes'
+                    ? <CheckCircleOutlined className="text-success"/>
+                    : <CloseCircleOutlined className="text-danger"/>
+                }
+
+            </td>
 
         </tr>
       )) }

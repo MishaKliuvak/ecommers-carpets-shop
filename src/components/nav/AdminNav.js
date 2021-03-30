@@ -38,10 +38,6 @@ const AdminNav = () => {
         <li className="nav-item">
           <Link to={ADMIN_COUPONS} className="nav-link">Coupons</Link>
         </li>
-
-        <li className="nav-item">
-          <Link to={USER_PASSWORD} className="nav-link">Password</Link>
-        </li>
       </ul>
     </nav>
   )

@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom'
 import { ADMIN_UPDATE_SUB } from '../../../constants/routes'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import Search from '../../../components/forms/Search'
+import {Select} from "antd";
+const { Option } = Select
 
 
 const CreateSub = () => {
@@ -39,6 +41,10 @@ const CreateSub = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (category === '') {
+      toast.error('Заповніть поля')
+      return
+    }
     setLoading(true)
 
     createSub({ name, parent: category }, user.token)
@@ -81,29 +87,28 @@ const CreateSub = () => {
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col">
           <h4>{loading ? 'Loading...' : 'Create Sub-Category'}</h4>
-
+          <hr/>
           <div className="form-group">
-            <label>Parent category</label>
-
-            <select
-              name="category"
-              className="form-control"
-              onChange={e => setCategory(e.target.value)}
+            <h6>Parent category</h6>
+            <Select
+                name="category"
+                placeholder="Category"
+                style={{ width: '100%' }}
+                onChange={(value) => setCategory(value)}
             >
-              <option>Please, select</option>
               {categories.length > 0 && categories.map((c) => (
-                <option key={c._id} value={c._id}>
-                  {c.name}
-                </option>
+                  <Option key={c._id} value={c._id}>
+                    {c.name}
+                  </Option>
               ))}
-            </select>
+            </Select>
           </div>
 
           <CategoryForm
@@ -118,7 +123,7 @@ const CreateSub = () => {
           {subs.filter(searched(keyword)).map((s) => (
             <div
               key={s._id}
-              className="alert alert-secondary"
+              className="alert alert-secondary alert-custom"
             >
               {s.name}
               <span
@@ -131,7 +136,7 @@ const CreateSub = () => {
                 to={`${ADMIN_UPDATE_SUB}/${s.slug}`}
               >
                 <span className="btn btn-sm float-right">
-                  <EditOutlined className="text-warning"/>
+                  <EditOutlined className="text-primary"/>
                 </span>
               </Link>
             </div>

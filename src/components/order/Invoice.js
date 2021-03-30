@@ -21,15 +21,15 @@ const Invoice = ({ order }) => {
           </TableHeader>
         </Table>
 
-        <Table data={order.products}>
-          <TableBody>
-            <DataTableCell getContent={(x) => x.product.title} />
-            <DataTableCell getContent={(x) => `$${x.product.price}`} />
-            <DataTableCell getContent={(x) => x.count} />
-            <DataTableCell getContent={(x) => x.product.brand} />
-            <DataTableCell getContent={(x) => x.product.color} />
-          </TableBody>
-        </Table>
+        {/*<Table data={order.products}>*/}
+        {/*  <TableBody>*/}
+        {/*    <DataTableCell getContent={(x) => x.product.title} />*/}
+        {/*    <DataTableCell getContent={(x) => `$${x.product.price}`} />*/}
+        {/*    <DataTableCell getContent={(x) => x.count} />*/}
+        {/*    <DataTableCell getContent={(x) => x.product.brand} />*/}
+        {/*    <DataTableCell getContent={(x) => x.product.color} />*/}
+        {/*  </TableBody>*/}
+        {/*</Table>*/}
 
         <Text style={styles.text}>
           <Text>Date: {new Date(order.paymentIntent.created * 1000).toLocaleString()}</Text>{'\n'}

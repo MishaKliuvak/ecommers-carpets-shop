@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Tabs, Tooltip } from 'antd'
+import { Card, Comment, Tabs, Tooltip } from 'antd'
 import { EyeOutlined, HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
@@ -18,7 +18,7 @@ import { useHistory } from 'react-router-dom'
 
 const { TabPane } = Tabs
 
-const SingleProduct = ({ product, onStarClick, star, setStar }) => {
+const SingleProduct = ({ product, onStarClick, star, setStar, comment, setComment }) => {
   const { title, images, slug, description, _id } = product
   const [toolTip, setTooltip] = useState('Click to add')
 
@@ -92,7 +92,7 @@ const SingleProduct = ({ product, onStarClick, star, setStar }) => {
               Add to Wishlist
             </div>,
 
-            <RatingModal onStarClick={onStarClick} >
+            <RatingModal onStarClick={onStarClick} star={star} comment={comment} setComment={setComment}>
               <StarRatings
                 name={_id}
                 numberOfStars={5}
@@ -114,17 +114,37 @@ const SingleProduct = ({ product, onStarClick, star, setStar }) => {
           type="card"
         >
           <TabPane
-            tab="Description"
+            tab="Опис"
             key={1}
           >
             {description && <div dangerouslySetInnerHTML={{ __html: description }} />}
           </TabPane>
 
           <TabPane
-            tab="More"
+            tab="Відгуки"
             key={2}
           >
-            Call use on xxxx xxxx xxxx xxxx
+            { product.ratings && product.ratings.length ? product.ratings.map(rating => (
+                <Comment
+                  className="mb-3"
+                  author={<a>{rating.postedBy.name}</a>}
+                  content={
+                    <div>
+                      <StarRatings
+                        name={_id}
+                        numberOfStars={5}
+                        starDimension="15px"
+                        starSpacing="2px"
+                        starRatedColor="red"
+                        rating={rating.star}
+                      />
+                      <br/>
+                      { rating.text && <div className="mt-2">{rating.text}</div> }
+                    </div>
+                  }
+                />
+            )) : <p className="text-center">Поки немає відгуків</p>}
+
           </TabPane>
         </Tabs>
       </div>

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 
 import SingleProduct from '../components/cards/SingleProduct'
 import ProductCard from '../components/cards/ProductCard'
+import {toast} from "react-toastify";
 
 export const ModalContext = createContext()
 
@@ -15,7 +16,7 @@ const Product = () => {
   const [star, setStar] = useState(0)
   const [related, setRelated] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
-
+  const [comment, setComment] = useState('')
 
   const { slug } = useParams()
   const { user } = useSelector(state => ({...state}))
@@ -46,8 +47,11 @@ const Product = () => {
 
   const onStarClick = () => {
     //setStar(newRating)
-
-    productStar(product._id, star, user.token)
+     if (star === 0) {
+         toast.error('Виберіть оцінку')
+         return;
+     }
+    productStar(product._id, star, comment, user.token)
       .then((res) => {
         console.log(res.data)
         loadProduct()
@@ -64,6 +68,8 @@ const Product = () => {
             onStarClick={onStarClick}
             star={star}
             setStar={setStar}
+            comment={comment}
+            setComment={setComment}
           />
         </ModalContext.Provider>
       </div>

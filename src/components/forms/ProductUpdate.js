@@ -1,9 +1,11 @@
 import React from 'react'
-import { Select } from 'antd'
+import {Input, Select} from "antd";
 import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
+import {DollarOutlined, FieldNumberOutlined} from "@ant-design/icons";
 const { Option } = Select
 
-const ProductUpdate = ({ handleSubmit, handleDescription, selectedCategory, handleChange, values, setValues, handleCategoryChange, categories, arrayOfSubIds, subOptions, setArrayOfSubIds }) => {
+const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDescription, selectedCategory, handleChange,  handleCategoryChange, categories, arrayOfSubIds, subOptions, setArrayOfSubIds }) => {
   // destructure
   const {
     title,
@@ -22,95 +24,105 @@ const ProductUpdate = ({ handleSubmit, handleDescription, selectedCategory, hand
 
   return (
     <form onSubmit={handleSubmit} >
-      <div className="form-group">
-        <label>Title</label>
-        <input
-          type="text"
-          name="title"
-          className="form-control"
-          value={title}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="form-group mb-4">
+            <h6>Title</h6>
+            <Input
+                placeholder="Title"
+                type="text"
+                name="title"
+                required
+                value={title}
+                onChange={handleChange}
+            />
+        </div>
 
-      <div className="form-group">
-        <label>Description</label>
-          <ReactQuill theme="snow" value={description} onChange={handleDescription} />
-      </div>
+        <div className="form-group mb-4">
+            <h6>Description</h6>
+            <ReactQuill required theme="snow" value={description} onChange={handleDescription} />
+        </div>
 
-      <div className="form-group">
-        <label>Price</label>
-        <input
-          type="number"
-          name="price"
-          className="form-control"
-          value={price}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="form-group mb-4">
+            <h6>Price</h6>
+            <Input
+                placeholder="Price"
+                type="number"
+                required
+                prefix={<DollarOutlined className="mr-1" />}
+                name="price"
+                value={price}
+                onChange={handleChange}
+            />
+        </div>
 
-      <div className="form-group">
-        <label>Shipping</label>
-        <select
-          value={shipping}
-          name="shipping"
-          className="form-control"
-          onChange={handleChange}
-        >
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-      </div>
+        <div className="form-group mb-4">
+            <h6>Shipping</h6>
+            <Select
+                placeholder="Shipping"
+                style={{ width: '100%' }}
+                value={shipping}
+                name="shipping"
+                onChange={(value) => handleSelect('shipping', value)}
+            >
+                <Option value="Yes">Yes</Option>
+                <Option value="No">No</Option>
+            </Select>
+        </div>
 
-      <div className="form-group">
-        <label>Quantity</label>
-        <input
-          type="number"
-          name="quantity"
-          className="form-control"
-          value={quantity}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="form-group mb-4">
+            <h6>Quantity</h6>
+            <Input
+                required
+                type="number"
+                name="quantity"
+                placeholder="Quantity"
+                prefix={<FieldNumberOutlined className="mr-1" />}
+                value={quantity}
+                onChange={handleChange}
+            />
+        </div>
 
-      <div className="form-group">
-        <label>Color</label>
-        <select
-          value={color}
-          name="color"
-          className="form-control"
-          onChange={handleChange}
-        >
-          {colors.map(c => <option value={c} key={c}>{c}</option>)}
-        </select>
-      </div>
+        <div className="form-group mb-4">
+            <h6>Color</h6>
+            <Select
+                name="color"
+                placeholder="Color"
+                required
+                value={color}
+                style={{ width: '100%' }}
+                onChange={(value) => handleSelect('color', value)}
+            >
+                {colors.map(c => <Option value={c} key={c}>{c}</Option>)}
+            </Select>
+        </div>
 
-      <div className="form-group">
-        <label>Brand</label>
-        <select
-          value={brand}
-          name="brand"
-          className="form-control"
-          onChange={handleChange}
-        >
-          {brands.map(b => <option value={b} key={b}>{b}</option>)}
-        </select>
-      </div>
+        <div className="form-group mb-4">
+            <h6>Brand</h6>
+            <Select
+                name="brand"
+                placeholder="Brand"
+                required
+                value={brand}
+                style={{ width: '100%' }}
+                onChange={(value) => handleSelect('brand', value)}
+            >
+                {brands.map(b => <Option value={b} key={b}>{b}</Option>)}
+            </Select>
+        </div>
 
       <div className="form-group">
         <label>Category</label>
-        <select
+        <Select
           value={selectedCategory ? selectedCategory : category._id }
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
         >
           {categories.length > 0 && categories.map((c) => (
-            <option key={c._id} value={c._id}>
+            <Option key={c._id} value={c._id}>
               {c.name}
-            </option>
+            </Option>
           ))}
-        </select>
+        </Select>
       </div>
 
 

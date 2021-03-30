@@ -1,10 +1,11 @@
 import React from 'react'
-import { Select } from 'antd'
+import { Select, Input, Form } from 'antd'
 import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css'
+import {DollarOutlined, FieldNumberOutlined} from "@ant-design/icons";
 const { Option } = Select
 
-const ProductForm = ({ handleDescription, handleSubmit, handleChange, values, handleCategoryChange, showSubs, subOptions, setValues }) => {
+const ProductForm = ({ handleSelect, handleDescription, handleSubmit, handleChange, values, handleCategoryChange, showSubs, subOptions, setValues }) => {
   // destructure
   const {
     title,
@@ -22,108 +23,108 @@ const ProductForm = ({ handleDescription, handleSubmit, handleChange, values, ha
     brand
   } = values
 
-
+  const [form] = Form.useForm()
 
   return (
     <form onSubmit={handleSubmit} >
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Title</h6>
-        <input
+        <Input
+          placeholder="Title"
           type="text"
           name="title"
-          className="form-control"
+          required
           value={title}
           onChange={handleChange}
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Description</h6>
-        {/*<input*/}
-        {/*  type="text"*/}
-        {/*  name="description"*/}
-        {/*  className="form-control"*/}
-        {/*  value={description}*/}
-        {/*  onChange={handleChange}*/}
-        {/*/>*/}
-        <ReactQuill theme="snow" value={description} onChange={handleDescription} />
+        <ReactQuill required theme="snow" value={description} onChange={handleDescription} />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Price</h6>
-        <input
+        <Input
+          placeholder="Price"
           type="number"
+          required
+          prefix={<DollarOutlined className="mr-1" />}
           name="price"
-          className="form-control"
           value={price}
           onChange={handleChange}
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Shipping</h6>
-        <select
+        <Select
+          placeholder="Shipping"
+          style={{ width: '100%' }}
           name="shipping"
-          className="form-control"
-          onChange={handleChange}
+          onChange={(value) => handleSelect('shipping', value)}
         >
-            <option value="" disabled selected>Select your option</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
+          <Option value="Yes">Yes</Option>
+          <Option value="No">No</Option>
+        </Select>
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Quantity</h6>
-        <input
+        <Input
+          required
           type="number"
           name="quantity"
-          className="form-control"
+          placeholder="Quantity"
+          prefix={<FieldNumberOutlined className="mr-1" />}
           value={quantity}
           onChange={handleChange}
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Color</h6>
-        <select
+        <Select
           name="color"
-          className="form-control"
-          onChange={handleChange}
+          placeholder="Color"
+          required
+          style={{ width: '100%' }}
+          onChange={(value) => handleSelect('color', value)}
         >
-            <option value="" disabled selected>Select your option</option>
-          {colors.map(c => <option value={c} key={c}>{c}</option>)}
-        </select>
+          {colors.map(c => <Option value={c} key={c}>{c}</Option>)}
+        </Select>
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Brand</h6>
-        <select
+        <Select
           name="brand"
-          className="form-control"
-          onChange={handleChange}
+          placeholder="Brand"
+          required
+          style={{ width: '100%' }}
+          onChange={(value) => handleSelect('brand', value)}
         >
-            <option value="" disabled selected>Select your option</option>
-          {brands.map(b => <option value={b} key={b}>{b}</option>)}
-        </select>
+          {brands.map(b => <Option value={b} key={b}>{b}</Option>)}
+        </Select>
       </div>
 
-      <div className="form-group">
+      <div className="form-group mb-4">
         <h6>Category</h6>
 
-        <select
+        <Select
           name="category"
-          className="form-control"
-          onChange={handleCategoryChange}
-          placeholder="Please select"
+          placeholder="Category"
+          required
+          style={{ width: '100%' }}
+          onChange={(value) => handleCategoryChange('category', value)}
         >
-            <option value="" disabled selected>Select your option</option>
           {categories.length > 0 && categories.map((c) => (
-            <option key={c._id} value={c._id}>
+            <Option key={c._id} value={c._id}>
               {c.name}
-            </option>
+            </Option>
           ))}
-        </select>
+        </Select>
       </div>
 
       {showSubs && (

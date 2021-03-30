@@ -5,7 +5,8 @@ import { getUserCart, emptyCart, saveUserAddress, applyCoupon, cashOrder } from 
 import { toast } from 'react-toastify'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import { PAYMENT } from '../constants/routes'
+import {PAYMENT, USER_HISTORY} from "../constants/routes";
+import {Tag} from "antd";
 
 const Checkout = () => {
   const [products, setProducts] = useState([])
@@ -18,7 +19,7 @@ const Checkout = () => {
   const history = useHistory()
 
   const dispatch = useDispatch()
-  const { user, COD } = useSelector(state => ({...state}))
+  const { user, COD, coupon } = useSelector(state => ({...state}))
 
   useEffect(() => {
     if (user) {
@@ -66,7 +67,7 @@ const Checkout = () => {
   const showAddress = () => (
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      <button className="btn btn-primary mt-2" onClick={saveAddress}>
+      <button style={{ width: '100%'}} className="btn btn-outline-primary mt-3" onClick={saveAddress}>
         Save
       </button>
     </>
@@ -76,7 +77,9 @@ const Checkout = () => {
     <>
       {products.length && products.map((product, i) => (
         <div key={i}>
-          <p>{product.product.title} ({product.product.color}) x {product.count} = {product.product.price * product.count}</p>
+            <p style={{ background: '#f9f9f9', padding: '5px', border: '1px solid rgba(0,0,0,.1)'}}>
+                {product.product.title} <span style={{ color: 'rgba(0,0,0,.3)'}}>x {product.count}</span> = <b>₴ {product.count * product.product.price}</b>
+            </p>
         </div>
       ))}
     </>
@@ -103,10 +106,19 @@ const Checkout = () => {
   }
 
   const createCashOrder = () => {
-      cashOrder(user.token, COD)
+      cashOrder(user.token, COD, coupon)
           .then(res => {
-              console.log(res.data);
+              if (res.data.ok) {
+                  if (typeof window !== 'undefined') localStorage.removeItem('cart')
+                  dispatch({ type: 'ADD_TO_CART', payload: [] })
+                  dispatch({ type: 'COUPON_APPLIED', payload: false })
+                  dispatch({ type: 'COD', payload: false })
+                  emptyCart(user.token)
+                  setTimeout(() => {
+                    history.push(USER_HISTORY)
+                  }, 1000)
 
+              }
           })
           .catch(err => console.log(err))
   }
@@ -124,7 +136,7 @@ const Checkout = () => {
         value={couponEntered}
       />
       <button
-        className="btn btn-primary mt-4"
+          style={{ width: '100%'}} className="btn btn-raised btn-primary mt-3"
         onClick={applyCouponHandler}
       >
         Apply
@@ -133,68 +145,69 @@ const Checkout = () => {
   )
 
   return (
-    <div className="row mt-4 ml-4 mr-4">
-      <div className="col-md-6 ">
-        <h4 className="mb-4">Delivery Address</h4>
+      <div className="container mt-4">
+          <div className="row mt-4 ml-4 mr-4">
+              <div className="col-md-6 ">
+                  <h4 className="mb-3">Delivery Address</h4>
+                  <hr/>
+                  {showAddress()}
+                  <br/><br/>
 
-        {showAddress()}
-        <hr/>
+                  <h4 className="mb-3">Got Coupon?</h4>
+                  {showApplyCoupon()}
+                  {discountError && <div className="mt-2 float-right text-danger">{discountError}</div>}
+              </div>
 
-        <h4 className="mb-3">Got Coupon?</h4>
-        {showApplyCoupon()}
-        {discountError && <div className="mt-2 float-right text-danger">{discountError}</div>}
-      </div>
+              <div className="col-md-6">
+                  <h4 className="mb-2">Order Summary</h4>
+                  <hr/>
 
-      <div className="col-md-6">
-        <h4 className="mb-2">Order Summary</h4>
-        <hr/>
+                  {showProductSummary()}
+                  <hr/>
 
-        <p>Products {products.length}</p>
-        <hr/>
+                  <p style={{ fontSize: '16px' }} className="mb-3 text-right">
+                      Total: <b>&nbsp; ₴ {total}</b>
+                  </p>
+                  {totalAfterDiscount > 0 && (
+                      <Tag style={{ fontSize: '14px', width: '100%', padding: '5px' }} className="mb-3" color="success">
+                          Discount Applied: <b>${totalAfterDiscount}</b>
+                      </Tag>
+                  )}
 
-        {showProductSummary()}
-        <hr/>
-
-        <p>Cart total: ${total}</p>
-        {totalAfterDiscount > 0 && (
-          <p className="p-2 bg-success">
-            Discount Applied: ${totalAfterDiscount}
-          </p>
-        )}
-
-        <div className="row">
-          <div className="col-md-6">
-              { COD
-                  ? (
-                      <button
-                          className="btn btn-primary"
-                          disabled={!addressSaved || !products.length}
-                          onClick={createCashOrder}
-                      >
-                          Place Order
-                      </button>
-                  )
-                  : (
-                      <button
-                          className="btn btn-primary"
-                          disabled={!addressSaved || !products.length}
-                          onClick={() => history.push(PAYMENT)}
-                      >
-                          Place Order
-                      </button>
-                  )
-              }
-            <button
-              className="btn btn-primary"
-              disabled={!products.length}
-              onClick={removeCart}
-            >
-              Empty Cart
-            </button>
+                  <div className="row">
+                      <div className="col-md-6" style={{ display: 'flex' }}>
+                          { COD
+                              ? (
+                                  <button
+                                      className="btn mr-3 btn-primary btn-raised"
+                                      disabled={!addressSaved || !products.length}
+                                      onClick={createCashOrder}
+                                  >
+                                      Place Order
+                                  </button>
+                              )
+                              : (
+                                  <button
+                                      className="btn mr-3 btn-primary btn-raised"
+                                      disabled={!addressSaved || !products.length}
+                                      onClick={() => history.push(PAYMENT)}
+                                  >
+                                      Place Order
+                                  </button>
+                              )
+                          }
+                          <button
+                              className="btn btn-outline-primary"
+                              disabled={!products.length}
+                              onClick={removeCart}
+                          >
+                              Empty Cart
+                          </button>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   )
 }
 

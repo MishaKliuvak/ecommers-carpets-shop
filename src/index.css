@@ -33,3 +33,13 @@
     border-radius: 50%;
 }
 
+.available {
+    padding: 5px 13px;
+    border-radius: 10px;
+}
+
+.alert-custom {
+    background: #fdfdfd;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+}

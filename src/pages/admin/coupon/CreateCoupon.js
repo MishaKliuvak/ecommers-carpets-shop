@@ -6,10 +6,11 @@ import { getCoupons, removeCoupon, createCoupon } from '../../../axios/coupon'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DeleteOutlined, LoadingOutlined  } from '@ant-design/icons'
 import AdminNav from '../../../components/nav/AdminNav'
+import {Input} from "antd";
 
 const CreateCoupon = () => {
   const [name, setName] = useState('')
-  const [expiry, setExpiry] = useState('')
+  const [expiry, setExpiry] = useState(new Date())
   const [discount, setDiscount] = useState('')
   const [loading, setLoading] = useState('')
   const [coupons, setCoupons] = useState([])
@@ -35,7 +36,7 @@ const CreateCoupon = () => {
     createCoupon({ name, expiry, discount }, user.token)
       .then((res) => {
         setName('')
-        setExpiry('')
+        setExpiry(new Date())
         setDiscount('')
 
         loadAllCoupons()
@@ -61,44 +62,48 @@ const CreateCoupon = () => {
   }
 
   return (
-    <div className="container-fluid pt-4">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4 className="pb-4">Create Coupon { loading && <LoadingOutlined /> }</h4>
+          <h4>Create Coupon { loading && <LoadingOutlined /> }</h4>
+          <hr/>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label className="text-muted">Name:</label>
-              <input
-                type="text"
-                className="form-control"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                autoFocus
-                required
+              <h6>Name:</h6>
+              <Input
+                  placeholder="Name"
+                  autoFocus
+                  type="text"
+                  required
+                  className="mb-3"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
               />
             </div>
 
             <div className="form-group">
-              <label className="text-muted">Discount %:</label>
-              <input
-                type="number"
-                min="1"
-                max="99"
-                className="form-control"
-                value={discount}
-                onChange={(e) => setDiscount(e.target.value)}
-                required
+              <h6>Discount %:</h6>
+              <Input
+                  placeholder="Знижка"
+                  min="1"
+                  max="99"
+                  type="number"
+                  required
+                  className="mb-3"
+                  value={discount}
+                  onChange={e => setDiscount(e.target.value)}
               />
             </div>
 
             <div className="form-group">
-              <label className="text-muted">Expiry:</label>
-              <br/>
+              <h6>Expiry:</h6>
               <DatePicker
-                className="form-control"
+                className="ant-input pointer"
+                placeholder="Дата дії"
+                defaultValue={new Date()}
                 selected={new Date()}
                 value={expiry}
                 required

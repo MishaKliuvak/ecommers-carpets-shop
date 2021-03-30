@@ -46,6 +46,11 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (values.brand === '' || values.color === '' || values.shipping === '' || values.category === '') {
+      toast.error('Заповніть поля')
+      console.log(values);
+      return
+    }
     createProduct(values, user.token)
       .then((res) => {
         window.alert(`${res.data.title} is created`)
@@ -60,15 +65,18 @@ const CreateProduct = () => {
     setValues({...values, [e.target.name]: e.target.value})
   }
 
+  const handleSelect = (name, value) => {
+    setValues({...values, [name]: value})
+  }
+
   const handleDescription = (description) => {
     setValues({...values, description })
   }
 
-  const handleCategoryChange = e => {
-    e.preventDefault()
-    setValues({...values, subs: [], category: e.target.value})
+  const handleCategoryChange = (name, value) => {
+    setValues({...values, subs: [], [name]: value})
 
-    getCategorySubs(e.target.value)
+    getCategorySubs(value)
       .then(res => {
         setSubOptions(res.data)
         setShowSubs(true)
@@ -99,6 +107,7 @@ const CreateProduct = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             values={values}
+            handleSelect={handleSelect}
             setValues={setValues}
             handleCategoryChange={handleCategoryChange}
             subOptions={subOptions}
