@@ -82,14 +82,14 @@ const SingleProduct = ({ product, onStarClick, star, setStar, comment, setCommen
               <div onClick={() => handleAddToCard(product, dispatch, setTooltip)}>
                 <ShoppingCartOutlined className="text-primary"/>
                 <br/>
-                Add to Cart
+                В корзину
               </div>
             </Tooltip>,
 
             <div onClick={handleAddToWishlist}>
               <HeartOutlined  className="text-info" />
               <br/>
-              Add to Wishlist
+              В улюблені
             </div>,
 
             <RatingModal onStarClick={onStarClick} star={star} comment={comment} setComment={setComment}>

@@ -30,12 +30,12 @@ const History = () => {
     <table className="table table-bordered">
       <thead className="thead-light">
       <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Color</th>
-        <th scope="col">Count</th>
-        <th scope="col">Shipping</th>
+        <th scope="col">Назва</th>
+        <th scope="col">Вартість</th>
+        <th scope="col">Бренд</th>
+        <th scope="col">Колір</th>
+        <th scope="col">К-сть</th>
+        <th scope="col">Наявність</th>
       </tr>
       </thead>
       <tbody>
@@ -63,35 +63,37 @@ const History = () => {
 
   const showDownloadLink = (order) => (
     <PDFDownloadLink
+        disabled
       document={ <Invoice order={order} /> }
       fileName="invoice.pdf"
       className="btn btn-sm btn-block btn-outline-primary"
     >
-      Download PDF
+      Завантажити PDF квитанцію
     </PDFDownloadLink>
   )
 
   const showEachOrders = () => orders.map((order, i) => (
-    <div key={i} className="m-5 p-3 card">
+    <div key={i} className="mb-4 p-3 card">
       <ShowPaymentInfo  order={order} />
       {showOrderInTable(order)}
-      <div className="row">
-        <div className="col">
-          {showDownloadLink(order)}
-        </div>
-      </div>
+      {/*<div className="row">*/}
+      {/*  <div className="col">*/}
+      {/*    {showDownloadLink(order)}*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </div>
   ))
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <UserNav />
         </div>
-        <div className="col text-center">
-          <h4>{ orders.length > 0 ? 'User purchase orders' : 'No purchase orders' }</h4>
-          {showEachOrders()}
+        <div className="col-md-10">
+          <h4>{ orders.length > 0 ? 'Ваші замовлення' : 'Замовлення відсутні' }</h4>
+            <hr/>
+            {showEachOrders()}
         </div>
       </div>
     </div>

@@ -59,7 +59,7 @@ const UpdateCategory = () => {
             handleSubmit={handleSubmit}
             name={name}
             setName={setName}
-            text="Change"
+            text="Зберегти"
           />
         </div>
       </div>

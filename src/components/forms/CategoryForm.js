@@ -8,9 +8,9 @@ const CategoryForm = ({ name, setName, handleSubmit, text }) => {
     <form
       onSubmit={handleSubmit}>
       <div className="form-group">
-          <h6>Name</h6>
+          <h6>Назва</h6>
           <Input
-              placeholder="Name"
+              placeholder="Назва"
               autoFocus
               type="text"
               required

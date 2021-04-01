@@ -68,13 +68,13 @@ const CreateCoupon = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Create Coupon { loading && <LoadingOutlined /> }</h4>
+          <h4>Купони { loading && <LoadingOutlined /> }</h4>
           <hr/>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <h6>Name:</h6>
+              <h6>Назва:</h6>
               <Input
-                  placeholder="Name"
+                  placeholder="Назва"
                   autoFocus
                   type="text"
                   required
@@ -85,9 +85,9 @@ const CreateCoupon = () => {
             </div>
 
             <div className="form-group">
-              <h6>Discount %:</h6>
+              <h6>Скидка %:</h6>
               <Input
-                  placeholder="Знижка"
+                  placeholder="Скидка"
                   min="1"
                   max="99"
                   type="number"
@@ -99,7 +99,7 @@ const CreateCoupon = () => {
             </div>
 
             <div className="form-group">
-              <h6>Expiry:</h6>
+              <h6>Дата дії:</h6>
               <DatePicker
                 className="ant-input pointer"
                 placeholder="Дата дії"
@@ -111,18 +111,18 @@ const CreateCoupon = () => {
               />
             </div>
 
-            <button className="btn btn-outline-primary">Save</button>
+            <button className="btn btn-outline-primary">Додати</button>
           </form>
           <br/>
 
-          <h4 className="pb-4">{coupons.length} Coupons</h4>
+          <h4 className="pb-4">{coupons.length} купонів</h4>
           <table className="table table-bordered">
             <thead className="thead-light">
               <tr>
-                <th scope="col">Name:</th>
-                <th scope="col">Expiry:</th>
-                <th scope="col">Discount:</th>
-                <th scope="col">Remove:</th>
+                <th scope="col">Назва:</th>
+                <th scope="col">Термін:</th>
+                <th scope="col">Скидка:</th>
+                <th scope="col">Видалити:</th>
               </tr>
             </thead>
             <tbody>

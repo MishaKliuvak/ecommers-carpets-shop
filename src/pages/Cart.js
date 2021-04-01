@@ -46,14 +46,14 @@ const Cart = () => {
           <table className="table table-bordered" style={style}>
               <thead className="thead-light">
               <tr>
-                  { size.width > 766 && <th scope="col" style={style}>Image</th> }
-                  <th scope="col" style={style}>Title</th>
-                  <th scope="col" style={style}>Price</th>
-                  <th scope="col" style={style}>Brand</th>
-                  <th scope="col" style={style}>Color</th>
-                  <th scope="col" style={style}>Count</th>
-                  <th scope="col" style={style}>Shipping</th>
-                  <th scope="col" style={style}>Remove</th>
+                  { size.width > 766 && <th scope="col" style={style}>Зображення</th> }
+                  <th scope="col" style={style}>Назва</th>
+                  <th scope="col" style={style}>Ціна</th>
+                  <th scope="col" style={style}>Бренд</th>
+                  <th scope="col" style={style}>Колір</th>
+                  <th scope="col" style={style}>К-сть</th>
+                  <th scope="col" style={style}>Наявність</th>
+                  <th scope="col" style={style}>Видалити</th>
               </tr>
               </thead>
               <tbody>
@@ -71,11 +71,11 @@ const Cart = () => {
     <div className="container mt-4">
       <div className="row">
         <div className="col-md-8">
-          <h4 style={{ fontSize: size.width < 991 && size.width > 766  && '.8rem' }}>Cart ({cart.length} products)</h4>
+          <h4 style={{ fontSize: size.width < 991 && size.width > 766  && '.8rem' }}>Корзина ({cart.length})</h4>
           <hr/>
           {!cart.length ?
             <p>
-              Cart is empty. <Link to={SHOP}>Continue Shopping</Link>
+              Корзина порожня. <Link to={SHOP}>Продовжити покупки</Link>
             </p>
             : (
               showCartTable()
@@ -83,7 +83,7 @@ const Cart = () => {
         </div>
 
         <div className="col-md-4">
-          <h4 style={{ fontSize: size.width < 991 && size.width > 766  && '.8rem' }}>Order Summary</h4>
+          <h4 style={{ fontSize: size.width < 991 && size.width > 766  && '.8rem' }}>Чек</h4>
           <hr/>
 
           {cart.map((c,i) => (
@@ -95,7 +95,7 @@ const Cart = () => {
           ))}
           <hr/>
             <p  style={{ fontSize: '16px' }}  className="mb-3 text-right" color="default">
-                Total: <b>&nbsp; ₴ {getTotal()}</b>
+                До сплати: <b>&nbsp; ₴ {getTotal()}</b>
             </p>
 
 
@@ -108,7 +108,7 @@ const Cart = () => {
                     style={{ width: '100%', fontSize: size.width < 991 && size.width > 766  && '.5rem', padding: '10px'}}
                     disabled={!cart.length}
                 >
-                  Proceed to Checkout
+                  Перейти до оплати
                 </button>
                   <br/>
                 <button
@@ -117,7 +117,7 @@ const Cart = () => {
                     style={{ width: '100%', fontSize: size.width < 991 && size.width > 766  && '.5rem', padding: '10px' }}
                     disabled={!cart.length}
                 >
-                  Pay cash on Delivery
+                  Оплата при отриманні
                 </button>
               </div>
             ) : (
@@ -128,7 +128,7 @@ const Cart = () => {
                     state: { from: CART },
                   }}
                 >
-                  Login to Checkout
+                  Вхід для продовження
                 </Link>
             )
           }

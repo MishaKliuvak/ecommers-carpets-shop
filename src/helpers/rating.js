@@ -25,7 +25,7 @@ export const showAverage = (product, center = false) => {
             editing={false}
             rating={result}
           />
-          &nbsp; ({product.ratings.length} votes)
+          &nbsp; ({product.ratings.length})
         </span>
       </div>
     )

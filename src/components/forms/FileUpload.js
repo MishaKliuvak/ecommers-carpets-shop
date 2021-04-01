@@ -69,7 +69,7 @@ const FileUpload = ({ values, setValues, setLoading }) => {
 
       <div className="row">
         <label className="btn btn-primary btn-raised">
-          Choose file
+          Завантажити зображення
           <input
             type="file"
             multiple

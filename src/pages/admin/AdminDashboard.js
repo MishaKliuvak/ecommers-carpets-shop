@@ -40,7 +40,7 @@ const AdminDashboard = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4 className="mb-4">Dashboard</h4>
+          <h4 className="mb-4">Замовлення</h4>
             <hr/>
           <Orders
               orders={orders}

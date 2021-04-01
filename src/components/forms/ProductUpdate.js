@@ -25,9 +25,9 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
   return (
     <form onSubmit={handleSubmit} >
         <div className="form-group mb-4">
-            <h6>Title</h6>
+            <h6>Назва</h6>
             <Input
-                placeholder="Title"
+                placeholder="Назва"
                 type="text"
                 name="title"
                 required
@@ -37,14 +37,14 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
         <div className="form-group mb-4">
-            <h6>Description</h6>
+            <h6>Опис</h6>
             <ReactQuill required theme="snow" value={description} onChange={handleDescription} />
         </div>
 
         <div className="form-group mb-4">
-            <h6>Price</h6>
+            <h6>Вартість</h6>
             <Input
-                placeholder="Price"
+                placeholder="Вартість"
                 type="number"
                 required
                 prefix={<DollarOutlined className="mr-1" />}
@@ -55,9 +55,9 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
         <div className="form-group mb-4">
-            <h6>Shipping</h6>
+            <h6>Наявність</h6>
             <Select
-                placeholder="Shipping"
+                placeholder="Наявність"
                 style={{ width: '100%' }}
                 value={shipping}
                 name="shipping"
@@ -69,12 +69,12 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
         <div className="form-group mb-4">
-            <h6>Quantity</h6>
+            <h6>К-сть</h6>
             <Input
                 required
                 type="number"
                 name="quantity"
-                placeholder="Quantity"
+                placeholder="К-сть"
                 prefix={<FieldNumberOutlined className="mr-1" />}
                 value={quantity}
                 onChange={handleChange}
@@ -82,10 +82,10 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
         <div className="form-group mb-4">
-            <h6>Color</h6>
+            <h6>Колір</h6>
             <Select
                 name="color"
-                placeholder="Color"
+                placeholder="Колір"
                 required
                 value={color}
                 style={{ width: '100%' }}
@@ -96,10 +96,10 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
         <div className="form-group mb-4">
-            <h6>Brand</h6>
+            <h6>Бренд</h6>
             <Select
                 name="brand"
-                placeholder="Brand"
+                placeholder="Бренд"
                 required
                 value={brand}
                 style={{ width: '100%' }}
@@ -110,7 +110,7 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
       <div className="form-group">
-        <label>Category</label>
+        <label>Категорія</label>
         <Select
           value={selectedCategory ? selectedCategory : category._id }
           name="category"
@@ -127,12 +127,12 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
 
 
         <div>
-          <label>Sub-Category</label>
+          <label>Підкатегорії</label>
           <Select
             className="mb-4"
             mode="multiple"
             style={{ width: '100%' }}
-            placeholder="Please select"
+            placeholder="Підкатегорії"
             value={arrayOfSubIds}
             onChange={ value => setArrayOfSubIds(value) }
           >
@@ -145,7 +145,7 @@ const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDe
         </div>
 
 
-      <button className="btn btn-outline-info">Save</button>
+      <button className="btn btn-outline-info">Зберегти зміни</button>
     </form>
   )
 }

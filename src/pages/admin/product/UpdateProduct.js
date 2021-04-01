@@ -134,7 +134,7 @@ const UpdateProduct = (props) => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Update Product {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
+          <h4>Редагувати {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
 
           <div className="p-3">
             <FileUpload

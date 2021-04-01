@@ -16,27 +16,27 @@ const AdminNav = () => {
     <nav>
       <ul className="nav flex-column">
         <li className="nav-item">
-          <Link to={ADMIN_DASHBOARD} className="nav-link">Dashboard</Link>
+          <Link to={ADMIN_DASHBOARD} className="nav-link">Замовлення</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={ADMIN_PRODUCT} className="nav-link">Create Product</Link>
+          <Link to={ADMIN_PRODUCT} className="nav-link">Новий товар</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={ADMIN_PRODUCTS} className="nav-link">Products</Link>
+          <Link to={ADMIN_PRODUCTS} className="nav-link">Товари</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={ADMIN_CATEGORIES} className="nav-link">Categories</Link>
+          <Link to={ADMIN_CATEGORIES} className="nav-link">Категорії</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={ADMIN_SUB} className="nav-link">Sub Categories</Link>
+          <Link to={ADMIN_SUB} className="nav-link">Підкатегорії</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={ADMIN_COUPONS} className="nav-link">Coupons</Link>
+          <Link to={ADMIN_COUPONS} className="nav-link">Купони</Link>
         </li>
       </ul>
     </nav>

@@ -29,20 +29,21 @@ const WishList = () => {
             .catch(err => console.log(err))
 
     return (
-        <div className="container-fluid">
+        <div className="container mt-4">
           <div className="row">
             <div className="col-md-2">
               <UserNav />
             </div>
             <div className="col">
-                <h4>Wishlist</h4>
+                <h4>Улюблені</h4>
+                <hr/>
                 { wishlist && wishlist.map(item => (
-                    <div key={item._id} className="alert alert-secondary">
+                    <div key={item._id} className="alert alert-custom">
                         <Link to={`/product/${item.slug}`}>
                             {item.title}
                         </Link>
                         <span
-                            className="btn btn-sm float-right"
+                            className="btn btn-sm float-right mb-1"
                             onClick={() => handleRemove(item._id)}
                         >
                             <DeleteOutlined className="text-danger" />

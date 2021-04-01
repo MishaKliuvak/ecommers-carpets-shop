@@ -108,8 +108,8 @@ const StripeCheckout = () => {
       { !successed &&
         <div>
           { coupon && totalAfterDiscount !== undefined
-            ? (<p className="alert alert-success">{`Total after discount: $${totalAfterDiscount}`}</p>)
-            : (<p className="alert alert-danger">No coupon applied</p>)
+            ? (<p className="alert alert-success">{`Разом до сплати: $${totalAfterDiscount}`}</p>)
+            : (<p className="alert alert-danger">Купон відсутній</p>)
           }
         </div>
       }
@@ -121,11 +121,11 @@ const StripeCheckout = () => {
           actions={[
             <>
               <DollarOutlined className="text-info" /><br/>
-              Total: ${cartTotal}
+              Вартість: ${cartTotal}
             </>,
             <>
               <CheckOutlined className="text-success" /><br/>
-              Total Payable: ${payable / 100}
+              До сплати: ${payable / 100}
             </>
           ]}
         />
@@ -148,7 +148,7 @@ const StripeCheckout = () => {
           <span id="button-text">
             { processing
               ? <div className="spinner" id="spinner" />
-              : "Pay"
+              : "Оплатити"
             }
           </span>
         </button>
@@ -156,7 +156,7 @@ const StripeCheckout = () => {
         {error && <div className="card-error mt-3">{error}</div>}
         <br/>
         <p className={successed ? 'result-message' : 'result-message hidden'}>
-          Payment Successful. <Link to={USER_HISTORY}>See it in your purchase history</Link>
+          Платіж пройшов успішно. <Link to={USER_HISTORY}>Перейти до історії покупок</Link>
         </p>
       </form>
     </>

@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
     <>
       {product && product.ratings && product.ratings.length > 0 ? showAverage(product, true) : (
         <div className="text-center pt-1 pb-1">
-          No rating yet
+          Нема відгуків
         </div>
       )}
       <Card
@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
           <Link to={`${PRODUCT}/${slug}`}>
             <EyeOutlined />
             <br/>
-            View Product
+            Переглянути
           </Link>,
           <Tooltip title={toolTip}>
             <button
@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
             >
               <ShoppingCartOutlined className="text-primary"/>
               <br/>
-              { product.quantity < 1 ? 'Not avaible' : 'Add to Cart' }
+              { product.quantity < 1 ? 'Не доступно' : 'В корзину' }
             </button>
           </Tooltip>
         ]}

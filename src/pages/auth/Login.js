@@ -108,7 +108,7 @@ const Login = () => {
             className="form-control mb-4"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder="Пароль"
         />
         <Button
             onClick={handleSubmit}
@@ -120,7 +120,7 @@ const Login = () => {
             size="large"
             disabled={!email || password.length < 6}
         >
-            Login with Email/Password
+            Увійти з Email/Password
         </Button>
         <Button
             onClick={googleLogin}
@@ -130,16 +130,16 @@ const Login = () => {
             icon={<GoogleOutlined />}
             size="large"
         >
-            Login with Google
+            Увійти через Google
         </Button>
-        <Link to={FORGOT_PASSWORD} className="float-right text-danger">Forgot Password</Link>
+        <Link to={FORGOT_PASSWORD} className="float-right text-danger">Забули пароль?</Link>
     </form>
 
     return (
         <div className="container p-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    {!loading ? <h4>Login</h4> : <h4 className="text-danger">Loading...</h4>}
+                    {!loading ? <h4>Авторизація</h4> : <h4 className="text-danger">Loading...</h4>}
                     {loginForm()}
                 </div>
             </div>

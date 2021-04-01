@@ -20,7 +20,7 @@ const SideDrawer = () => {
   return (
     <Drawer
       className="text-center"
-      title={`${cart.length} products`}
+      title={`Корзина (${cart.length})`}
       placement="right"
       visible={drawer}
       onClose={() => {
@@ -45,7 +45,7 @@ const SideDrawer = () => {
             </div>
           </div>
         )) : (
-          "No products in cart"
+          "Корзина порожня"
         )
       }
 
@@ -57,7 +57,7 @@ const SideDrawer = () => {
             payload: false
           })}
         >
-          Go to the cart
+          Перейти в корзину
         </button>
       </Link>
     </Drawer>

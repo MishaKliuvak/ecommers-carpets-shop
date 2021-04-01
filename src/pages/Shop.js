@@ -279,7 +279,7 @@ const Shop = () => {
     <div className="container">
       <div className="row">
         <div className="col-md-3 pt-4">
-          <h4>Search/Filter</h4>
+          <h4>Фільтри</h4>
           <br/>
 
           <Menu defaultOpenKeys={['1', '2', '3', '4','5','6','7']} mode="inline">
@@ -287,7 +287,7 @@ const Shop = () => {
               className="pt-3"
               key="1"
               style={{ borderTop: '2px solid #F0F0F0' }}
-              title={<span className="h6"><DollarOutlined/> Price</span>}>
+              title={<span className="h6"><DollarOutlined/> Вартість</span>}>
               <div>
                 <Slider
                   className="m-3"
@@ -302,7 +302,7 @@ const Shop = () => {
 
             <Menu.SubMenu
               key="2"
-              title={<span className="h6"><DownSquareOutlined/> Categories</span>}>
+              title={<span className="h6"><DownSquareOutlined/> Категорія</span>}>
               <div className="m-3">
                 {showCategories()}
               </div>
@@ -310,7 +310,7 @@ const Shop = () => {
 
             <Menu.SubMenu
               key="3"
-              title={<span className="h6"><StarOutlined/> Rating</span>}>
+              title={<span className="h6"><StarOutlined/> Рейтинг</span>}>
               <div className="m-3" style={{ marginTop: "-10px" }}>
                 {showStars()}
               </div>
@@ -318,7 +318,7 @@ const Shop = () => {
 
             <Menu.SubMenu
               key="4"
-              title={<span className="h6"><DownSquareOutlined/> Sub Categories</span>}>
+              title={<span className="h6"><DownSquareOutlined/> Підкатегорія</span>}>
               <div className="m-3">
                 {showSubs()}
               </div>
@@ -326,7 +326,7 @@ const Shop = () => {
 
             <Menu.SubMenu
               key="5"
-              title={<span className="h6"><DownSquareOutlined/> Brands</span>}>
+              title={<span className="h6"><DownSquareOutlined/> Бренд</span>}>
               <div className="m-3">
                 {showBrands()}
               </div>
@@ -334,7 +334,7 @@ const Shop = () => {
 
             <Menu.SubMenu
               key="6"
-              title={<span className="h6"><BgColorsOutlined /> Colors</span>}>
+              title={<span className="h6"><BgColorsOutlined /> Колір</span>}>
               <div className="m-3">
                 {showColors()}
               </div>
@@ -342,7 +342,7 @@ const Shop = () => {
 
             <Menu.SubMenu
               key="7"
-              title={<span className="h6"><DownSquareOutlined/> Shipping</span>}>
+              title={<span className="h6"><DownSquareOutlined/> В наявності</span>}>
               <div className="m-3">
                 {showShipping()}
               </div>

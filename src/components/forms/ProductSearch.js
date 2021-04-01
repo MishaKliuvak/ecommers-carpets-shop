@@ -33,7 +33,7 @@ const ProductSearch = () => {
         type="search"
         value={text}
         onChange={handleChange}
-        placeholder="Search"
+        placeholder="Пошук"
       />
     </form>
   )

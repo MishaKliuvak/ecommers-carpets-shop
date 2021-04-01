@@ -7,15 +7,15 @@ const UserNav = () => {
     <nav>
       <ul className="nav flex-column">
         <li className="nav-item">
-          <Link to={USER_HISTORY} className="nav-link">History</Link>
+          <Link to={USER_HISTORY} className="nav-link">Історія</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={USER_PASSWORD} className="nav-link">Password</Link>
+          <Link to={USER_PASSWORD} className="nav-link">Пароль</Link>
         </li>
 
         <li className="nav-item">
-          <Link to={USER_WISHLIST} className="nav-link">WishList</Link>
+          <Link to={USER_WISHLIST} className="nav-link">Сподобалось</Link>
         </li>
       </ul>
     </nav>

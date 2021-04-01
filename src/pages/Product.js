@@ -77,7 +77,7 @@ const Product = () => {
       <div className="row">
         <div className="col text-center pt-5 pb-5">
           <hr/>
-          <h4>Related products</h4>
+          <h4>Схожі товари</h4>
           <hr/>
         </div>
       </div>
@@ -86,7 +86,7 @@ const Product = () => {
           <div key={item._id} className="col-md-4">
             <ProductCard product={item} />
           </div>
-        )) : <div className="text-center col"> No products find</div> }
+        )) : <div className="text-center col">Не знайдено товарів</div> }
       </div>
     </div>
   )

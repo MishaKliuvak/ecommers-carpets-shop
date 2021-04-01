@@ -62,7 +62,7 @@ const Products = ({ sortBy }) => {
         <nav className="col-md-4 offset-md-4 text-center pt-2 p-3">
           <Pagination
             current={page}
-            total={(productsCount / 3) * 10}
+            total={(3) * 10}
             onChange={ value => setPage(value) }
           />
         </nav>

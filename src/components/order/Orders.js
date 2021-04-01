@@ -10,12 +10,12 @@ const Orders = ({ orders, handleStatusChange }) => {
         <table className="table table-bordered">
             <thead className="thead-light">
             <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Price</th>
-                <th scope="col">Brand</th>
-                <th scope="col">Color</th>
-                <th scope="col">Count</th>
-                <th scope="col">Shipping</th>
+                <th scope="col">Назва</th>
+                <th scope="col">Вартість</th>
+                <th scope="col">Бренд</th>
+                <th scope="col">Колір</th>
+                <th scope="col">К-сть</th>
+                <th scope="col">Наявність</th>
             </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@ const Orders = ({ orders, handleStatusChange }) => {
                         </div>
 
                         <div className="col-md-6" style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                            <h6 className="mb-3">Delivery Status</h6>
+                            <h6 className="mb-3">Статус доставки</h6>
 
                             <Select
                                 onChange={value => handleStatusChange(order._id, value)}

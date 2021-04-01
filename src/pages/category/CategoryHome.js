@@ -33,7 +33,7 @@ const CategoryHome = () => {
           <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
             { loading
               ? 'Loading...'
-              : `${products.length} Products in "${category.name}" category`
+              : `${products.length} товарів в "${category.name}"`
             }
           </h4>
         </div>
@@ -47,7 +47,7 @@ const CategoryHome = () => {
                 <ProductCard product={product} />
               </div>
             ))
-          ) : <div className="col text-center">Haven't products</div>}
+          ) : <div className="col text-center">Немає товарів</div>}
       </div>
     </div>
   )

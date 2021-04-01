@@ -92,7 +92,7 @@ const CreateProduct = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Create Product {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
+          <h4>Додати товар {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
           <hr/>
 
           <div className="p-3">

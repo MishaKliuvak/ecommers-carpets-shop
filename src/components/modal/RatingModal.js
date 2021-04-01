@@ -32,10 +32,10 @@ const RatingModal = ({ children, onStarClick, star, comment, setComment }) => {
       <div onClick={handleModal} >
         <StarOutlined className="text-danger"/>
         <br/>
-        { user ? 'Leave rating' : 'Login to leave rating'}
+        { user ? 'Відгук' : 'Авторизуйтесь'}
       </div>
       <Modal
-        title="Leave your rating"
+        title="Залишити відгук"
         centered
         visible={modalVisible}
         onOk={() => {

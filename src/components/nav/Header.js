@@ -35,14 +35,14 @@ const Header = () => {
     return (
         <Menu onClick={handleClick} selectedKeys={current} mode="horizontal">
             <Item key="home" icon={<HomeOutlined />}>
-                <Link to={ROUTES.HOME}>Home</Link>
+                <Link to={ROUTES.HOME}>Головна</Link>
             </Item>
             <Item key="shop" icon={<ShoppingOutlined />}>
-                <Link to={ROUTES.SHOP}>Shop</Link>
+                <Link to={ROUTES.SHOP}>Магазин</Link>
             </Item>
           <Item key="cart" icon={<ShoppingCartOutlined />}>
             <Link to={ROUTES.CART}>
-              Cart
+              Корзина
               <Badge count={cart.length} offset={[0,-15]} />
 
             </Link>
@@ -55,7 +55,7 @@ const Header = () => {
                         icon={<UserAddOutlined />}
                         className="float-right"
                     >
-                        <Link to={ROUTES.REGISTER}>Register</Link>
+                        <Link to={ROUTES.REGISTER}>Реєстрація</Link>
                     </Item>
 
                     <Item
@@ -63,7 +63,7 @@ const Header = () => {
                         icon={<UserOutlined />}
                         className="float-right"
                     >
-                        <Link to={ROUTES.LOGIN}>Login</Link>
+                        <Link to={ROUTES.LOGIN}>Вхід</Link>
                     </Item>
                 </>
                 ) : (
@@ -75,15 +75,15 @@ const Header = () => {
                     >
                         { user && user.role === 'subscriber' &&  (
                           <Item key="setting:1">
-                            <Link to={ROUTES.USER_HISTORY}>Dashboard</Link>
+                            <Link to={ROUTES.USER_HISTORY}>Панель користувача</Link>
                           </Item>
                         )}
                         { user && user.role === 'admin' &&  (
                           <Item key="setting:1">
-                              <Link to={ROUTES.ADMIN_DASHBOARD}>Dashboard</Link>
+                              <Link to={ROUTES.ADMIN_DASHBOARD}>Панель адміністратора</Link>
                           </Item>
                         )}
-                        <Item icon={<UserOutlined />} onClick={logOut}>Log out</Item>
+                        <Item icon={<UserOutlined />} onClick={logOut}>Вихід</Item>
                     </SubMenu>
                 )}
             <span className="float-right p-1">

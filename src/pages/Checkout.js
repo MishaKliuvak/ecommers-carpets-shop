@@ -68,7 +68,7 @@ const Checkout = () => {
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
       <button style={{ width: '100%'}} className="btn btn-outline-primary mt-3" onClick={saveAddress}>
-        Save
+        Підтвердити
       </button>
     </>
   )
@@ -128,7 +128,7 @@ const Checkout = () => {
       <input
         type="text"
         className="form-control"
-        placeholder="Coupon"
+        placeholder="Скидочний купон"
         onChange={(e) => {
           setCouponEntered(e.target.value)
           setDiscountError('')
@@ -139,7 +139,7 @@ const Checkout = () => {
           style={{ width: '100%'}} className="btn btn-raised btn-primary mt-3"
         onClick={applyCouponHandler}
       >
-        Apply
+        Примінити
       </button>
     </>
   )
@@ -148,29 +148,29 @@ const Checkout = () => {
       <div className="container mt-4">
           <div className="row mt-4 ml-4 mr-4">
               <div className="col-md-6 ">
-                  <h4 className="mb-3">Delivery Address</h4>
+                  <h4 className="mb-3">Адреса доставки</h4>
                   <hr/>
                   {showAddress()}
                   <br/><br/>
 
-                  <h4 className="mb-3">Got Coupon?</h4>
+                  <h4 className="mb-3">Маєте купон?</h4>
                   {showApplyCoupon()}
                   {discountError && <div className="mt-2 float-right text-danger">{discountError}</div>}
               </div>
 
               <div className="col-md-6">
-                  <h4 className="mb-2">Order Summary</h4>
+                  <h4 className="mb-2">Чек</h4>
                   <hr/>
 
                   {showProductSummary()}
                   <hr/>
 
                   <p style={{ fontSize: '16px' }} className="mb-3 text-right">
-                      Total: <b>&nbsp; ₴ {total}</b>
+                      Разом: <b>&nbsp; ₴ {total}</b>
                   </p>
                   {totalAfterDiscount > 0 && (
                       <Tag style={{ fontSize: '14px', width: '100%', padding: '5px' }} className="mb-3" color="success">
-                          Discount Applied: <b>${totalAfterDiscount}</b>
+                          Купон примінено: <b>${totalAfterDiscount}</b>
                       </Tag>
                   )}
 
@@ -183,7 +183,7 @@ const Checkout = () => {
                                       disabled={!addressSaved || !products.length}
                                       onClick={createCashOrder}
                                   >
-                                      Place Order
+                                      Продовжити
                                   </button>
                               )
                               : (
@@ -192,7 +192,7 @@ const Checkout = () => {
                                       disabled={!addressSaved || !products.length}
                                       onClick={() => history.push(PAYMENT)}
                                   >
-                                      Place Order
+                                      Продовжити
                                   </button>
                               )
                           }
@@ -201,7 +201,7 @@ const Checkout = () => {
                               disabled={!products.length}
                               onClick={removeCart}
                           >
-                              Empty Cart
+                              Очистити
                           </button>
                       </div>
                   </div>
