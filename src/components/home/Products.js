@@ -5,6 +5,8 @@ import ProductCard from '../cards/ProductCard'
 import LoadingCard from '../cards/LoadingCard'
 
 import { Pagination } from 'antd'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
+import { Carousel } from 'react-responsive-carousel'
 
 const Products = ({ sortBy }) => {
   const [products, setProducts] = useState([])
@@ -56,11 +58,11 @@ const Products = ({ sortBy }) => {
         )}
       </div>
 
-      <div className="row">
+      <div className="row container-fluid">
         <nav className="col-md-4 offset-md-4 text-center pt-2 p-3">
           <Pagination
             current={page}
-            total={(productsCount / 3) * 10}
+            total={(3) * 10}
             onChange={ value => setPage(value) }
           />
         </nav>

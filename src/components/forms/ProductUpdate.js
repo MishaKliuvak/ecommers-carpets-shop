@@ -1,8 +1,11 @@
 import React from 'react'
-import { Select } from 'antd'
+import {Input, Select} from "antd";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
+import {DollarOutlined, FieldNumberOutlined} from "@ant-design/icons";
 const { Option } = Select
 
-const ProductUpdate = ({ handleSubmit, selectedCategory, handleChange, values, setValues, handleCategoryChange, categories, arrayOfSubIds, subOptions, setArrayOfSubIds }) => {
+const ProductUpdate = ({ values, handleSelect, setValues, handleSubmit, handleDescription, selectedCategory, handleChange,  handleCategoryChange, categories, arrayOfSubIds, subOptions, setArrayOfSubIds }) => {
   // destructure
   const {
     title,
@@ -21,111 +24,115 @@ const ProductUpdate = ({ handleSubmit, selectedCategory, handleChange, values, s
 
   return (
     <form onSubmit={handleSubmit} >
-      <div className="form-group">
-        <label>Title</label>
-        <input
-          type="text"
-          name="title"
-          className="form-control"
-          value={title}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="form-group mb-4">
+            <h6>Назва</h6>
+            <Input
+                placeholder="Назва"
+                type="text"
+                name="title"
+                required
+                value={title}
+                onChange={handleChange}
+            />
+        </div>
+
+        <div className="form-group mb-4">
+            <h6>Опис</h6>
+            <ReactQuill required theme="snow" value={description} onChange={handleDescription} />
+        </div>
+
+        <div className="form-group mb-4">
+            <h6>Вартість</h6>
+            <Input
+                placeholder="Вартість"
+                type="number"
+                required
+                prefix={<DollarOutlined className="mr-1" />}
+                name="price"
+                value={price}
+                onChange={handleChange}
+            />
+        </div>
+
+        <div className="form-group mb-4">
+            <h6>Наявність</h6>
+            <Select
+                placeholder="Наявність"
+                style={{ width: '100%' }}
+                value={shipping}
+                name="shipping"
+                onChange={(value) => handleSelect('shipping', value)}
+            >
+                <Option value="Yes">Yes</Option>
+                <Option value="No">No</Option>
+            </Select>
+        </div>
+
+        <div className="form-group mb-4">
+            <h6>К-сть</h6>
+            <Input
+                required
+                type="number"
+                name="quantity"
+                placeholder="К-сть"
+                prefix={<FieldNumberOutlined className="mr-1" />}
+                value={quantity}
+                onChange={handleChange}
+            />
+        </div>
+
+        <div className="form-group mb-4">
+            <h6>Колір</h6>
+            <Select
+                name="color"
+                placeholder="Колір"
+                required
+                value={color}
+                style={{ width: '100%' }}
+                onChange={(value) => handleSelect('color', value)}
+            >
+                {colors.map(c => <Option value={c} key={c}>{c}</Option>)}
+            </Select>
+        </div>
+
+        <div className="form-group mb-4">
+            <h6>Бренд</h6>
+            <Select
+                name="brand"
+                placeholder="Бренд"
+                required
+                value={brand}
+                style={{ width: '100%' }}
+                onChange={(value) => handleSelect('brand', value)}
+            >
+                {brands.map(b => <Option value={b} key={b}>{b}</Option>)}
+            </Select>
+        </div>
 
       <div className="form-group">
-        <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          className="form-control"
-          value={description}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Price</label>
-        <input
-          type="number"
-          name="price"
-          className="form-control"
-          value={price}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Shipping</label>
-        <select
-          value={shipping}
-          name="shipping"
-          className="form-control"
-          onChange={handleChange}
-        >
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Quantity</label>
-        <input
-          type="number"
-          name="quantity"
-          className="form-control"
-          value={quantity}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="form-group">
-        <label>Color</label>
-        <select
-          value={color}
-          name="color"
-          className="form-control"
-          onChange={handleChange}
-        >
-          {colors.map(c => <option value={c} key={c}>{c}</option>)}
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Brand</label>
-        <select
-          value={brand}
-          name="brand"
-          className="form-control"
-          onChange={handleChange}
-        >
-          {brands.map(b => <option value={b} key={b}>{b}</option>)}
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Category</label>
-        <select
+        <label>Категорія</label>
+        <Select
           value={selectedCategory ? selectedCategory : category._id }
           name="category"
           className="form-control"
           onChange={handleCategoryChange}
         >
           {categories.length > 0 && categories.map((c) => (
-            <option key={c._id} value={c._id}>
+            <Option key={c._id} value={c._id}>
               {c.name}
-            </option>
+            </Option>
           ))}
-        </select>
+        </Select>
       </div>
 
 
         <div>
-          <label>Sub-Category</label>
+          <label>Підкатегорії</label>
           <Select
             className="mb-4"
             mode="multiple"
             style={{ width: '100%' }}
-            placeholder="Please select"
+            placeholder="Підкатегорії"
             value={arrayOfSubIds}
             onChange={ value => setArrayOfSubIds(value) }
           >
@@ -138,7 +145,7 @@ const ProductUpdate = ({ handleSubmit, selectedCategory, handleChange, values, s
         </div>
 
 
-      <button className="btn btn-outline-info">Save</button>
+      <button className="btn btn-outline-info">Зберегти зміни</button>
     </form>
   )
 }

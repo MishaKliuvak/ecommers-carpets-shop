@@ -25,7 +25,7 @@ const Register = () => {
 
         auth.sendSignInLinkToEmail(email, config)
                   .then(() => {
-                      toast.success(`Email is sent to ${email}. Click the link to complete your registration`)
+                      toast.success(`Лист було надіслано на ${email}. Підтвердіть реєстрацію`)
                       // Save user email in local storage
                       window.localStorage.setItem('emailForRegistration', email)
                       // Clear state
@@ -48,7 +48,7 @@ const Register = () => {
        <button
            type="submit"
            className="btn btn-raised">
-           Register
+           Реєстрація
        </button>
     </form>
 
@@ -56,7 +56,7 @@ const Register = () => {
         <div className="container p-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    <h4>Register</h4>
+                    <h4>Реєстрація</h4>
                     {registerForm()}
                 </div>
             </div>

@@ -3,3 +3,43 @@
     height: 450px;
     object-fit: cover;
 }
+
+.ant-card-meta-description {
+    height: 3em;
+    overflow: hidden
+}
+
+.ant-menu-sub {
+    background: white !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.color-text {
+    padding-right: 15px;
+}
+
+.color-circle {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: black;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 50%;
+}
+
+.available {
+    padding: 5px 13px;
+    border-radius: 10px;
+}
+
+.alert-custom {
+    background: #fdfdfd;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+}

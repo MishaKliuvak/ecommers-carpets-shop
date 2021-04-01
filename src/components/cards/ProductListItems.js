@@ -20,11 +20,11 @@ const ProductListItems = ({ product }) => {
 
   return (
     <ul className="list-group">
-      { liItem(`Price: `, `$ ${price}`) }
-      { category && linkItem(`Category: `, `${category.name}`, `/category/${category.slug}`)}
+      { liItem(`Вартість: `, `$ ${price}`) }
+      { category && linkItem(`Категорія: `, `${category.name}`, `/category/${category.slug}`)}
       { subs && (
         <li className="list-group-item">
-          Sub Categories
+          Підкатегорії
           { subs.map(sub => (
             <Link
               key={sub.slug}
@@ -36,11 +36,15 @@ const ProductListItems = ({ product }) => {
           )) }
         </li>
       )}
-      { liItem(`Shipping: `, `${shipping}`) }
-      { liItem(`Color: `, `${color}`) }
-      { liItem(`Brand: `, `${brand}`) }
-      { liItem(`Available: `, `${quantity}`) }
-      { liItem(`Sold: `, `${sold}`) }
+      { liItem(`Наявність: `, `${shipping}`) }
+      <li className="list-group-item">
+        Колір:
+        <span className="color-circle pull-xs-right" style={{ background: color }} />
+        <span className="label label-default label-pill pull-xs-right color-text">{color}</span>
+      </li>
+      { liItem(`Бренд: `, `${brand}`) }
+      { liItem(`К-сть: `, `${quantity}`) }
+      { liItem(`Продано: `, `${sold}`) }
     </ul>
   )
 }

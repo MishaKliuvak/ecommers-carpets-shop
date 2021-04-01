@@ -1,36 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import * as ROUTES from './constants/routes'
+import { auth } from './lib/firebase'
+import { currentUser } from './helpers/auth'
+
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import {LoadingOutlined} from "@ant-design/icons"
 
-import Login from "./pages/auth/Login"
-import Register from "./pages/auth/Register"
-import Home from "./pages/Home"
-import Header from "./components/nav/Header"
-import RegisterComplete from "./pages/auth/RegisterComplete"
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import History from "./pages/user/History"
-import UserRoute from "./components/routes/UserRoute"
-import Password from "./pages/user/Password"
-import WishList from "./pages/user/WishList"
+const Login = lazy(() => import('./pages/auth/Login'))
+const Register = lazy(() => import('./pages/auth/Register'))
+const Home = lazy(() => import('./pages/Home'))
+const Header = lazy(() => import('./components/nav/Header'))
+const RegisterComplete = lazy(() => import('./pages/auth/RegisterComplete'))
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'))
+const History = lazy(() => import('./pages/user/History'))
+const UserRoute = lazy(() => import('./components/routes/UserRoute'))
+const Password = lazy(() => import('./pages/user/Password'))
+const WishList = lazy(() => import('./pages/user/WishList'))
 
-import { auth } from './lib/firebase'
-import * as ROUTES from './constants/routes'
-import { currentUser } from './helpers/auth'
-import AdminRoute from './components/routes/AdminRoute'
-import AdminDashboard from './pages/admin/AdminDashboard'
-import CreateCategory from "./pages/admin/categories/CreateCategory"
-import UpdateCategory from "./pages/admin/categories/UpdateCategory"
-import UpdateSub from "./pages/admin/sub/UpdateSub"
-import CreateSub from "./pages/admin/sub/CreateSub"
-import { ADMIN_PRODUCT, ADMIN_PRODUCTS, ADMIN_SINGLE_PRODUCT } from './constants/routes'
-import CreateProduct from './pages/admin/product/CreateProduct'
-import Products from './pages/admin/product/Products'
-import UpdateProduct from './pages/admin/product/UpdateProduct'
 
-import Product from './pages/Product'
+const AdminRoute = lazy(() => import('./components/routes/AdminRoute'))
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'))
+const CreateCategory = lazy(() => import('./pages/admin/categories/CreateCategory'))
+const UpdateCategory = lazy(() => import('./pages/admin/categories/UpdateCategory'))
+const UpdateSub = lazy(() => import('./pages/admin/sub/UpdateSub'))
+const CreateSub = lazy(() => import('./pages/admin/sub/CreateSub'))
+const CreateProduct = lazy(() => import('./pages/admin/product/CreateProduct'))
+const Products = lazy(() => import('./pages/admin/product/Products'))
+const UpdateProduct = lazy(() => import('./pages/admin/product/UpdateProduct'))
+const CreateCoupon = lazy(() => import('./pages/admin/coupon/CreateCoupon'))
+
+const Product = lazy(() => import('./pages/Product'))
+const CategoryHome = lazy(() => import('./pages/category/CategoryHome'))
+const SubHome = lazy(() => import('./pages/sub/SubHome'))
+const Shop = lazy(() => import('./pages/Shop'))
+const Cart = lazy(() => import('./pages/Cart'))
+const SideDrawer = lazy(() => import('./components/drawer/SideDrawer'))
+const Checkout = lazy(() => import('./pages/Checkout'))
+const Payment = lazy(() => import('./pages/Payment'))
 
 function App() {
   const dispatch = useDispatch()
@@ -61,8 +71,11 @@ function App() {
   }, [])
 
   return (
-    <>
+    <Suspense fallback={
+        <div className="text-center text-danger"><LoadingOutlined /></div>
+    }>
         <Header />
+        <SideDrawer />
         <ToastContainer />
         <Switch>
             <Route exact path={ROUTES.HOME}>
@@ -104,20 +117,41 @@ function App() {
           <AdminRoute exact path={`${ROUTES.ADMIN_UPDATE_SUB}/:slug`}>
             <UpdateSub />
           </AdminRoute>
-          <AdminRoute exact path={ADMIN_PRODUCT}>
+          <AdminRoute exact path={ROUTES.ADMIN_PRODUCT}>
             <CreateProduct />
           </AdminRoute>
-          <AdminRoute exact path={ADMIN_PRODUCTS}>
+          <AdminRoute exact path={ROUTES.ADMIN_PRODUCTS}>
             <Products />
           </AdminRoute>
-          <AdminRoute exact path={`${ADMIN_SINGLE_PRODUCT}/:slug`}>
+          <AdminRoute exact path={`${ROUTES.ADMIN_SINGLE_PRODUCT}/:slug`}>
             <UpdateProduct />
+          </AdminRoute>
+          <AdminRoute exact path={ROUTES.ADMIN_COUPONS}>
+            <CreateCoupon />
           </AdminRoute>
           <Route exact path={`${ROUTES.PRODUCT}/:slug`}>
             <Product />
           </Route>
+          <Route exact path={`${ROUTES.CATEGORY}/:slug`}>
+            <CategoryHome />
+          </Route>
+          <Route exact path={`${ROUTES.SUB}/:slug`}>
+            <SubHome />
+          </Route>
+          <Route exact path={ROUTES.SHOP}>
+            <Shop />
+          </Route>
+          <Route exact path={ROUTES.CART}>
+            <Cart />
+          </Route>
+          <Route exact path={ROUTES.CHECKOUT}>
+            <Checkout />
+          </Route>
+          <UserRoute exact path={ROUTES.PAYMENT}>
+            <Payment />
+          </UserRoute>
         </Switch>
-    </>
+    </Suspense>
   );
 }
 

@@ -24,7 +24,7 @@ const initialState = {
 
   ],
   colors: ['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'],
+  brands: ['IKEA', 'Karat', 'AW', 'ITC', 'Ideal', 'Kartal', 'Looshchoow', 'Penny', 'Sanat', 'Киевгума', 'Лущув'],
   color: '',
   brand: ''
 }
@@ -46,6 +46,11 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (values.brand === '' || values.color === '' || values.shipping === '' || values.category === '') {
+      toast.error('Заповніть поля')
+      console.log(values);
+      return
+    }
     createProduct(values, user.token)
       .then((res) => {
         window.alert(`${res.data.title} is created`)
@@ -60,11 +65,18 @@ const CreateProduct = () => {
     setValues({...values, [e.target.name]: e.target.value})
   }
 
-  const handleCategoryChange = e => {
-    e.preventDefault()
-    setValues({...values, subs: [], category: e.target.value})
+  const handleSelect = (name, value) => {
+    setValues({...values, [name]: value})
+  }
 
-    getCategorySubs(e.target.value)
+  const handleDescription = (description) => {
+    setValues({...values, description })
+  }
+
+  const handleCategoryChange = (name, value) => {
+    setValues({...values, subs: [], [name]: value})
+
+    getCategorySubs(value)
       .then(res => {
         setSubOptions(res.data)
         setShowSubs(true)
@@ -74,13 +86,13 @@ const CreateProduct = () => {
 
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Create Product {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
+          <h4>Додати товар {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
           <hr/>
 
           <div className="p-3">
@@ -95,10 +107,12 @@ const CreateProduct = () => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             values={values}
+            handleSelect={handleSelect}
             setValues={setValues}
             handleCategoryChange={handleCategoryChange}
             subOptions={subOptions}
             showSubs={showSubs}
+            handleDescription={handleDescription}
           />
         </div>
       </div>

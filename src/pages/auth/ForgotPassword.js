@@ -29,7 +29,7 @@ const ForgotPassword =  () => {
                   .then(result => {
                       setEmail('')
                       setLoading(false)
-                      toast.success('Check your email for password reset link')
+                      toast.success('Перевірте вашу електронну адресу')
                   })
                   .catch(error => {
                       setLoading(false)
@@ -39,8 +39,7 @@ const ForgotPassword =  () => {
 
     return (
         <div className="container col-md-6 offset-md-3 p-5">
-            {loading ? <h4 className="text-danger">Loading...</h4> : <h4>Forgot
-                Password</h4>}
+            {loading ? <h4 className="text-danger">Loading...</h4> : <h4>Відновлення паролю</h4>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
@@ -57,7 +56,7 @@ const ForgotPassword =  () => {
                     shape="round"
                     onClick={handleSubmit}
                 >
-                    Submit
+                    Відправити
                 </Button>
             </form>
         </div>

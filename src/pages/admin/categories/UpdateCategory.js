@@ -24,7 +24,7 @@ const UpdateCategory = () => {
   }, [])
 
   const loadCategory = () =>
-    getCategory(slug).then(c => setName(c.data.name))
+    getCategory(slug).then(c => setName(c.data.category.name))
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -47,18 +47,19 @@ const UpdateCategory = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col">
           <h4>{loading ? 'Loading...' : 'Update Category'}</h4>
+          <hr/>
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
             setName={setName}
-            text="Change"
+            text="Зберегти"
           />
         </div>
       </div>

@@ -1,21 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Modal, Button } from 'antd'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { StarOutlined } from '@ant-design/icons'
-import { LOGIN } from '../../constants/routes'
-import { useHistory } from 'react-router-dom'
+import { LOGIN, PRODUCT } from '../../constants/routes'
+import { useHistory, useParams } from 'react-router-dom'
 
-const RatingModal = ({ children }) => {
+import { ModalContext } from '../../pages/Product'
+import TextArea from "antd/es/input/TextArea";
+
+const RatingModal = ({ children, onStarClick, star, comment, setComment }) => {
   const { user } = useSelector((state) =>({...state}))
-  const [modalVisible, setModalVisible] = useState(false)
+  const { modalVisible, setModalVisible } = useContext(ModalContext)
+
   let history = useHistory()
+  const { slug } = useParams()
 
   const handleModal = () => {
     if (user && user.token) {
       setModalVisible(true)
     } else {
-      history.push(LOGIN)
+      history.push({
+        pathname: LOGIN,
+        state: { from: `${PRODUCT}/${slug}` }
+      })
     }
   }
 
@@ -24,19 +32,27 @@ const RatingModal = ({ children }) => {
       <div onClick={handleModal} >
         <StarOutlined className="text-danger"/>
         <br/>
-        { user ? 'Leave rating' : 'Login to leave rating'}
+        { user ? 'Відгук' : 'Авторизуйтесь'}
       </div>
       <Modal
-        title="Leave your rating"
+        title="Залишити відгук"
         centered
         visible={modalVisible}
         onOk={() => {
-          setModalVisible(false)
-          toast.success('Thanks for your review.It will appear soon')
+          onStarClick()
+          if (star !== 0)
+            setModalVisible(false)
         }}
         onCancel={() => setModalVisible(false)}
       >
         { children }
+          <TextArea
+              className="mt-4"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Ваші враження"
+              autoSize={{ minRows: 3, maxRows: 3 }}
+          />
       </Modal>
     </>
   )

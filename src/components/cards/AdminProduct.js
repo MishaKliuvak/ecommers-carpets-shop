@@ -4,7 +4,7 @@ import custom from '../../images/default.png'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { ADMIN_SINGLE_PRODUCT } from '../../constants/routes'
-
+const { htmlToText } = require('html-to-text')
 const { Meta } = Card
 
 const AdminProduct = ({ product, handleRemove }) => {
@@ -29,7 +29,7 @@ const AdminProduct = ({ product, handleRemove }) => {
         <DeleteOutlined className="text-danger" onClick={() => handleRemove(slug)}/>
       ]}
     >
-      <Meta style={{ height: 80, overflow: 'hidden' }} title={title} description={description} />
+      <Meta style={{ height: 80, overflow: 'hidden' }} title={title} description={htmlToText(description)} />
     </Card>
   )
 }

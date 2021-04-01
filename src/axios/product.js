@@ -32,3 +32,16 @@ export const getProductsToHome = async (sort, order, page) =>
 
 export const getProductsCount = async () =>
   await request.get('/products/total')
+
+export const productStar = async (productId, star, text, authToken) =>
+  await request.put(`/product/star/${productId}`, { star, text }, {
+    headers: {
+      authToken
+    }
+  })
+
+export const getRelatedProduct = async (productId) =>
+  await request.get(`/product/related/${productId}`)
+
+export const getProductsByFilter = async (args) =>
+  await request.post(`/search/filters`, args)

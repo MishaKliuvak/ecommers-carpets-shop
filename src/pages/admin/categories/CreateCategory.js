@@ -9,7 +9,7 @@ import { getCategories, removeCategory, createCategory } from '../../../axios/ca
 import { Link } from 'react-router-dom'
 import { ADMIN_UPDATE_CATEGORY } from '../../../constants/routes'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
-import Search from '../../../components/forms/Search'
+import SearchForm from '../../../components/forms/Search'
 
 
 const CreateCategory = () => {
@@ -73,13 +73,14 @@ const CreateCategory = () => {
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col">
           <h4>{loading ? 'Loading...' : 'Create Category'}</h4>
+          <hr/>
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
@@ -87,12 +88,12 @@ const CreateCategory = () => {
             text="Add"
           />
 
-          <Search keyword={keyword} setKeyword={setKeyword}/>
+          <SearchForm keyword={keyword} setKeyword={setKeyword}/>
 
           {categories.filter(searched(keyword)).map((c) => (
             <div
               key={c._id}
-              className="alert alert-secondary"
+              className="alert alert-secondary alert-custom"
             >
               {c.name}
               <span
@@ -105,7 +106,7 @@ const CreateCategory = () => {
                 to={`${ADMIN_UPDATE_CATEGORY}/${c.slug}`}
               >
                 <span className="btn btn-sm float-right">
-                  <EditOutlined className="text-warning"/>
+                  <EditOutlined className="text-primary"/>
                 </span>
               </Link>
             </div>

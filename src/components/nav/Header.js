@@ -6,8 +6,9 @@ import firebase from "firebase";
 
 import * as ROUTES from '../../constants/routes'
 
-import { Menu } from 'antd'
-import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons'
+import { Menu, Badge } from 'antd'
+import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined, ShoppingOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import ProductSearch from '../forms/ProductSearch'
 
 const { SubMenu, Item } = Menu
 
@@ -16,7 +17,7 @@ const Header = () => {
 
     let history = useHistory()
     let dispatch = useDispatch()
-    let { user } = useSelector((state) => ({...state}))
+    let { user, cart } = useSelector((state) => ({...state}))
 
     const handleClick = e => {
         setCurrent(e.key);
@@ -34,8 +35,18 @@ const Header = () => {
     return (
         <Menu onClick={handleClick} selectedKeys={current} mode="horizontal">
             <Item key="home" icon={<HomeOutlined />}>
-                <Link to={ROUTES.HOME}>Home</Link>
+                <Link to={ROUTES.HOME}>Головна</Link>
             </Item>
+            <Item key="shop" icon={<ShoppingOutlined />}>
+                <Link to={ROUTES.SHOP}>Магазин</Link>
+            </Item>
+          <Item key="cart" icon={<ShoppingCartOutlined />}>
+            <Link to={ROUTES.CART}>
+              Корзина
+              <Badge count={cart.length} offset={[0,-15]} />
+
+            </Link>
+          </Item>
 
             {!user ? (
                 <>
@@ -44,7 +55,7 @@ const Header = () => {
                         icon={<UserAddOutlined />}
                         className="float-right"
                     >
-                        <Link to={ROUTES.REGISTER}>Register</Link>
+                        <Link to={ROUTES.REGISTER}>Реєстрація</Link>
                     </Item>
 
                     <Item
@@ -52,7 +63,7 @@ const Header = () => {
                         icon={<UserOutlined />}
                         className="float-right"
                     >
-                        <Link to={ROUTES.LOGIN}>Login</Link>
+                        <Link to={ROUTES.LOGIN}>Вхід</Link>
                     </Item>
                 </>
                 ) : (
@@ -64,18 +75,20 @@ const Header = () => {
                     >
                         { user && user.role === 'subscriber' &&  (
                           <Item key="setting:1">
-                            <Link to={ROUTES.USER_HISTORY}>Dashboard</Link>
+                            <Link to={ROUTES.USER_HISTORY}>Панель користувача</Link>
                           </Item>
                         )}
                         { user && user.role === 'admin' &&  (
                           <Item key="setting:1">
-                              <Link to={ROUTES.ADMIN_DASHBOARD}>Dashboard</Link>
+                              <Link to={ROUTES.ADMIN_DASHBOARD}>Панель адміністратора</Link>
                           </Item>
                         )}
-                        <Item icon={<UserOutlined />} onClick={logOut}>Log out</Item>
+                        <Item icon={<UserOutlined />} onClick={logOut}>Вихід</Item>
                     </SubMenu>
                 )}
-
+            <span className="float-right p-1">
+                <ProductSearch />
+            </span>
         </Menu>
     )
 }

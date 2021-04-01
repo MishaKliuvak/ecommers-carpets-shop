@@ -12,7 +12,6 @@ import { getCategories, getCategorySubs } from '../../../axios/category'
 import { LoadingOutlined } from '@ant-design/icons'
 import { toast } from 'react-toastify'
 import { ADMIN_PRODUCTS } from '../../../constants/routes'
-
 const initialState = {
   title: '',
   description: '',
@@ -23,7 +22,7 @@ const initialState = {
   quantity: '',
   images: [],
   colors: ['Black', 'White', 'Brown', 'Silver', 'Blue', 'Red'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'Asus'],
+  brands: ['IKEA', 'Karat', 'AW', 'ITC', 'Ideal', 'Kartal', 'Looshchoow', 'Penny', 'Sanat', 'Киевгума', 'Лущув'],
   color: '',
   brand: ''
 }
@@ -52,8 +51,7 @@ const UpdateProduct = (props) => {
     getProduct(slug)
       .then((product) =>{
         // Single product
-        setValues({...values, ...product.data})
-
+        setValues({ ...values, ...product.data })
         // Category subs
         getCategorySubs(product.data.category._id)
           .then((subs) => setSubOptions(subs.data))
@@ -66,6 +64,7 @@ const UpdateProduct = (props) => {
         })
 
         setArrayOfSubIds(arr)
+
       })
       .catch((error) => {
         console.log(error)
@@ -93,6 +92,7 @@ const UpdateProduct = (props) => {
 
   const handleChange = (e) => {
     setValues({...values, [e.target.name]: e.target.value})
+    console.log(e);
   }
 
   const loadCategories = () =>
@@ -100,35 +100,41 @@ const UpdateProduct = (props) => {
       setCategories(c.data)
     })
 
-  const handleCategoryChange = e => {
-    e.preventDefault()
+  const handleSelect = (name, value) => {
+    setValues({...values, [name]: value})
+  }
+
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value)
     setValues({...values, subs: []})
 
-    setSelectedCategory(e.target.value)
+    getCategorySubs(value)
+        .then(res => {
+          setSubOptions(res.data)
+          setShowSubs(true)
+        })
+        .catch()
 
-    getCategorySubs(e.target.value)
-      .then(res => {
-        setSubOptions(res.data)
-        setShowSubs(true)
-      })
-      .catch()
-
-
-    if (values.category._id === e.target.value) {
+    if (values.category._id === value) {
       loadProduct()
     }
     setArrayOfSubIds([])
   }
 
 
+  const handleDescription = (description) => {
+    if (values.quantity !== '')
+      setValues({...values, ['description']: description.toString() })
+  }
+
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Update Product {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
+          <h4>Редагувати {loading && <LoadingOutlined className="text-danger h4" /> }</h4>
 
           <div className="p-3">
             <FileUpload
@@ -137,7 +143,6 @@ const UpdateProduct = (props) => {
               setLoading={setLoading}
             />
           </div>
-
           <ProductUpdate
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -146,10 +151,12 @@ const UpdateProduct = (props) => {
             categories={categories}
             handleCategoryChange={handleCategoryChange}
             subOptions={subOptions}
+            handleSelect={handleSelect}
             showSubs={showSubs}
             arrayOfSubIds={arrayOfSubIds}
             setArrayOfSubIds={setArrayOfSubIds}
             selectedCategory={selectedCategory}
+            handleDescription={handleDescription}
           />
           <hr/>
         </div>

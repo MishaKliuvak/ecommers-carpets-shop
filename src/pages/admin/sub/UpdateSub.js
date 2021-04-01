@@ -9,7 +9,9 @@ import { useSelector } from 'react-redux'
 import { getCategories } from '../../../axios/category'
 import { getSub, updateSub } from '../../../axios/sub'
 import { ADMIN_SUB } from '../../../constants/routes'
+import {Select} from "antd";
 
+const { Option } = Select
 
 const UpdateSub = () => {
   const { user } = useSelector(state => ({...state}))
@@ -33,8 +35,8 @@ const UpdateSub = () => {
 
   const loadSub = () => getSub(slug).then(s => {
     console.log(s.data)
-      setName(s.data.name)
-      setParent(s.data.parent)
+      setName(s.data.sub.name)
+      setParent(s.data.sub.parent)
     })
 
   const handleSubmit = (e) => {
@@ -58,28 +60,29 @@ const UpdateSub = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container mt-4">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
         </div>
         <div className="col">
           <h4>{loading ? 'Loading...' : 'Update Sub-Category'}</h4>
-
+          <hr/>
           <div className="form-group">
-            <label>Parent category</label>
-
-            <select
-              name="category"
-              className="form-control"
-              onChange={e => setParent(e.target.value)}
+            <h6>Parent category</h6>
+            <Select
+                name="category"
+                placeholder="Category"
+                value={parent}
+                style={{ width: '100%' }}
+                onChange={(value) => setParent(value)}
             >
               {categories.length > 0 && categories.map((c) => (
-                <option key={c._id} value={c._id} selected={c._id === parent}>
-                  {c.name}
-                </option>
+                  <Option key={c._id} value={c._id}>
+                    {c.name}
+                  </Option>
               ))}
-            </select>
+            </Select>
           </div>
 
           <CategoryForm

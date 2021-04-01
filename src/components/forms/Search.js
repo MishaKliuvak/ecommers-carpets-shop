@@ -1,21 +1,25 @@
 import React from 'react'
+import { Input } from 'antd'
 
-const Search = ({ keyword, setKeyword }) => {
+const { Search } = Input
+
+const SearchForm = ({ keyword, setKeyword }) => {
 
   const handleSearchChange = (e) => {
-    e.preventDefault()
     setKeyword(e.target.value.toLowerCase())
   }
 
   return (
-      <input
-        type="search"
-        placeholder="Search"
-        value={keyword}
-        onChange={handleSearchChange}
-        className="form-control mb-4"
+      <Search
+          placeholder="Назва категорії"
+          allowClear
+          enterButton="Пошук"
+          size="large"
+          value={keyword}
+          onChange={handleSearchChange}
+          className="mb-5 mt-3"
       />
   )
 }
 
-export default Search
+export default SearchForm

@@ -27,10 +27,10 @@ const RegisterComplete = () => {
 
         // Validation
         if (!email || !password) {
-            toast.error('Email and Password is required')
+            toast.error('Заповніть поля')
             return
         } else if (password.length < 6) {
-            toast.error('Password must be at least 5 characters')
+            toast.error('Мінімальна довжина паролю 6 символів')
             return
         }
 
@@ -80,13 +80,13 @@ const RegisterComplete = () => {
             type="password"
             className="form-control mb-4"
             value={password}
-            placeholder="Password"
+            placeholder="Пароль"
             onChange={(e) => setPassword(e.target.value)}
         />
         <button
             type="submit"
             className="btn btn-raised">
-            Register
+            Завершити
         </button>
     </form>
 
@@ -94,7 +94,7 @@ const RegisterComplete = () => {
         <div className="container p-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    <h4>Complete Registration</h4>
+                    <h4>Завершення реєстрації</h4>
                     {completeRegistrationForm()}
                 </div>
             </div>
