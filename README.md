@@ -7,7 +7,7 @@ On the main page you can see the latest posts and the most popular products.
 This tab contains all available products that can be sifted out using various filters (price, category, subcategory, etc.). You can also use the search to find a product.
 Each product can be viewed, added to cart or favorites (you need to be logged in).
 <br /><br />
-<img src="https://files.fm/thumb_show.php?i=ggnej5fb" width="45%"></img>
+<img src="https://files.fm/thumb_show.php?i=ggnej5fbt" width="45%"></img>
 <img src="https://files.fm/thumb_show.php?i=fgdfxupuy" width="45%"></img> 
 ## Product page
 On the product page, the user can find all the images, description, average rating and reviews, if any, as well as leave a review if he is authorized.
