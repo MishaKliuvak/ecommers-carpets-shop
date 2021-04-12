@@ -1,70 +1,28 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Carpets Shop
+## Main Page
+On the main page you can see the latest posts and the most popular products.
+<br /><br />
+<img src="https://files.fm/thumb_show.php?i=jrwferg2g"></img> 
+## Shop
+This tab contains all available products that can be sifted out using various filters (price, category, subcategory, etc.). You can also use the search to find a product.
+Each product can be viewed, added to cart or favorites (you need to be logged in).
+<br /><br />
+<img src="https://files.fm/thumb_show.php?i=ggnej5fb" width="45%"></img>
+<img src="https://files.fm/thumb_show.php?i=fgdfxupuy" width="45%"></img> 
+## Product page
+On the product page, the user can find all the images, description, average rating and reviews, if any, as well as leave a review if he is authorized.
+<br /><br />
+<img src="https://files.fm/thumb_show.php?i=8tyjvu8du" width="45%"></img> 
+<img src="https://files.fm/thumb_show.php?i=2u4bnm25z" width="45%"></img> 
+## Cart
+All selected products are in the cart, where you can view information on each product, change the quantity, remove the product or proceed to checkout.
+<br /><br />
+<img src="https://files.fm/thumb_show.php?i=hws54wxey"></img> 
+## Payment
+To pay the order was used the Stripe payment system. After placing an order, it will be saved in the user order history, where user can track its status.
+<br /><br />
+<img src="https://files.fm/thumb_show.php?i=qq9qvy949"></img> 
+## Admin
+To change the status of orders, add products, categories, etc. exist is an administrator mode
+<br /><br />
+<img src="https://files.fm/thumb_show.php?i=u2nykqgv3"></img> 
